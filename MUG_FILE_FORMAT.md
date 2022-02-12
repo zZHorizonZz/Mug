@@ -2,7 +2,7 @@
 
 Format of the structure in its compiled version mug is based on
 'Binary Strustured Data Format' in a nutshell BSDF, more informations about
-BSDF can be found here [BSDF Docs] (https://bsdf.readthedocs.io/#)
+BSDF can be found here [BSDF Docs](https://bsdf.readthedocs.io/#)
 
 ## Tags
 Every tag has common or similar header. Every tag starts as one byte and that's its identifier.
@@ -11,7 +11,7 @@ like number of its elements or number of letters. This is used by program to ide
 should stop reading our tag, otherwise unexpected results may happen.
 
 | Index  | Name | Description |
-| ------------- | ------------- |
+| ------ | ---- | ----------- |
 | 0  | END_OF_TAG | This tag is used as identifier where our non single value tag should end. |
 | 1  | LIST | This tag is list of un-named tags. |
 | 2  | SINGLE_TYPE_LIST | This tag is list of un-named tags of single type. After length byte we need to specify\nbyte value of tag which will be included in the list. |

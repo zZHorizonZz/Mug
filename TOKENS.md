@@ -4,13 +4,13 @@
 | Name | Identifier | Code |
 | ---- | ---------- | ---- |
 | Repository | 0x00 | repository |
-| Structure | 0x01 | repository |
-| Void | 0x02 | repository |
-| Native | 0x03 | repository |
-| If | 0x04 | repository |
-| Else | 0x05 | repository |
-| Else-If | 0x06 | repository |
-| While | 0x07 | repository |
+| Structure | 0x01 | structure |
+| Void | 0x02 | void |
+| Native | 0x03 | native |
+| If | 0x04 | if |
+| Else | 0x05 | else |
+| Else-If | 0x06 | elseif |
+| While | 0x07 | while |
 
 ## Separators:
 > Byte value of keyword token is 0x01
