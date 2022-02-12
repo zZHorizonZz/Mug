@@ -1,0 +1,18 @@
+repository Repository {
+    structure Main {
+        
+        Test test;
+
+        Main() {
+            test = Test();
+        }
+
+        int main() {
+            return test.test; 
+        }
+    }
+
+    structure Test {
+        int test = 5;
+    }
+}
