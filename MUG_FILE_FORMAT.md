@@ -31,6 +31,7 @@ Every file should start with main tag such as LIST or MAPPED_LIST tag. (WIP)
 
 #### Tree View:
 
+---
 MAPPED_LIST (0x02)
 - [Header] MAPPED_LIST (0X02)
   - [Name] | STRING (0x09) //Name of the program.
@@ -43,6 +44,7 @@ MAPPED_LIST (0x02)
             - BYTE | //Type of token (Keyword, Separator, etc)
             - BYTE | //Identifier of token (For example if type of token is keyword than identifier can be 0x00 which is repository.)
             - BYTE | //If token is of type which should had data in it then after these 2 bytes we should include bytes of these datas.
+---
 
 #### Example:
 > Code
