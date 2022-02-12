@@ -22,7 +22,7 @@ int compile_file(char *path, char *name) {
         evaluate_content(&lexer, buffer);    
     }
 
-     for (size_t i = 0; i < lexer.last_token_index; i++) {
+    for (size_t i = 0; i < lexer.last_token_index; i++) {
         struct token token = lexer.tokens[i];
         if(token.type != 0x00) {
             switch (token.type) {
