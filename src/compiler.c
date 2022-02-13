@@ -3,6 +3,13 @@
 
 #include "lexer.c"
 
+struct binary {
+    char *name;
+    char *author;
+
+    
+};
+
 int compile_file(char *path, char *name);
 int create_binary_file(int *path, char *name, char *binary, int binary_size);
 

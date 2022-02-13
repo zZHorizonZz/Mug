@@ -28,7 +28,7 @@ struct token evaluate_token_letter(char letter) {
 }
 
 struct token evaluate_token(char *content) {
-    for (int i = 0; i < 16; i++) {
+    for (size_t i = 0; i < 16; i++) {
         if(SEPARATOR[i] != 0x00 && strlen(content) == 1 && content[0] == *SEPARATOR[i]) {
             struct token token = { 0x01, i, 0x00 };
             free(content);
@@ -60,7 +60,7 @@ struct token evaluate_token(char *content) {
 }
 
 int is_separator(char letter) {
-    for (int i = 0; i < 16; i++) {
+    for (size_t i = 0; i < 16; i++) {
         if(SEPARATOR[i] != 0x00 && letter == *SEPARATOR[i]) {
             return 1;
         }
@@ -70,7 +70,7 @@ int is_separator(char letter) {
 }
 
 int is_ignore(char letter) {
-    for (int i = 0; i < 16; i++) {
+    for (size_t i = 0; i < 16; i++) {
         if(IGNORE[i] != 0x00 && letter == *IGNORE[i]) {
             return 1;
         }

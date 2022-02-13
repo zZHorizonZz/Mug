@@ -64,7 +64,7 @@ void evaluate_next_token(struct lexer *lexer) {
     text[0] = 0x00;
 
     int current_index = lexer->last_index;
-    for (int i = lexer->last_index; i < lexer->content_length; i++) {
+    for (size_t i = lexer->last_index; i < lexer->content_length; i++) {
         char current_letter = lexer->content[i]; 
         offset++;
 
@@ -144,7 +144,7 @@ void next_string_token(struct lexer *lexer) {
 
     int offset = 0;
     int current_index = lexer->last_index;
-    for (int i = 0; i < lexer->content_length; i++) {
+    for (size_t i = 0; i < lexer->content_length; i++) {
         offset = i;
 
         if(lexer->content[lexer->last_index + i] == '"') {
