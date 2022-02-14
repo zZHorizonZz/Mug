@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "buffer.c"
+
 typedef union tag {
     list_tag *list_tag;
     single_type_list_tag *single_type_list_tag;
@@ -90,22 +92,6 @@ void write_single_type_list(char *destination, int size, tag *tag);
 void write_single_type_list(char *destination, int size, single_type_list_tag *tag);
 void write_mapped_list(char *destination, int size, tag *tag);
 void write_mapped_list(char *destination, int size, mapped_list_tag *tag);
-void write_byte(char *destination, int size, tag *tag);
-void write_byte(char *destination, int size, byte_tag *tag);
-void write_short(char *destination, int size, tag *tag);
-void write_short(char *destination, int size, short_tag *tag);
-void write_int(char *destination, int size, tag *tag);
-void write_int(char *destination, int size, int_tag *tag);
-void write_long(char *destination, int size, tag *tag);
-void write_long(char *destination, int size, long_tag *tag);
-void write_float(char *destination, int size, tag *tag);
-void write_float(char *destination, int size, float_tag *tag);
-void write_double(char *destination, int size, tag *tag);
-void write_double(char *destination, int size, double_tag *tag);
-void write_string(char *destination, int size, tag *tag);
-void write_string(char *destination, int size, string_tag *tag);
-void write_boolean(char *destination, int size, tag *tag);
-void write_boolean(char *destination, int size, boolean_tag *tag);
 
 char *create_binary(tag *tag);
 
@@ -359,38 +345,6 @@ void write_single_type_list(char *destination, int size, tag *tag);
 void write_single_type_list(char *destination, int size, single_type_list_tag *tag);
 void write_mapped_list(char *destination, int size, tag *tag);
 void write_mapped_list(char *destination, int size, mapped_list_tag *tag);
-char *write_byte(char *original, int size, tag *tag) {
-    return write_byte(original, size, tag->byte_tag);
-}
-
-char *write_byte(char *original, int *size, byte_tag *tag) {
-    char *buffer = original;
-    if(buffer == 0x00) {
-        buffer = malloc(sizeof(char));
-    } else {
-        buffer = realloc(original, *size + sizeof(char));
-        *size += sizeof(char);
-        free(original);
-    }
-
-    buffer[*size - 1] = tag->value;
-
-    return buffer;
-}
-void write_short(char *destination, int size, tag *tag);
-void write_short(char *destination, int size, short_tag *tag);
-void write_int(char *destination, int size, tag *tag);
-void write_int(char *destination, int size, int_tag *tag);
-void write_long(char *destination, int size, tag *tag);
-void write_long(char *destination, int size, long_tag *tag);
-void write_float(char *destination, int size, tag *tag);
-void write_float(char *destination, int size, float_tag *tag);
-void write_double(char *destination, int size, tag *tag);
-void write_double(char *destination, int size, double_tag *tag);
-void write_string(char *destination, int size, tag *tag);
-void write_string(char *destination, int size, string_tag *tag);
-void write_boolean(char *destination, int size, tag *tag);
-void write_boolean(char *destination, int size, boolean_tag *tag);
 
 char *create_binary(tag *tag) {
 

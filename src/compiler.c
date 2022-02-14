@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "lexer.c"
+#include "bsd/binary_data.c"
 
 struct binary {
     char *name;
