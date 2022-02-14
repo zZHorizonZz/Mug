@@ -86,8 +86,8 @@ int add_value_to_mapped_list(tag *list_tag, tag tag);
 int add_value_to_mapped_list(mapped_list_tag *mapped_list_tag, char *name, tag tag);
 int verify_type(int type, tag tag);
 
-void write_list(char *destination, int size, tag *tag);
-void write_list(char *destination, int size, list_tag *tag);
+int write_list_tag(buffer *buffer, list_tag *list);
+int write_list(buffer *buffer, tag *tag);
 void write_single_type_list(char *destination, int size, tag *tag);
 void write_single_type_list(char *destination, int size, single_type_list_tag *tag);
 void write_mapped_list(char *destination, int size, tag *tag);
@@ -339,12 +339,65 @@ int verify_type(int type, tag tag) {
     return 0;
 }
 
-void write_list(char *destination, int size, tag *tag);
-void write_list(char *destination, int size, list_tag *tag);
-void write_single_type_list(char *destination, int size, tag *tag);
-void write_single_type_list(char *destination, int size, single_type_list_tag *tag);
-void write_mapped_list(char *destination, int size, tag *tag);
-void write_mapped_list(char *destination, int size, mapped_list_tag *tag);
+int write_list_tag(buffer *buffer, list_tag *list) {
+    tag tag;
+    tag.list_tag = list;
+    return write_list(buffer, &tag);
+}
+
+int write_list(buffer *buffer, tag *tag) {
+    list_tag *list = tag->list_tag;
+    if(buffer == 0x00 || list == 0x00) {
+        return 0x00;
+    }
+
+    write_int(buffer, list->list_size);
+    for (size_t i = 0; i < list->list_size; i++) {
+        write_tag(buffer, list->list[i]);
+    }
+
+    return 0x01;
+}
+
+void write_single_type_list(buffer *buffer, single_type_list_tag *tag);
+void write_single_type_list(buffer *buffer, tag *tag);
+void write_mapped_list(buffer *buffer, mapped_list_tag *tag);
+void write_mapped_list(buffer *buffer, tag *tag);
+
+void write_tag(buffer *buffer, tag *tag) {
+    if(tag->list_tag != 0x00) {
+
+    } else if(tag->single_type_list_tag != 0x00) {
+
+    } else if(tag->mapped_list_tag != 0x00) {
+
+    } else if(tag->byte_tag != 0x00) {
+        write_byte(buffer, 0x03);
+        write_byte(buffer, tag->byte_tag->value);
+    } else if(tag->short_tag != 0x00) {
+        write_byte(buffer, 0x04);
+        write_short(buffer, tag->short_tag->value);
+    } else if(tag->int_tag != 0x00) {
+        write_byte(buffer, 0x05);
+        write_int(buffer, tag->int_tag->value);
+    } else if(tag->long_tag != 0x00) {
+        write_byte(buffer, 0x06);
+        write_long(buffer, tag->long_tag->value);
+    } else if(tag->float_tag != 0x00) {
+        write_byte(buffer, 0x07);
+        write_float(buffer, tag->float_tag->value);
+    } else if(tag->double_tag != 0x00) {
+        write_byte(buffer, 0x08);
+        write_double(buffer, tag->double_tag->value);
+    } else if(tag->string_tag != 0x00) {
+        write_byte(buffer, 0x09);
+        write_int(buffer, strlen(tag->string_tag->value));
+        write_string(buffer, tag->string_tag->value);
+    } else if(tag->boolean_tag != 0x00) {
+        write_byte(buffer, 0x0A);
+        write_byte(buffer, tag->boolean_tag->value);
+    }
+}
 
 char *create_binary(tag *tag) {
 
