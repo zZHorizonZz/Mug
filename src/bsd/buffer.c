@@ -21,25 +21,25 @@ typedef union double_long {
 } double_long;
 
 void write_byte(buffer *buffer, char value);
-void write_byte(buffer *buffer, int index, char value);
+void set_byte(buffer *buffer, int index, char value);
 void write_short(buffer *buffer, short value);
-void write_short(buffer *buffer, int index, short value);
+void set_short(buffer *buffer, int index, short value);
 void write_int(buffer *buffer, int value);
-void write_int(buffer *buffer, int index, int value);
+void set_int(buffer *buffer, int index, int value);
 void write_long(buffer *buffer, long value);
-void write_long(buffer *buffer, int index, long value);
+void set_long(buffer *buffer, int index, long value);
 void write_float(buffer *buffer, float value);
-void write_float(buffer *buffer, int index, float value);
+void set_float(buffer *buffer, int index, float value);
 void write_double(buffer *buffer, double value);
-void write_double(buffer *buffer, int index, double value);
+void set_double(buffer *buffer, int index, double value);
 void write_string(buffer *buffer, char *value);
-void write_string(buffer *buffer, int index, char *value);
+void set_string(buffer *buffer, int index, char *value);
 
 void write_byte(buffer *buffer, char value) {
-    write_byte(buffer, buffer->length, value);
+    set_byte(buffer, buffer->length, value);
 }
 
-void write_byte(buffer *buffer, int index, char value) {
+void set_byte(buffer *buffer, int index, char value) {
     if(buffer->buffer == 0x00) {
         buffer->buffer = malloc(sizeof(char));
     } else if(index >= buffer->length) {
@@ -54,10 +54,10 @@ void write_byte(buffer *buffer, int index, char value) {
 }
 
 void write_short(buffer *buffer, short value) {
-    write_short(buffer, buffer->length, value);    
+    set_short(buffer, buffer->length, value);    
 }
 
-void write_short(buffer *buffer, int index, short value) {
+void set_short(buffer *buffer, int index, short value) {
     if(buffer->buffer == 0x00) {
         buffer->buffer = malloc(sizeof(short));
     } else if(index + 0x01 >= buffer->length) {
@@ -73,10 +73,10 @@ void write_short(buffer *buffer, int index, short value) {
 }
 
 void write_int(buffer *buffer, int value) {
-    write_int(buffer, buffer->length, value);
+    set_int(buffer, buffer->length, value);
 }
 
-void write_int(buffer *buffer, int index, int value) {
+void set_int(buffer *buffer, int index, int value) {
     if(buffer->buffer == 0x00) {
         buffer->buffer = malloc(sizeof(int));
     } else if(index + 0x03 >= buffer->length) {
@@ -93,10 +93,10 @@ void write_int(buffer *buffer, int index, int value) {
 }
 
 void write_long(buffer *buffer, long value) {
-    write_long(buffer, buffer->length, value);
+    set_long(buffer, buffer->length, value);
 }
 
-void write_long(buffer *buffer, int index, long value) {
+void set_long(buffer *buffer, int index, long value) {
     if(buffer->buffer == 0x00) {
         buffer->buffer = malloc(sizeof(long));
     } else if(index + 0x07 >= buffer->length) {
@@ -113,28 +113,28 @@ void write_long(buffer *buffer, int index, long value) {
 }
 
 void write_float(buffer *buffer, float value) {
-    write_float(buffer, buffer->length, value);
+    set_float(buffer, buffer->length, value);
 }
 
-void write_float(buffer *buffer, int index, float value) {
+void set_float(buffer *buffer, int index, float value) {
     float_int conversion = { value };
     write_int(buffer, conversion._int);    
 }
 
 void write_double(buffer *buffer, double value) {
-    write_double(buffer, buffer->length, value);
+    set_double(buffer, buffer->length, value);
 }
 
-void write_double(buffer *buffer, int index, double value) {
+void set_double(buffer *buffer, int index, double value) {
     double_long conversion = { value };
-    write_double(buffer, conversion._double);    
+    write_long(buffer, conversion._long);    
 }
 
 void write_string(buffer *buffer, char *value) {
-    write_string(buffer, buffer->length, value);
+     set_string(buffer, buffer->length, value);
 }
 
-void write_string(buffer *buffer, int index, char *value) {
+void set_string(buffer *buffer, int index, char *value) {
     if(buffer->buffer == 0x00) {
         buffer->buffer = malloc(strlen(value));
     } else if(index + 0x07 >= buffer->length) {

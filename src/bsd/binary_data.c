@@ -2,200 +2,37 @@
 #include <stdio.h>
 
 #include "buffer.c"
+#include "tag.h"
 
-typedef union tag {
-    list_tag *list_tag;
-    single_type_list_tag *single_type_list_tag;
-    mapped_list_tag *mapped_list_tag;
-    byte_tag *byte_tag;
-    short_tag *short_tag;
-    int_tag *int_tag;
-    long_tag *long_tag;
-    float_tag *float_tag;
-    double_tag *double_tag;
-    string_tag *string_tag;
-    boolean_tag *boolean_tag;
-} tag;
-
-typedef struct list_tag {
-    tag *list;
-    int list_size; 
-} list_tag;
-
-typedef struct single_type_list_tag {
-    char type;
-    tag *list;
-    int list_size;
-} single_type_list_tag;
-
-typedef struct mapped_list_tag {
-    char **mapping;
-    tag *list;
-    int list_size;
-} mapped_list_tag;
-
-typedef struct byte_tag {
-    char value;
-} byte_tag;
-
-typedef struct short_tag {
-    short value;
-} short_tag;
-
-typedef struct int_tag {
-    int value;
-} int_tag;
-
-typedef struct long_tag {
-    long value;
-} long_tag;
-
-typedef struct float_tag {
-    float value;
-} float_tag;
-
-typedef struct double_tag {
-    double value;
-} double_tag;
-
-typedef struct string_tag {
-    char *value;
-} string_tag;
-
-typedef struct boolean_tag {
-    char value;
-} boolean_tag;
-
-tag *create_list_tag();
-tag *create_single_type_list_tag(char type);
-tag *create_mapped_list_tag();
-tag *create_byte_tag(char value);
-tag *create_short_tag(short value);
-tag *create_int_tag(int value);
-tag *create_long_tag(long value);
-tag *create_float_tag(float value);
-tag *create_double_tag(double value);
-tag *create_string_tag(char *value);
-tag *create_boolean_tag(char value);
-
-int add_value_to_list(tag *list_tag, tag tag);
+int add_value_to_list_tag(tag *list_tag, tag tag);
 int add_value_to_list(list_tag *list_tag, tag tag);
-int add_value_to_single_type_list(tag *list_tag, tag tag);
+int add_value_to_single_type_list_tag(tag *list_tag, tag tag);
 int add_value_to_single_type_list(single_type_list_tag *list_tag, tag tag);
-int add_value_to_mapped_list(tag *list_tag, tag tag);
+int add_value_to_mapped_list_tag(tag *list_tag, char *name, tag tag);
 int add_value_to_mapped_list(mapped_list_tag *mapped_list_tag, char *name, tag tag);
 int verify_type(int type, tag tag);
+char get_type(tag *tag);
 
-int write_list_tag(buffer *buffer, list_tag *list);
-int write_list(buffer *buffer, tag *tag);
-void write_single_type_list(char *destination, int size, tag *tag);
-void write_single_type_list(char *destination, int size, single_type_list_tag *tag);
-void write_mapped_list(char *destination, int size, tag *tag);
-void write_mapped_list(char *destination, int size, mapped_list_tag *tag);
+int write_list(buffer *buffer, list_tag *list);
+int write_list_tag(buffer *buffer, tag *tag);
+int write_single_type_list_tag(buffer *buffer, tag *tag);
+int write_single_type_list(buffer *buffer, single_type_list_tag *tag);
+int write_mapped_list_tag(buffer *buffer, tag *tag);
+int write_mapped_list(buffer *buffer, mapped_list_tag *tag);
+
+void write_tag(buffer *buffer, tag *tag);
 
 char *create_binary(tag *tag);
 
-tag *create_list_tag() {
-    tag tag;
-    list_tag list = { 0x00, 0x00 };
-
-    tag.list_tag = &list;
-
-    return &tag;
-}
-
-tag *create_single_type_list_tag(char type) {
-    tag tag;
-    single_type_list_tag list = { type, 0x00, 0x00 };
-
-    tag.single_type_list_tag = &list;
-
-    return &tag;
-}
-
-tag *create_mapped_list_tag() {
-    tag tag;
-    mapped_list_tag list = { 0x00, 0x00, 0x00 };
-
-    tag.mapped_list_tag = &list;
-
-    return &list;
-}
-
-tag *create_byte_tag(char value) {
-    tag tag;
-    byte_tag byte_tag = { value };
-
-    tag.byte_tag = &byte_tag;
-
-    return &tag;
-}
-
-tag *create_short_tag(short value) {
-    tag tag;
-    short_tag short_tag = { value };
-    tag.short_tag = &short_tag;
-
-    return &tag;
-}
-
-tag *create_int_tag(int value) {
-    tag tag;
-    int_tag int_tag = { value };
-    tag.int_tag = &int_tag;
-
-    return &tag;
-}
-
-tag *create_long_tag(long value) {
-    tag tag;
-    long_tag long_tag = { value };
-    tag.long_tag = &long_tag;
-
-    return &tag;
-}
-
-tag *create_float_tag(float value) {
-    tag tag;
-    float_tag float_tag = { value };
-    tag.float_tag = &float_tag;
-
-    return &tag;
-}
-
-tag *create_double_tag(double value) {
-    tag tag;
-    double_tag double_tag = { value };
-    tag.double_tag = &double_tag;
-
-    return &tag;
-}
-
-tag *create_string_tag(char *value) {
-    tag tag;
-    string_tag string_tag = { value };
-    tag.string_tag = &string_tag;
-
-    return &tag;
-}
-
-tag *create_boolean_tag(char value) {
-    tag tag;
-    boolean_tag boolean_tag = { value };
-    tag.boolean_tag = &boolean_tag;
-
-    return &tag;
-}
-
-int add_value_to_list(tag *list_tag, tag tag) {
+int add_value_to_list_tag(tag *list_tag, tag tag) {
     return add_value_to_list(list_tag->list_tag, tag);
 }
 
 int add_value_to_list(list_tag *list_tag, tag tag) {
     if(list_tag->list == 0x00) {
-        list_tag->list = malloc(++list_tag->list_size * sizeof(union tag));
+        list_tag->list = malloc(++list_tag->list_size * sizeof(union tag_u));
     } else {
-        union tag *tmp = realloc(list_tag->list, ++list_tag->list_size * sizeof(union tag));
+        union tag_u *tmp = realloc(list_tag->list, ++list_tag->list_size * sizeof(union tag_u));
         free(list_tag->list);
         
         list_tag->list = tmp;
@@ -209,7 +46,7 @@ int add_value_to_list(list_tag *list_tag, tag tag) {
     }
 }
 
-int add_value_to_single_type_list(tag *list_tag, tag tag) {
+int add_value_to_single_type_list_tag(tag *list_tag, tag tag) {
     return add_value_to_single_type_list(list_tag->single_type_list_tag, tag);
 }
 
@@ -219,9 +56,9 @@ int add_value_to_single_type_list(single_type_list_tag *list_tag, tag tag) {
     }
 
     if(list_tag->list == 0x00) {
-        list_tag->list = malloc(++list_tag->list_size * sizeof(union tag));
+        list_tag->list = malloc(++list_tag->list_size * sizeof(union tag_u));
     } else {
-        union tag *tmp = realloc(list_tag->list, ++list_tag->list_size * sizeof(union tag));
+        union tag_u *tmp = realloc(list_tag->list, ++list_tag->list_size * sizeof(union tag_u));
         free(list_tag->list);
         
         list_tag->list = tmp;
@@ -235,17 +72,17 @@ int add_value_to_single_type_list(single_type_list_tag *list_tag, tag tag) {
     }
 }
 
-int add_value_to_mapped_list(tag *list, char *name, tag tag) {
+int add_value_to_mapped_list_tag(tag *list, char *name, tag tag) {
     return add_value_to_mapped_list(list->mapped_list_tag, name, tag);
 }
 
 int add_value_to_mapped_list(mapped_list_tag *mapped_list_tag, char *name, tag tag) {
     if(mapped_list_tag->list == 0x00) {
         mapped_list_tag->mapping = malloc(++mapped_list_tag->list_size * sizeof(char*));
-        mapped_list_tag->list = malloc(mapped_list_tag->list_size * sizeof(union tag));
+        mapped_list_tag->list = malloc(mapped_list_tag->list_size * sizeof(union tag_u));
     } else {
         char **tmp_mapping = realloc(mapped_list_tag->mapping, ++mapped_list_tag->list_size * sizeof(char*));
-        union tag *tmp_list = realloc(mapped_list_tag->list, mapped_list_tag->list_size * sizeof(union tag));
+        union tag_u *tmp_list = realloc(mapped_list_tag->list, mapped_list_tag->list_size * sizeof(union tag_u));
 
         free(mapped_list_tag->mapping);
         free(mapped_list_tag->list);
@@ -339,13 +176,39 @@ int verify_type(int type, tag tag) {
     return 0;
 }
 
-int write_list_tag(buffer *buffer, list_tag *list) {
-    tag tag;
-    tag.list_tag = list;
-    return write_list(buffer, &tag);
+char get_type(tag *tag) {
+    if(tag->list_tag != 0x00) {
+        return 0x01;
+    } else if(tag->single_type_list_tag != 0x00) {
+        return 0x02;
+    } else if(tag->mapped_list_tag != 0x00) {
+        return 0x03;
+    } else if(tag->byte_tag != 0x00) {
+        return 0x04;
+    } else if(tag->short_tag != 0x00) {
+        return 0x05;
+    } else if(tag->int_tag != 0x00) {
+        return 0x06;
+    } else if(tag->long_tag != 0x00) {
+        return 0x07;
+    } else if(tag->float_tag != 0x00) {
+        return 0x08;
+    } else if(tag->double_tag != 0x00) {
+        return 0x09;
+    } else if(tag->string_tag != 0x00) {
+        return 0x0A;
+    } else if(tag->boolean_tag != 0x00) {
+        return 0x0B;
+    }
 }
 
-int write_list(buffer *buffer, tag *tag) {
+int write_list(buffer *buffer, list_tag *list) {
+    tag tag;
+    tag.list_tag = list;
+    return write_list_tag(buffer, &tag);
+}
+
+int write_list_tag(buffer *buffer, tag *tag) {
     list_tag *list = tag->list_tag;
     if(buffer == 0x00 || list == 0x00) {
         return 0x00;
@@ -353,49 +216,97 @@ int write_list(buffer *buffer, tag *tag) {
 
     write_int(buffer, list->list_size);
     for (size_t i = 0; i < list->list_size; i++) {
-        write_tag(buffer, list->list[i]);
+        union tag *element = list->list[i];
+        write_byte(buffer, get_type(tag));
+        write_tag(buffer, element);
     }
 
     return 0x01;
 }
 
-void write_single_type_list(buffer *buffer, single_type_list_tag *tag);
-void write_single_type_list(buffer *buffer, tag *tag);
-void write_mapped_list(buffer *buffer, mapped_list_tag *tag);
-void write_mapped_list(buffer *buffer, tag *tag);
+int write_single_type_list(buffer *buffer, single_type_list_tag *list) {
+    tag tag;
+    tag.single_type_list_tag = list;
+    return write_single_type_list_tag(buffer, &tag);
+}
+
+int write_single_type_list_tag(buffer *buffer, tag *tag) {
+    single_type_list_tag *list = tag->list_tag;
+    if(buffer == 0x00 || list == 0x00) {
+        return 0x00;
+    }
+
+    write_int(buffer, list->list_size);
+    write_byte(buffer, list->type);
+
+    for (size_t i = 0; i < list->list_size; i++) {
+        union tag *element = list->list[i];
+        write_tag(buffer, element);
+    }
+
+    return 0x01;
+}
+
+int write_mapped_list(buffer *buffer, mapped_list_tag *list) {
+    tag tag;
+    tag.mapped_list_tag = list;
+    return write_mapped_list_tag(buffer, &tag);
+}
+
+int write_mapped_list_tag(buffer *buffer, tag *tag) {
+    mapped_list_tag *list = tag->list_tag;
+    if(buffer == 0x00 || list == 0x00) {
+        return 0x00;
+    }
+
+    write_int(buffer, list->list_size);
+
+    for (size_t i = 0; i < list->list_size; i++) {
+        union tag *element = list->list[i];
+        write_byte(buffer, get_type(tag));
+        write_string(buffer, list->mapping[i]);
+        write_tag(buffer, element);
+    }
+
+    return 0x01;
+}
 
 void write_tag(buffer *buffer, tag *tag) {
-    if(tag->list_tag != 0x00) {
-
-    } else if(tag->single_type_list_tag != 0x00) {
-
-    } else if(tag->mapped_list_tag != 0x00) {
-
-    } else if(tag->byte_tag != 0x00) {
-        write_byte(buffer, 0x03);
+    switch (get_type(tag)) {
+    case 0x01:
+        write_list_tag(buffer, tag);
+        break;
+    case 0x02:
+        break;    
+    case 0x03:
+        break;
+    case 0x04:
         write_byte(buffer, tag->byte_tag->value);
-    } else if(tag->short_tag != 0x00) {
-        write_byte(buffer, 0x04);
+        break;
+    case 0x05:
         write_short(buffer, tag->short_tag->value);
-    } else if(tag->int_tag != 0x00) {
-        write_byte(buffer, 0x05);
+        break;
+    case 0x06:
         write_int(buffer, tag->int_tag->value);
-    } else if(tag->long_tag != 0x00) {
-        write_byte(buffer, 0x06);
+        break;
+    case 0x07:
         write_long(buffer, tag->long_tag->value);
-    } else if(tag->float_tag != 0x00) {
-        write_byte(buffer, 0x07);
+        break;
+    case 0x08:
         write_float(buffer, tag->float_tag->value);
-    } else if(tag->double_tag != 0x00) {
-        write_byte(buffer, 0x08);
+        break;
+    case 0x09:
         write_double(buffer, tag->double_tag->value);
-    } else if(tag->string_tag != 0x00) {
-        write_byte(buffer, 0x09);
+        break;
+    case 0x0A:
         write_int(buffer, strlen(tag->string_tag->value));
         write_string(buffer, tag->string_tag->value);
-    } else if(tag->boolean_tag != 0x00) {
-        write_byte(buffer, 0x0A);
+        break;
+    case 0x0B:
         write_byte(buffer, tag->boolean_tag->value);
+        break;    
+    default:
+        break;
     }
 }
 

@@ -17,13 +17,13 @@ struct lexer {
     struct token *tokens;
 };
 
-char *create_binary(struct lexer *lexer);
+char *create_token_binary(struct lexer *lexer);
 void evaluate_content(struct lexer *lexer, char *content);
 void evaluate_next_token(struct lexer *lexer);
 void next_token(struct lexer *lexer, struct token token, int offset);
 void next_string_token(struct lexer *lexer);
 
-char *create_binary(struct lexer *lexer) {
+char *create_token_binary(struct lexer *lexer) {
     char *binary = malloc(lexer->last_token_index * (sizeof(char) * 0x02));
 
     size_t offset = 0x00;
