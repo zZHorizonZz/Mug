@@ -216,9 +216,10 @@ int write_list_tag(buffer *buffer, tag *tag) {
 
     write_int(buffer, list->list_size);
     for (size_t i = 0; i < list->list_size; i++) {
-        union tag *element = list->list[i];
+        union tag_u element;
+        element = list->list[i];
         write_byte(buffer, get_type(tag));
-        write_tag(buffer, element);
+        write_tag(buffer, &element);
     }
 
     return 0x01;
@@ -231,7 +232,7 @@ int write_single_type_list(buffer *buffer, single_type_list_tag *list) {
 }
 
 int write_single_type_list_tag(buffer *buffer, tag *tag) {
-    single_type_list_tag *list = tag->list_tag;
+    single_type_list_tag *list = tag->single_type_list_tag;
     if(buffer == 0x00 || list == 0x00) {
         return 0x00;
     }
@@ -240,8 +241,9 @@ int write_single_type_list_tag(buffer *buffer, tag *tag) {
     write_byte(buffer, list->type);
 
     for (size_t i = 0; i < list->list_size; i++) {
-        union tag *element = list->list[i];
-        write_tag(buffer, element);
+        union tag_u element;
+        element = list->list[i];
+        write_tag(buffer, &element);
     }
 
     return 0x01;
@@ -254,7 +256,7 @@ int write_mapped_list(buffer *buffer, mapped_list_tag *list) {
 }
 
 int write_mapped_list_tag(buffer *buffer, tag *tag) {
-    mapped_list_tag *list = tag->list_tag;
+    mapped_list_tag *list = tag->mapped_list_tag;
     if(buffer == 0x00 || list == 0x00) {
         return 0x00;
     }
@@ -262,10 +264,11 @@ int write_mapped_list_tag(buffer *buffer, tag *tag) {
     write_int(buffer, list->list_size);
 
     for (size_t i = 0; i < list->list_size; i++) {
-        union tag *element = list->list[i];
+        union tag_u element;
+        element = list->list[i];
         write_byte(buffer, get_type(tag));
         write_string(buffer, list->mapping[i]);
-        write_tag(buffer, element);
+        write_tag(buffer, &element);
     }
 
     return 0x01;

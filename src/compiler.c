@@ -52,7 +52,7 @@ int compile_file(char *path, char *name) {
     }
 
     fclose(fp);
-    char *binary = create_binary(&lexer);
+    char *binary = create_token_binary(&lexer);
     
     create_binary_file(0x00, 0x00, binary, lexer.last_token_index * 0x02);
 }
