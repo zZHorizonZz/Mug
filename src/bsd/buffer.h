@@ -1,8 +1,11 @@
+#ifndef BUFFER_H
+#define BUFFER_H
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-typedef struct buffer {
+typedef struct buffer_s {
     char *buffer;
     
     int length;
@@ -19,6 +22,8 @@ typedef union double_long {
     double _double;
     long _long;
 } double_long;
+
+//Encountered bug with tag identifiers... program will not compile .mug file
 
 void write_byte(buffer *buffer, char value);
 void set_byte(buffer *buffer, int index, char value);
@@ -149,3 +154,5 @@ void set_string(buffer *buffer, int index, char *value) {
         buffer->buffer[index + i] = value[i];
     }
 }
+
+#endif

@@ -1,7 +1,10 @@
+#ifndef BINARY_DATA_H
+#define BINARY_DATA_H
+
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "buffer.c"
+#include "buffer.h"
 #include "tag.h"
 
 int add_value_to_list_tag(tag *list_tag, tag tag);
@@ -280,8 +283,10 @@ void write_tag(buffer *buffer, tag *tag) {
         write_list_tag(buffer, tag);
         break;
     case 0x02:
+        write_single_type_list_tag(buffer, tag);
         break;    
     case 0x03:
+        write_mapped_list_tag(buffer, tag);
         break;
     case 0x04:
         write_byte(buffer, tag->byte_tag->value);
@@ -314,5 +319,12 @@ void write_tag(buffer *buffer, tag *tag) {
 }
 
 char *create_binary(tag *tag) {
+    buffer *buffer = malloc(sizeof(struct buffer_s));
+    
+    write_byte(buffer, 0x02);
+    write_tag(buffer, tag);
 
+    return buffer->buffer;
 }
+
+#endif

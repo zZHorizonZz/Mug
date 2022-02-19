@@ -3,10 +3,11 @@
 
 #include "obj/list.h"
 #include "token.h"
+#include "bsd/binary_data.h"
 
 #define MAX_LENGTH 1
 
-struct lexer {
+typedef struct lexer_s {
     char *content;
 
     int content_length;
@@ -15,28 +16,74 @@ struct lexer {
 
     struct token current_token;
     struct token *tokens;
-};
+} lexer;
 
-char *create_token_binary(struct lexer *lexer);
-void evaluate_content(struct lexer *lexer, char *content);
-void evaluate_next_token(struct lexer *lexer);
-void next_token(struct lexer *lexer, struct token token, int offset);
-void next_string_token(struct lexer *lexer);
+char *create_token_binary(lexer *lexer);
 
-char *create_token_binary(struct lexer *lexer) {
-    char *binary = malloc(lexer->last_token_index * (sizeof(char) * 0x02));
+void add_binary_header(tag *binary);
+void add_binary_content(tag *binary, lexer *lexer);
+
+void evaluate_content(lexer *lexer, char *content);
+void evaluate_next_token(lexer *lexer);
+void next_token(lexer *lexer, struct token token, int offset);
+void next_string_token(lexer *lexer);
+
+char *create_token_binary(lexer *lexer) {
+    size_t tag_size = sizeof(tag);
+    tag *binary = malloc(tag_size);
+
+    create_mapped_list_tag(binary);
+
+    add_binary_header(binary);
+    add_binary_content(binary, lexer);
+
+    char *binary_data = create_binary(binary);
+    return binary_data;
+}
+
+void add_binary_header(tag *binary) {
+    tag *header = malloc(sizeof(tag));
+    tag *name = malloc(sizeof(tag));
+    tag *author = malloc(sizeof(tag));
+
+    create_mapped_list_tag(header);
+    create_string_tag(name, "test");
+    create_string_tag(author, "Horizon");
+
+    add_value_to_mapped_list_tag(header, "name", *name);
+    add_value_to_mapped_list_tag(header, "author", *author);
+    add_value_to_mapped_list_tag(binary, "header", *header);
+}
+
+void add_binary_content(tag *binary, lexer *lexer) {
+    tag *content = malloc(sizeof(tag));
+
+    create_single_type_list_tag(content, 0x04);
 
     size_t offset = 0x00;
     for (size_t i = 0; i <= lexer->last_token_index; i++) {
         struct token token = lexer->tokens[i];
-        binary[offset++] = token.type;
-        binary[offset++] = token.identifier;
+        tag *type = malloc(sizeof(tag));
+        tag *identifier = malloc(sizeof(tag));
+
+        create_byte_tag(type, token.type);
+        create_byte_tag(identifier, token.identifier);
+
+        add_value_to_single_type_list_tag(content, *type);
+        add_value_to_single_type_list_tag(content, *identifier);
+
+        if(token.data != 0x00) {
+            tag *data = malloc(sizeof(tag));
+            
+            create_string_tag(data, token.data);
+            add_value_to_single_type_list_tag(content, *data);
+        }
     }
-    
-    return binary;
+
+    add_value_to_mapped_list_tag(binary, "content", *content);
 }
 
-void evaluate_content(struct lexer *lexer, char *content) {
+void evaluate_content(lexer *lexer, char *content) {
     lexer->content = content;
     lexer->content_length = strlen(content);
     lexer->last_index = 0x00;
@@ -54,7 +101,7 @@ void evaluate_content(struct lexer *lexer, char *content) {
     }
 }
 
-void evaluate_next_token(struct lexer *lexer) {
+void evaluate_next_token(lexer *lexer) {
     struct token token;
 
     int size = 0;
@@ -126,7 +173,7 @@ void evaluate_next_token(struct lexer *lexer) {
     free(text);      
 }
 
-void next_token(struct lexer *lexer, struct token token, int offset) {
+void next_token(lexer *lexer, struct token token, int offset) {
     struct token *tmp = realloc(lexer->tokens, (lexer->last_token_index + 1) * sizeof(struct token));
 
     if (tmp != 0x00) {
@@ -138,7 +185,7 @@ void next_token(struct lexer *lexer, struct token token, int offset) {
     lexer->last_index += offset;
 }
 
-void next_string_token(struct lexer *lexer) {
+void next_string_token(lexer *lexer) {
     struct token token;
     char *current_text = malloc(sizeof(char));
 

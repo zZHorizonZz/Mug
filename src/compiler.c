@@ -2,7 +2,6 @@
 #include <stdio.h>
 
 #include "lexer.c"
-#include "bsd/binary_data.c"
 
 struct binary {
     char *name;
@@ -24,7 +23,7 @@ int compile_file(char *path, char *name) {
     }
 
     char buffer[256];
-    struct lexer lexer = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+    lexer lexer = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
     while (fgets(buffer, 256, fp)) {
         evaluate_content(&lexer, buffer);    
