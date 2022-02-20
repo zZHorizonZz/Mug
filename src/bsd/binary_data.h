@@ -36,7 +36,6 @@ int add_value_to_list(list_tag *list_tag, tag tag) {
         list_tag->list = malloc(++list_tag->list_size * sizeof(union tag_u));
     } else {
         union tag_u *tmp = realloc(list_tag->list, ++list_tag->list_size * sizeof(union tag_u));
-        free(list_tag->list);
         
         list_tag->list = tmp;
     }
@@ -62,7 +61,6 @@ int add_value_to_single_type_list(single_type_list_tag *list_tag, tag tag) {
         list_tag->list = malloc(++list_tag->list_size * sizeof(union tag_u));
     } else {
         union tag_u *tmp = realloc(list_tag->list, ++list_tag->list_size * sizeof(union tag_u));
-        free(list_tag->list);
         
         list_tag->list = tmp;
     }
@@ -87,9 +85,6 @@ int add_value_to_mapped_list(mapped_list_tag *mapped_list_tag, char *name, tag t
         char **tmp_mapping = realloc(mapped_list_tag->mapping, ++mapped_list_tag->list_size * sizeof(char*));
         union tag_u *tmp_list = realloc(mapped_list_tag->list, mapped_list_tag->list_size * sizeof(union tag_u));
 
-        free(mapped_list_tag->mapping);
-        free(mapped_list_tag->list);
-
         mapped_list_tag->mapping = tmp_mapping;
         mapped_list_tag->list = tmp_list;
     }
@@ -105,67 +100,67 @@ int add_value_to_mapped_list(mapped_list_tag *mapped_list_tag, char *name, tag t
 
 int verify_type(int type, tag tag) {
     switch (type) {
-        case 0x00:
+        case 0x01:
             if(tag.list_tag != 0x00) {
                 return 0x01;
             }
 
             break;
-        case 0x01:
+        case 0x02:
             if(tag.single_type_list_tag != 0x00) {
                 return 0x01;
             }
 
             break;
-        case 0x02:
+        case 0x03:
             if(tag.mapped_list_tag != 0x00) {
                 return 0x01;
             }
 
             break;
-        case 0x03:
+        case 0x04:
             if(tag.byte_tag != 0x00) {
                 return 0x01;
             }
 
             break;
-        case 0x04:
+        case 0x05:
             if(tag.short_tag != 0x00) {
                 return 0x01;
             }
 
             break;
-        case 0x05:
+        case 0x06:
             if(tag.int_tag != 0x00) {
                 return 0x01;
             }
 
             break;
-        case 0x06:
+        case 0x07:
             if(tag.long_tag != 0x00) {
                 return 0x01;
             }
 
             break;
-        case 0x07:
+        case 0x08:
             if(tag.float_tag != 0x00) {
                 return 0x01;
             }
 
             break;
-        case 0x08:
+        case 0x09:
             if(tag.double_tag != 0x00) {
                 return 0x01;
             }
 
             break;
-        case 0x09:
+        case 0x0A:
             if(tag.string_tag != 0x00) {
                 return 0x01;
             }
 
             break;
-        case 0x0A:
+        case 0x0B:
             if(tag.boolean_tag != 0x00) {
                 return 0x01;
             }
