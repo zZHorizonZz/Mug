@@ -29,19 +29,14 @@ void next_token(lexer *lexer, token *token, int offset);
 void next_string_token(lexer *lexer);
 
 char *create_token_binary(lexer *lexer) {
-    size_t tag_size = sizeof(tag);
-    tag *binary = malloc(tag_size);
+    tag *binary = malloc(sizeof(tag));
 
     create_mapped_list_tag(binary);
 
-    printf("Debug 1\n");
     add_binary_header(binary);
     add_binary_content(binary, lexer);
 
-    printf("Debug 2\n");
-
     char *binary_data = create_binary(binary);
-    printf("Debug 3\n");
 
     return binary_data;
 }
@@ -55,22 +50,18 @@ void add_binary_header(tag *binary) {
     create_mapped_list_tag(header);
     create_string_tag(name, "test");
     create_string_tag(author, "Horizon");
-    printf("Binary header.... 1");
-    add_value_to_mapped_list_tag(header, "name", *name);
-    add_value_to_mapped_list_tag(header, "author", *author);
-    add_value_to_mapped_list_tag(binary, "header", *header);
-    printf("Binary header....2");
+    add_value_to_mapped_list_tag(header, "name", name);
+    add_value_to_mapped_list_tag(header, "author", author);
+    add_value_to_mapped_list_tag(binary, "header", header);
 }
 
 void add_binary_content(tag *binary, lexer *lexer) {
-    printf("Binary content....");
     tag *content = malloc(sizeof(tag));
 
     create_single_type_list_tag(content, 0x04);
 
     size_t offset = 0x00;
-    printf("Binary content....2");
-    for (size_t i = 0; i <= lexer->last_token_index; i++) {
+    for (size_t i = 0; i < lexer->last_token_index; i++) {
         token *token = lexer->tokens[i];
 
         tag *type = malloc(sizeof(tag));
@@ -79,23 +70,21 @@ void add_binary_content(tag *binary, lexer *lexer) {
         create_byte_tag(type, token->type);
         create_byte_tag(identifier, token->identifier);
 
-        add_value_to_single_type_list_tag(content, *type);
-        add_value_to_single_type_list_tag(content, *identifier);
+        add_value_to_single_type_list_tag(content, type);
+        add_value_to_single_type_list_tag(content, identifier);
 
         if(token->data != 0x00) {
             tag *data = malloc(sizeof(tag));
             
             create_string_tag(data, token->data);
-            add_value_to_single_type_list_tag(content, *data);
+            add_value_to_single_type_list_tag(content, data);
         }
     }
 
-    add_value_to_mapped_list_tag(binary, "content", *content);
-    printf("Binary content....3");
+    add_value_to_mapped_list_tag(binary, "content", content);
 }
 
 void evaluate_content(lexer *lexer, char *content) {
-    printf("Current content: %s\n", content);
     lexer->content = content;
     lexer->content_length = strlen(content);
     lexer->last_index = 0x00;
@@ -109,7 +98,6 @@ void evaluate_content(lexer *lexer, char *content) {
 
     while(lexer->last_index != lexer->content_length && current_depth <= max_depth) {
         evaluate_next_token(lexer);
-        //printf("\n[Debug] Token %d (%d) Data: %s", lexer->current_token.type, lexer->current_token.identifier, lexer->current_token.data);
         current_depth++;
     }
 }
@@ -130,7 +118,6 @@ void evaluate_next_token(lexer *lexer) {
         char current_letter = lexer->content[i]; 
         offset++;
 
-        printf("\n[Debug] Current char %c", current_letter);
         if(is_ignore(current_letter)) {
             if(i == lexer->content_length - 1) {
                 lexer->last_index = lexer->content_length;
@@ -157,33 +144,18 @@ void evaluate_next_token(lexer *lexer) {
             tmp = realloc(text, (++size) + 0x01);
         }
 
-        printf("2");
-
         if (tmp != 0x00) {
             text = tmp;
             text[size - 1] = current_letter;
             text[size] = 0x00;
-            printf("4");
         } else {
-            printf("\n[ERROR] Null pointer exception. (Size %d)\n", size);
+            printf("\n[ERROR] Null pointer exception. (Temporary text is null)\n");
             exit(0x01);
             return;
         }
 
-        printf("Data: ");
-        for (size_t i = 0; i <= size; i++) {
-            printf("%d ", text[i]);
-        }
-
         char *token_data = malloc(strlen(text));
-        
-        printf("7");
-
-        strcpy(token_data, text);
-        printf("3");
-        evaluate_token(token, token_data);
-
-        printf("2");
+        evaluate_token(token, strcpy(token_data, text));
 
         if(token->type == 0x01 && token->identifier == 0x07) {
             int string_start = i;
@@ -194,10 +166,8 @@ void evaluate_next_token(lexer *lexer) {
         }
 
         if(token->type != 0x00) {
-            printf("Break. 3");
             break;
         }
-        printf("3");
     }
 
     if(size == 0x00) {
@@ -212,11 +182,20 @@ void evaluate_next_token(lexer *lexer) {
 }
 
 void next_token(lexer *lexer, token *token, int offset) {
-    struct token_s **tmp = realloc(lexer->tokens, (lexer->last_token_index + 1) * sizeof(struct token_s));
+    struct token_s **tmp;
+
+    if(lexer->tokens == 0x00) {
+        tmp = malloc(sizeof(struct token_s));    
+    } else {
+        tmp = realloc(lexer->tokens, (lexer->last_token_index + 1) * sizeof(struct token_s));
+    }
 
     if (tmp != 0x00) {
         tmp[lexer->last_token_index++] = token;
         lexer->tokens = tmp;
+    } else {
+        printf("\n[ERROR] Null pointer exception. (Temporary token array is null.)\n");
+        return;
     }
 
     lexer->current_token = token;

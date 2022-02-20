@@ -34,7 +34,7 @@ void evaluate_token(token *token, char *content) {
             token->identifier = i;
             token->data = 0x00;
 
-            free(content);
+            return;
         }
 
         if(KEYWORD[i] != 0x00 && strcmp(content, KEYWORD[i]) == 0) {
@@ -42,7 +42,7 @@ void evaluate_token(token *token, char *content) {
             token->identifier = i;
             token->data = 0x00;
 
-            free(content);
+            return;
         }
 
         if(OPERATOR[i] != 0x00 && strcmp(content, OPERATOR[i]) == 0) {
@@ -50,7 +50,7 @@ void evaluate_token(token *token, char *content) {
             token->identifier = i;
             token->data = 0x00;
             
-            free(content);
+            return;
         }
 
         if(BLANK[i] != 0x00 && strcmp(content, BLANK[i]) == 0) {
@@ -58,7 +58,7 @@ void evaluate_token(token *token, char *content) {
             token->identifier = i;
             token->data = 0x00;
             
-            free(content);
+            return;
         }
     }
 

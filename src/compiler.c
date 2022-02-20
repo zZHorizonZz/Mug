@@ -25,13 +25,16 @@ int compile_file(char *path, char *name) {
 
     char buffer[256];
     lexer *lexer = malloc(sizeof(struct lexer_s));
+    lexer->tokens = 0x00;
+    lexer->current_token = 0x00;
+    lexer->last_token_index = 0x00;
 
     printf("[Compiler] Evaluating content...");
     while (fgets(buffer, 256, fp)) {
-        printf("\n[Compiler] New line");
         evaluate_content(lexer, buffer);   
         free(buffer); 
     }
+
     printf(" [Done]\n");
 
     for (size_t i = 0; i < lexer->last_token_index; i++) {
