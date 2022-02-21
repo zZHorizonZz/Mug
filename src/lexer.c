@@ -20,8 +20,8 @@ typedef struct lexer_s {
 
 char *create_token_binary(lexer *lexer);
 
-void add_binary_header(tag *binary);
-void add_binary_content(tag *binary, lexer *lexer);
+void add_binary_header(compound *binary);
+void add_binary_content(compound *binary, lexer *lexer);
 
 void evaluate_content(lexer *lexer, char *content);
 void evaluate_next_token(lexer *lexer);
@@ -29,8 +29,10 @@ void next_token(lexer *lexer, token *token, int offset);
 void next_string_token(lexer *lexer);
 
 char *create_token_binary(lexer *lexer) {
-    tag *binary = malloc(sizeof(tag));
-
+    compound *binary = calloc(2, sizeof(struct compound_s));
+    tag *tag = malloc(sizeof(tag));
+    
+    binary->tag = tag;
     create_mapped_list_tag(binary);
 
     add_binary_header(binary);
@@ -41,11 +43,11 @@ char *create_token_binary(lexer *lexer) {
     return binary_data;
 }
 
-void add_binary_header(tag *binary) {
+void add_binary_header(compound *binary) {
     printf("Binary header....");
-    tag *header = malloc(sizeof(tag));
-    tag *name = malloc(sizeof(tag));
-    tag *author = malloc(sizeof(tag));
+    compound *header = create_empty_compound();
+    compound *name = create_empty_compound();
+    compound *author = create_empty_compound();
 
     create_mapped_list_tag(header);
     create_string_tag(name, "test");
@@ -55,8 +57,8 @@ void add_binary_header(tag *binary) {
     add_value_to_mapped_list_tag(binary, "header", header);
 }
 
-void add_binary_content(tag *binary, lexer *lexer) {
-    tag *content = malloc(sizeof(tag));
+void add_binary_content(compound *binary, lexer *lexer) {
+    compound *content = create_empty_compound();
 
     create_single_type_list_tag(content, 0x04);
 
@@ -64,8 +66,8 @@ void add_binary_content(tag *binary, lexer *lexer) {
     for (size_t i = 0; i < lexer->last_token_index; i++) {
         token *token = lexer->tokens[i];
 
-        tag *type = malloc(sizeof(tag));
-        tag *identifier = malloc(sizeof(tag));
+        compound *type = create_empty_compound();
+        compound *identifier = create_empty_compound();
 
         create_byte_tag(type, token->type);
         create_byte_tag(identifier, token->identifier);
@@ -74,7 +76,7 @@ void add_binary_content(tag *binary, lexer *lexer) {
         add_value_to_single_type_list_tag(content, identifier);
 
         if(token->data != 0x00) {
-            tag *data = malloc(sizeof(tag));
+            compound *data = create_empty_compound();
             
             create_string_tag(data, token->data);
             add_value_to_single_type_list_tag(content, data);

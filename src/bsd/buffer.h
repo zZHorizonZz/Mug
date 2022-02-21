@@ -147,8 +147,6 @@ void write_string(buffer *buffer, char *value) {
 }
 
 void set_string(buffer *buffer, int index, char *value) {
-    write_int(buffer, strlen(value));
-
     if(buffer->buffer == 0x00) {
         buffer->buffer = malloc(strlen(value));
     } else if(index + 0x07 >= buffer->length) {
