@@ -50,8 +50,6 @@ void set_byte(buffer *buffer, int index, char value) {
         buffer->buffer = malloc(sizeof(char));
     } else if(index >= buffer->length) {
         char *tmp = realloc(buffer->buffer, buffer->length + sizeof(char));
-    
-        free(buffer->buffer);
         buffer->buffer = tmp;
     }
 
@@ -69,8 +67,6 @@ void set_short(buffer *buffer, int index, short value) {
         buffer->buffer = malloc(sizeof(short));
     } else if(index + 0x01 >= buffer->length) {
         char *tmp = realloc(buffer->buffer, buffer->length + sizeof(short));
-    
-        free(buffer->buffer);
         buffer->buffer = tmp;
     }
 
@@ -89,8 +85,6 @@ void set_int(buffer *buffer, int index, int value) {
         buffer->buffer = malloc(sizeof(int));
     } else if(index + 0x03 >= buffer->length) {
         char *tmp = realloc(buffer->buffer, buffer->length + sizeof(int));
-    
-        free(buffer->buffer);
         buffer->buffer = tmp;
     }
 
@@ -111,8 +105,6 @@ void set_long(buffer *buffer, int index, long value) {
         buffer->buffer = malloc(sizeof(long));
     } else if(index + 0x07 >= buffer->length) {
         char *tmp = realloc(buffer->buffer, buffer->length + sizeof(long));
-    
-        free(buffer->buffer);
         buffer->buffer = tmp;
     }
 
@@ -151,8 +143,6 @@ void set_string(buffer *buffer, int index, char *value) {
         buffer->buffer = malloc(strlen(value));
     } else if(index + 0x07 >= buffer->length) {
         char *tmp = realloc(buffer->buffer, buffer->length + strlen(value));
-    
-        free(buffer->buffer);
         buffer->buffer = tmp;
     }
 

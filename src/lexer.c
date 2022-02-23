@@ -40,6 +40,8 @@ char *create_token_binary(lexer *lexer) {
 
     char *binary_data = create_binary(binary);
 
+    free_compound(binary);
+    
     return binary_data;
 }
 

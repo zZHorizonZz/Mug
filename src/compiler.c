@@ -17,8 +17,7 @@ int compile_file(char *path, char *name) {
     printf("[Compiler] Compiling file %s/%s.\n", path, name);
     FILE *fp = fopen("D:\\program.str", "r");
 
-    if (fp == NULL)
-    {
+    if (fp == 0x00) {
         printf("Error: could not open file %s", "D:\\program.str");
         return 1;
     }
