@@ -192,91 +192,10 @@ void write_tag(buffer *buffer, compound *compound) {
 char *create_binary(compound *compound) {
     buffer *buffer = calloc(4, sizeof(struct buffer_s));
     
-    write_byte(buffer, 0x03);
+    write_byte(buffer, compound->type);
     write_tag(buffer, compound);
 
     return buffer->buffer;
-}
-
-void free_compound(compound *compound) {
-    if(compound == 0x00) {
-        return;
-    }   
-
-    if(is_primitive(compound)) {
-        if(compound->tag != 0x00) {
-            tag *tag = compound->tag;
-            switch (compound->type) {
-                case 0x04:
-                    free(tag->byte_tag);
-                    break;
-                case 0x05:
-                    free(tag->short_tag);
-                    break;
-                case 0x06:
-                    free(tag->int_tag);
-                    break;
-                case 0x07:
-                    free(tag->long_tag);
-                    break;
-                case 0x08:
-                    free(tag->float_tag);
-                    break;
-                case 0x09:
-                    free(tag->double_tag);
-                    break;
-                case 0x0A:
-                    free(tag->string_tag->value);
-                    free(tag->string_tag);
-                    break;
-                case 0x0B:
-                    free(tag->boolean_tag);
-                    break;
-                default:
-                    break;
-            }
-
-            free(tag);
-    } else if(is_list(compound)) {
-        struct compound_s **list;
-        int size;
-
-        switch (compound->type) {
-            case 0x01:
-                size = compound->tag->list_tag->list_size;
-                list = compound->tag->list_tag->list;
-                break;
-            case 0x02:
-                size = compound->tag->single_type_list_tag->list_size;
-                list = compound->tag->single_type_list_tag->list;
-                break;
-            case 0x03:
-                size = compound->tag->mapped_list_tag->list_size;
-                list = compound->tag->mapped_list_tag->list;
-                
-                for (size_t i = 0; i < size; i++) {
-                    char *mapping = compound->tag->mapped_list_tag->mapping[i];
-                    free(mapping);
-                }
-
-                break;
-            default:
-                break;
-        }
-
-        if(list != 0x00) {
-            for (size_t i = 0; i < size; i++) {
-                struct compound_s *element = list[i];
-                free_compound(element);
-            }
-
-            free(list);
-        }
-
-        free(compound->tag);
-    }
-
-    free(compound);
 }
 
 #endif

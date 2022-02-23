@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "obj/list.h"
 #include "token.h"
 #include "bsd/binary_data.h"
 
@@ -41,7 +40,7 @@ char *create_token_binary(lexer *lexer) {
     char *binary_data = create_binary(binary);
 
     free_compound(binary);
-    
+
     return binary_data;
 }
 
