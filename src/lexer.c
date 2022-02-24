@@ -2,7 +2,7 @@
 #include <string.h>
 
 #include "token.h"
-#include "bsd/binary_data.h"
+#include "binary_encoder.h"
 
 #define MAX_LENGTH 1
 
