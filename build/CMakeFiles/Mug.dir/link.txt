@@ -1,0 +1,3 @@
+D:\CMake\bin\cmake.exe -E rm -f CMakeFiles\Mug.dir/objects.a
+D:\MinGW\bin\ar.exe qc CMakeFiles\Mug.dir/objects.a @CMakeFiles\Mug.dir\objects1.rsp
+D:\MinGW\bin\mingw32-gcc.exe -g -Wl,--whole-archive CMakeFiles\Mug.dir/objects.a -Wl,--no-whole-archive -o Mug.exe -Wl,--out-implib,libMug.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Mug.dir\linklibs.rsp
