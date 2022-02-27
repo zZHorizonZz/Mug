@@ -1,12 +1,7 @@
-#ifndef OBJECT_H
-#define OBJECT_H
-
 #include <stdio.h>
 #include <stdlib.h>
 
-struct object {
-    char* value;
-};
+#include "object.h"
 
 struct object new_object(char* value) {
     struct object obj;
@@ -25,5 +20,3 @@ int equals(struct object original, struct object equal)
 
     return valid;
 }
-
-#endif
