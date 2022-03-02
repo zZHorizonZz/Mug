@@ -1,25 +1,7 @@
-#ifndef TOKEN_H
-#define TOKEN_H
-
+#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-typedef struct token_s {
-    char type;
-    char identifier;
-
-    char *data;
-} token;
-
-static const char *SEPARATOR[16] = { ".", ",", "(", ")", "{", "}", ";", "\"" };
-static const char *KEYWORD[16] = { "repository", "structure", "void", "native", "if", "else", "elseif", "while" };
-static const char *OPERATOR[16] = { "+", "-", "*", "/", "<<", ">>", "|", "&", "^" };
-static const char *BLANK[16] = { "//" };
-static const char *IGNORE[16] = { " ", "\n", "\r", "\t"};
-
-void evaluate_token_letter(token *token, char letter);
-void evaluate_token(token *token, char *content);
-int is_separator(char letter);
+#include "token.h"
 
 void evaluate_token_letter(token *token, char letter) {
     char *buffer = malloc(sizeof(char));
@@ -91,5 +73,3 @@ int is_ignore(char letter) {
 
     return 0;
 }
-
-#endif

@@ -33,7 +33,7 @@ typedef struct arithmetic_expression_s {
 } arithmetic_expression;
 
 void evaluate_token_block(expression *expression, token *block) {
-
+    
 }
 
 #endif
