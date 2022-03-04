@@ -15,7 +15,7 @@ typedef struct token_iterator_s {
     size_t length;
     
     int index;
-    token current_token;    
+    token *current_token;    
 
     token **array;
 } token_iterator;
@@ -29,8 +29,10 @@ static const char *IGNORE[16] = { " ", "\n", "\r", "\t"};
 void evaluate_token_letter(token *token, char letter);
 void evaluate_token(token *token, char *content);
 
-void next_token(token_iterator *iterator);
-void previous_token(token_iterator *iterator);
+token_iterator *create_iterator(size_t length, token **array);
+
+int iterator_next(token_iterator *iterator);
+int iterator_previous(token_iterator *iterator);
 void free_iterator(token_iterator *iterator);
 
 int is_separator(char letter);

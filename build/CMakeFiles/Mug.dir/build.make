@@ -128,12 +128,156 @@ CMakeFiles/Mug.dir/binary_data/native/windows/tag.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Mug.dir/binary_data/native/windows/tag.c.s"
 	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\Mug\src\binary_data\native\windows\tag.c -o CMakeFiles\Mug.dir\binary_data\native\windows\tag.c.s
 
+CMakeFiles/Mug.dir/compiler/native/windows/token.c.obj: CMakeFiles/Mug.dir/flags.make
+CMakeFiles/Mug.dir/compiler/native/windows/token.c.obj: CMakeFiles/Mug.dir/includes_C.rsp
+CMakeFiles/Mug.dir/compiler/native/windows/token.c.obj: D:/Projects/Mug/src/compiler/native/windows/token.c
+CMakeFiles/Mug.dir/compiler/native/windows/token.c.obj: CMakeFiles/Mug.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Mug\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/Mug.dir/compiler/native/windows/token.c.obj"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Mug.dir/compiler/native/windows/token.c.obj -MF CMakeFiles\Mug.dir\compiler\native\windows\token.c.obj.d -o CMakeFiles\Mug.dir\compiler\native\windows\token.c.obj -c D:\Projects\Mug\src\compiler\native\windows\token.c
+
+CMakeFiles/Mug.dir/compiler/native/windows/token.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Mug.dir/compiler/native/windows/token.c.i"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\Mug\src\compiler\native\windows\token.c > CMakeFiles\Mug.dir\compiler\native\windows\token.c.i
+
+CMakeFiles/Mug.dir/compiler/native/windows/token.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Mug.dir/compiler/native/windows/token.c.s"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\Mug\src\compiler\native\windows\token.c -o CMakeFiles\Mug.dir\compiler\native\windows\token.c.s
+
+CMakeFiles/Mug.dir/language/native/windows/body.c.obj: CMakeFiles/Mug.dir/flags.make
+CMakeFiles/Mug.dir/language/native/windows/body.c.obj: CMakeFiles/Mug.dir/includes_C.rsp
+CMakeFiles/Mug.dir/language/native/windows/body.c.obj: D:/Projects/Mug/src/language/native/windows/body.c
+CMakeFiles/Mug.dir/language/native/windows/body.c.obj: CMakeFiles/Mug.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Mug\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/Mug.dir/language/native/windows/body.c.obj"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Mug.dir/language/native/windows/body.c.obj -MF CMakeFiles\Mug.dir\language\native\windows\body.c.obj.d -o CMakeFiles\Mug.dir\language\native\windows\body.c.obj -c D:\Projects\Mug\src\language\native\windows\body.c
+
+CMakeFiles/Mug.dir/language/native/windows/body.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Mug.dir/language/native/windows/body.c.i"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\Mug\src\language\native\windows\body.c > CMakeFiles\Mug.dir\language\native\windows\body.c.i
+
+CMakeFiles/Mug.dir/language/native/windows/body.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Mug.dir/language/native/windows/body.c.s"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\Mug\src\language\native\windows\body.c -o CMakeFiles\Mug.dir\language\native\windows\body.c.s
+
+CMakeFiles/Mug.dir/language/native/windows/expression.c.obj: CMakeFiles/Mug.dir/flags.make
+CMakeFiles/Mug.dir/language/native/windows/expression.c.obj: CMakeFiles/Mug.dir/includes_C.rsp
+CMakeFiles/Mug.dir/language/native/windows/expression.c.obj: D:/Projects/Mug/src/language/native/windows/expression.c
+CMakeFiles/Mug.dir/language/native/windows/expression.c.obj: CMakeFiles/Mug.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Mug\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/Mug.dir/language/native/windows/expression.c.obj"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Mug.dir/language/native/windows/expression.c.obj -MF CMakeFiles\Mug.dir\language\native\windows\expression.c.obj.d -o CMakeFiles\Mug.dir\language\native\windows\expression.c.obj -c D:\Projects\Mug\src\language\native\windows\expression.c
+
+CMakeFiles/Mug.dir/language/native/windows/expression.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Mug.dir/language/native/windows/expression.c.i"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\Mug\src\language\native\windows\expression.c > CMakeFiles\Mug.dir\language\native\windows\expression.c.i
+
+CMakeFiles/Mug.dir/language/native/windows/expression.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Mug.dir/language/native/windows/expression.c.s"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\Mug\src\language\native\windows\expression.c -o CMakeFiles\Mug.dir\language\native\windows\expression.c.s
+
+CMakeFiles/Mug.dir/language/native/windows/method.c.obj: CMakeFiles/Mug.dir/flags.make
+CMakeFiles/Mug.dir/language/native/windows/method.c.obj: CMakeFiles/Mug.dir/includes_C.rsp
+CMakeFiles/Mug.dir/language/native/windows/method.c.obj: D:/Projects/Mug/src/language/native/windows/method.c
+CMakeFiles/Mug.dir/language/native/windows/method.c.obj: CMakeFiles/Mug.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Mug\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/Mug.dir/language/native/windows/method.c.obj"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Mug.dir/language/native/windows/method.c.obj -MF CMakeFiles\Mug.dir\language\native\windows\method.c.obj.d -o CMakeFiles\Mug.dir\language\native\windows\method.c.obj -c D:\Projects\Mug\src\language\native\windows\method.c
+
+CMakeFiles/Mug.dir/language/native/windows/method.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Mug.dir/language/native/windows/method.c.i"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\Mug\src\language\native\windows\method.c > CMakeFiles\Mug.dir\language\native\windows\method.c.i
+
+CMakeFiles/Mug.dir/language/native/windows/method.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Mug.dir/language/native/windows/method.c.s"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\Mug\src\language\native\windows\method.c -o CMakeFiles\Mug.dir\language\native\windows\method.c.s
+
+CMakeFiles/Mug.dir/language/native/windows/number.c.obj: CMakeFiles/Mug.dir/flags.make
+CMakeFiles/Mug.dir/language/native/windows/number.c.obj: CMakeFiles/Mug.dir/includes_C.rsp
+CMakeFiles/Mug.dir/language/native/windows/number.c.obj: D:/Projects/Mug/src/language/native/windows/number.c
+CMakeFiles/Mug.dir/language/native/windows/number.c.obj: CMakeFiles/Mug.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Mug\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/Mug.dir/language/native/windows/number.c.obj"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Mug.dir/language/native/windows/number.c.obj -MF CMakeFiles\Mug.dir\language\native\windows\number.c.obj.d -o CMakeFiles\Mug.dir\language\native\windows\number.c.obj -c D:\Projects\Mug\src\language\native\windows\number.c
+
+CMakeFiles/Mug.dir/language/native/windows/number.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Mug.dir/language/native/windows/number.c.i"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\Mug\src\language\native\windows\number.c > CMakeFiles\Mug.dir\language\native\windows\number.c.i
+
+CMakeFiles/Mug.dir/language/native/windows/number.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Mug.dir/language/native/windows/number.c.s"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\Mug\src\language\native\windows\number.c -o CMakeFiles\Mug.dir\language\native\windows\number.c.s
+
+CMakeFiles/Mug.dir/language/native/windows/object.c.obj: CMakeFiles/Mug.dir/flags.make
+CMakeFiles/Mug.dir/language/native/windows/object.c.obj: CMakeFiles/Mug.dir/includes_C.rsp
+CMakeFiles/Mug.dir/language/native/windows/object.c.obj: D:/Projects/Mug/src/language/native/windows/object.c
+CMakeFiles/Mug.dir/language/native/windows/object.c.obj: CMakeFiles/Mug.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Mug\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/Mug.dir/language/native/windows/object.c.obj"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Mug.dir/language/native/windows/object.c.obj -MF CMakeFiles\Mug.dir\language\native\windows\object.c.obj.d -o CMakeFiles\Mug.dir\language\native\windows\object.c.obj -c D:\Projects\Mug\src\language\native\windows\object.c
+
+CMakeFiles/Mug.dir/language/native/windows/object.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Mug.dir/language/native/windows/object.c.i"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\Mug\src\language\native\windows\object.c > CMakeFiles\Mug.dir\language\native\windows\object.c.i
+
+CMakeFiles/Mug.dir/language/native/windows/object.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Mug.dir/language/native/windows/object.c.s"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\Mug\src\language\native\windows\object.c -o CMakeFiles\Mug.dir\language\native\windows\object.c.s
+
+CMakeFiles/Mug.dir/language/native/windows/primitive.c.obj: CMakeFiles/Mug.dir/flags.make
+CMakeFiles/Mug.dir/language/native/windows/primitive.c.obj: CMakeFiles/Mug.dir/includes_C.rsp
+CMakeFiles/Mug.dir/language/native/windows/primitive.c.obj: D:/Projects/Mug/src/language/native/windows/primitive.c
+CMakeFiles/Mug.dir/language/native/windows/primitive.c.obj: CMakeFiles/Mug.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Mug\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/Mug.dir/language/native/windows/primitive.c.obj"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Mug.dir/language/native/windows/primitive.c.obj -MF CMakeFiles\Mug.dir\language\native\windows\primitive.c.obj.d -o CMakeFiles\Mug.dir\language\native\windows\primitive.c.obj -c D:\Projects\Mug\src\language\native\windows\primitive.c
+
+CMakeFiles/Mug.dir/language/native/windows/primitive.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Mug.dir/language/native/windows/primitive.c.i"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\Mug\src\language\native\windows\primitive.c > CMakeFiles\Mug.dir\language\native\windows\primitive.c.i
+
+CMakeFiles/Mug.dir/language/native/windows/primitive.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Mug.dir/language/native/windows/primitive.c.s"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\Mug\src\language\native\windows\primitive.c -o CMakeFiles\Mug.dir\language\native\windows\primitive.c.s
+
+CMakeFiles/Mug.dir/language/native/windows/structure.c.obj: CMakeFiles/Mug.dir/flags.make
+CMakeFiles/Mug.dir/language/native/windows/structure.c.obj: CMakeFiles/Mug.dir/includes_C.rsp
+CMakeFiles/Mug.dir/language/native/windows/structure.c.obj: D:/Projects/Mug/src/language/native/windows/structure.c
+CMakeFiles/Mug.dir/language/native/windows/structure.c.obj: CMakeFiles/Mug.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Mug\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/Mug.dir/language/native/windows/structure.c.obj"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Mug.dir/language/native/windows/structure.c.obj -MF CMakeFiles\Mug.dir\language\native\windows\structure.c.obj.d -o CMakeFiles\Mug.dir\language\native\windows\structure.c.obj -c D:\Projects\Mug\src\language\native\windows\structure.c
+
+CMakeFiles/Mug.dir/language/native/windows/structure.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Mug.dir/language/native/windows/structure.c.i"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\Mug\src\language\native\windows\structure.c > CMakeFiles\Mug.dir\language\native\windows\structure.c.i
+
+CMakeFiles/Mug.dir/language/native/windows/structure.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Mug.dir/language/native/windows/structure.c.s"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\Mug\src\language\native\windows\structure.c -o CMakeFiles\Mug.dir\language\native\windows\structure.c.s
+
+CMakeFiles/Mug.dir/parser/native/windows/parser.c.obj: CMakeFiles/Mug.dir/flags.make
+CMakeFiles/Mug.dir/parser/native/windows/parser.c.obj: CMakeFiles/Mug.dir/includes_C.rsp
+CMakeFiles/Mug.dir/parser/native/windows/parser.c.obj: D:/Projects/Mug/src/parser/native/windows/parser.c
+CMakeFiles/Mug.dir/parser/native/windows/parser.c.obj: CMakeFiles/Mug.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\Mug\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/Mug.dir/parser/native/windows/parser.c.obj"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Mug.dir/parser/native/windows/parser.c.obj -MF CMakeFiles\Mug.dir\parser\native\windows\parser.c.obj.d -o CMakeFiles\Mug.dir\parser\native\windows\parser.c.obj -c D:\Projects\Mug\src\parser\native\windows\parser.c
+
+CMakeFiles/Mug.dir/parser/native/windows/parser.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/Mug.dir/parser/native/windows/parser.c.i"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\Mug\src\parser\native\windows\parser.c > CMakeFiles\Mug.dir\parser\native\windows\parser.c.i
+
+CMakeFiles/Mug.dir/parser/native/windows/parser.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/Mug.dir/parser/native/windows/parser.c.s"
+	D:\MinGW\bin\mingw32-gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\Mug\src\parser\native\windows\parser.c -o CMakeFiles\Mug.dir\parser\native\windows\parser.c.s
+
 # Object files for target Mug
 Mug_OBJECTS = \
 "CMakeFiles/Mug.dir/main.c.obj" \
 "CMakeFiles/Mug.dir/binary_data/native/windows/binary_encoder.c.obj" \
 "CMakeFiles/Mug.dir/binary_data/native/windows/buffer.c.obj" \
-"CMakeFiles/Mug.dir/binary_data/native/windows/tag.c.obj"
+"CMakeFiles/Mug.dir/binary_data/native/windows/tag.c.obj" \
+"CMakeFiles/Mug.dir/compiler/native/windows/token.c.obj" \
+"CMakeFiles/Mug.dir/language/native/windows/body.c.obj" \
+"CMakeFiles/Mug.dir/language/native/windows/expression.c.obj" \
+"CMakeFiles/Mug.dir/language/native/windows/method.c.obj" \
+"CMakeFiles/Mug.dir/language/native/windows/number.c.obj" \
+"CMakeFiles/Mug.dir/language/native/windows/object.c.obj" \
+"CMakeFiles/Mug.dir/language/native/windows/primitive.c.obj" \
+"CMakeFiles/Mug.dir/language/native/windows/structure.c.obj" \
+"CMakeFiles/Mug.dir/parser/native/windows/parser.c.obj"
 
 # External object files for target Mug
 Mug_EXTERNAL_OBJECTS =
@@ -142,11 +286,20 @@ Mug.exe: CMakeFiles/Mug.dir/main.c.obj
 Mug.exe: CMakeFiles/Mug.dir/binary_data/native/windows/binary_encoder.c.obj
 Mug.exe: CMakeFiles/Mug.dir/binary_data/native/windows/buffer.c.obj
 Mug.exe: CMakeFiles/Mug.dir/binary_data/native/windows/tag.c.obj
+Mug.exe: CMakeFiles/Mug.dir/compiler/native/windows/token.c.obj
+Mug.exe: CMakeFiles/Mug.dir/language/native/windows/body.c.obj
+Mug.exe: CMakeFiles/Mug.dir/language/native/windows/expression.c.obj
+Mug.exe: CMakeFiles/Mug.dir/language/native/windows/method.c.obj
+Mug.exe: CMakeFiles/Mug.dir/language/native/windows/number.c.obj
+Mug.exe: CMakeFiles/Mug.dir/language/native/windows/object.c.obj
+Mug.exe: CMakeFiles/Mug.dir/language/native/windows/primitive.c.obj
+Mug.exe: CMakeFiles/Mug.dir/language/native/windows/structure.c.obj
+Mug.exe: CMakeFiles/Mug.dir/parser/native/windows/parser.c.obj
 Mug.exe: CMakeFiles/Mug.dir/build.make
 Mug.exe: CMakeFiles/Mug.dir/linklibs.rsp
 Mug.exe: CMakeFiles/Mug.dir/objects1.rsp
 Mug.exe: CMakeFiles/Mug.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\Projects\Mug\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable Mug.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\Projects\Mug\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Linking C executable Mug.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Mug.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

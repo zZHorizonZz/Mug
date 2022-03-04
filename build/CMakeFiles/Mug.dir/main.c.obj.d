@@ -9,7 +9,10 @@ CMakeFiles/Mug.dir/main.c.obj: D:\Projects\Mug\src\main.c \
  d:\mingw\include\errno.h d:\mingw\include\alloca.h \
  D:\Projects\Mug\src\lexer.c d:\mingw\include\string.h \
  d:\mingw\include\strings.h d:\mingw\include\wchar.h \
- D:\Projects\Mug\src\token.h \
+ D:/Projects/Mug/src/compiler/native/global/token.h \
  D:/Projects/Mug/src/binary_data/native/global/binary_encoder.h \
  D:/Projects/Mug/src/binary_data/native/global/buffer.h \
- D:/Projects/Mug/src/binary_data/native/global/tag.h
+ D:/Projects/Mug/src/binary_data/native/global/tag.h \
+ D:/Projects/Mug/src/language/native/global/expression.h \
+ D:/Projects/Mug/src/language/native/global/number.h \
+ D:/Projects/Mug/src/language/native/global/primitive.h

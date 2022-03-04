@@ -73,3 +73,46 @@ int is_ignore(char letter) {
 
     return 0;
 }
+
+
+token_iterator *create_iterator(size_t length, token **array) {
+    token_iterator *iterator = calloc(4, sizeof(token_iterator));
+
+    if(iterator == 0x00) {
+        return 0x00;
+    }
+
+    iterator->length = length;
+    iterator->array = array;
+    return iterator;
+}
+
+int iterator_next(token_iterator *iterator) {
+    if(iterator->index >= iterator->length) {
+        return 0;
+    }
+
+    iterator->current_token = iterator->array[iterator->index++];
+    return 1;
+}
+
+int iterator_previous(token_iterator *iterator) {
+    if(iterator->index <= 0) {
+        return 0;
+    }
+
+    iterator->current_token = iterator->array[--iterator->index];
+    return 1;
+}
+
+void free_iterator(token_iterator *iterator) {
+    if(iterator->length < 1) {
+        return;
+    }
+
+    for (size_t i = 0; i < iterator->length; i++) {
+        free(iterator->array[i]);
+    }
+    
+    free(iterator->array);
+}

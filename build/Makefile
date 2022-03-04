@@ -594,6 +594,198 @@ binary_data/native/windows/tag.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/binary_data/native/windows/tag.c.s
 .PHONY : binary_data/native/windows/tag.c.s
 
+compiler/native/windows/token.obj: compiler/native/windows/token.c.obj
+.PHONY : compiler/native/windows/token.obj
+
+# target to build an object file
+compiler/native/windows/token.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/compiler/native/windows/token.c.obj
+.PHONY : compiler/native/windows/token.c.obj
+
+compiler/native/windows/token.i: compiler/native/windows/token.c.i
+.PHONY : compiler/native/windows/token.i
+
+# target to preprocess a source file
+compiler/native/windows/token.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/compiler/native/windows/token.c.i
+.PHONY : compiler/native/windows/token.c.i
+
+compiler/native/windows/token.s: compiler/native/windows/token.c.s
+.PHONY : compiler/native/windows/token.s
+
+# target to generate assembly for a file
+compiler/native/windows/token.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/compiler/native/windows/token.c.s
+.PHONY : compiler/native/windows/token.c.s
+
+language/native/windows/body.obj: language/native/windows/body.c.obj
+.PHONY : language/native/windows/body.obj
+
+# target to build an object file
+language/native/windows/body.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/body.c.obj
+.PHONY : language/native/windows/body.c.obj
+
+language/native/windows/body.i: language/native/windows/body.c.i
+.PHONY : language/native/windows/body.i
+
+# target to preprocess a source file
+language/native/windows/body.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/body.c.i
+.PHONY : language/native/windows/body.c.i
+
+language/native/windows/body.s: language/native/windows/body.c.s
+.PHONY : language/native/windows/body.s
+
+# target to generate assembly for a file
+language/native/windows/body.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/body.c.s
+.PHONY : language/native/windows/body.c.s
+
+language/native/windows/expression.obj: language/native/windows/expression.c.obj
+.PHONY : language/native/windows/expression.obj
+
+# target to build an object file
+language/native/windows/expression.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/expression.c.obj
+.PHONY : language/native/windows/expression.c.obj
+
+language/native/windows/expression.i: language/native/windows/expression.c.i
+.PHONY : language/native/windows/expression.i
+
+# target to preprocess a source file
+language/native/windows/expression.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/expression.c.i
+.PHONY : language/native/windows/expression.c.i
+
+language/native/windows/expression.s: language/native/windows/expression.c.s
+.PHONY : language/native/windows/expression.s
+
+# target to generate assembly for a file
+language/native/windows/expression.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/expression.c.s
+.PHONY : language/native/windows/expression.c.s
+
+language/native/windows/method.obj: language/native/windows/method.c.obj
+.PHONY : language/native/windows/method.obj
+
+# target to build an object file
+language/native/windows/method.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/method.c.obj
+.PHONY : language/native/windows/method.c.obj
+
+language/native/windows/method.i: language/native/windows/method.c.i
+.PHONY : language/native/windows/method.i
+
+# target to preprocess a source file
+language/native/windows/method.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/method.c.i
+.PHONY : language/native/windows/method.c.i
+
+language/native/windows/method.s: language/native/windows/method.c.s
+.PHONY : language/native/windows/method.s
+
+# target to generate assembly for a file
+language/native/windows/method.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/method.c.s
+.PHONY : language/native/windows/method.c.s
+
+language/native/windows/number.obj: language/native/windows/number.c.obj
+.PHONY : language/native/windows/number.obj
+
+# target to build an object file
+language/native/windows/number.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/number.c.obj
+.PHONY : language/native/windows/number.c.obj
+
+language/native/windows/number.i: language/native/windows/number.c.i
+.PHONY : language/native/windows/number.i
+
+# target to preprocess a source file
+language/native/windows/number.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/number.c.i
+.PHONY : language/native/windows/number.c.i
+
+language/native/windows/number.s: language/native/windows/number.c.s
+.PHONY : language/native/windows/number.s
+
+# target to generate assembly for a file
+language/native/windows/number.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/number.c.s
+.PHONY : language/native/windows/number.c.s
+
+language/native/windows/object.obj: language/native/windows/object.c.obj
+.PHONY : language/native/windows/object.obj
+
+# target to build an object file
+language/native/windows/object.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/object.c.obj
+.PHONY : language/native/windows/object.c.obj
+
+language/native/windows/object.i: language/native/windows/object.c.i
+.PHONY : language/native/windows/object.i
+
+# target to preprocess a source file
+language/native/windows/object.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/object.c.i
+.PHONY : language/native/windows/object.c.i
+
+language/native/windows/object.s: language/native/windows/object.c.s
+.PHONY : language/native/windows/object.s
+
+# target to generate assembly for a file
+language/native/windows/object.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/object.c.s
+.PHONY : language/native/windows/object.c.s
+
+language/native/windows/primitive.obj: language/native/windows/primitive.c.obj
+.PHONY : language/native/windows/primitive.obj
+
+# target to build an object file
+language/native/windows/primitive.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/primitive.c.obj
+.PHONY : language/native/windows/primitive.c.obj
+
+language/native/windows/primitive.i: language/native/windows/primitive.c.i
+.PHONY : language/native/windows/primitive.i
+
+# target to preprocess a source file
+language/native/windows/primitive.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/primitive.c.i
+.PHONY : language/native/windows/primitive.c.i
+
+language/native/windows/primitive.s: language/native/windows/primitive.c.s
+.PHONY : language/native/windows/primitive.s
+
+# target to generate assembly for a file
+language/native/windows/primitive.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/primitive.c.s
+.PHONY : language/native/windows/primitive.c.s
+
+language/native/windows/structure.obj: language/native/windows/structure.c.obj
+.PHONY : language/native/windows/structure.obj
+
+# target to build an object file
+language/native/windows/structure.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/structure.c.obj
+.PHONY : language/native/windows/structure.c.obj
+
+language/native/windows/structure.i: language/native/windows/structure.c.i
+.PHONY : language/native/windows/structure.i
+
+# target to preprocess a source file
+language/native/windows/structure.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/structure.c.i
+.PHONY : language/native/windows/structure.c.i
+
+language/native/windows/structure.s: language/native/windows/structure.c.s
+.PHONY : language/native/windows/structure.s
+
+# target to generate assembly for a file
+language/native/windows/structure.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/language/native/windows/structure.c.s
+.PHONY : language/native/windows/structure.c.s
+
 main.obj: main.c.obj
 .PHONY : main.obj
 
@@ -617,6 +809,30 @@ main.s: main.c.s
 main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/main.c.s
 .PHONY : main.c.s
+
+parser/native/windows/parser.obj: parser/native/windows/parser.c.obj
+.PHONY : parser/native/windows/parser.obj
+
+# target to build an object file
+parser/native/windows/parser.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/parser/native/windows/parser.c.obj
+.PHONY : parser/native/windows/parser.c.obj
+
+parser/native/windows/parser.i: parser/native/windows/parser.c.i
+.PHONY : parser/native/windows/parser.i
+
+# target to preprocess a source file
+parser/native/windows/parser.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/parser/native/windows/parser.c.i
+.PHONY : parser/native/windows/parser.c.i
+
+parser/native/windows/parser.s: parser/native/windows/parser.c.s
+.PHONY : parser/native/windows/parser.s
+
+# target to generate assembly for a file
+parser/native/windows/parser.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/parser/native/windows/parser.c.s
+.PHONY : parser/native/windows/parser.c.s
 
 # Help Target
 help:
@@ -667,9 +883,36 @@ help:
 	@echo ... binary_data/native/windows/tag.obj
 	@echo ... binary_data/native/windows/tag.i
 	@echo ... binary_data/native/windows/tag.s
+	@echo ... compiler/native/windows/token.obj
+	@echo ... compiler/native/windows/token.i
+	@echo ... compiler/native/windows/token.s
+	@echo ... language/native/windows/body.obj
+	@echo ... language/native/windows/body.i
+	@echo ... language/native/windows/body.s
+	@echo ... language/native/windows/expression.obj
+	@echo ... language/native/windows/expression.i
+	@echo ... language/native/windows/expression.s
+	@echo ... language/native/windows/method.obj
+	@echo ... language/native/windows/method.i
+	@echo ... language/native/windows/method.s
+	@echo ... language/native/windows/number.obj
+	@echo ... language/native/windows/number.i
+	@echo ... language/native/windows/number.s
+	@echo ... language/native/windows/object.obj
+	@echo ... language/native/windows/object.i
+	@echo ... language/native/windows/object.s
+	@echo ... language/native/windows/primitive.obj
+	@echo ... language/native/windows/primitive.i
+	@echo ... language/native/windows/primitive.s
+	@echo ... language/native/windows/structure.obj
+	@echo ... language/native/windows/structure.i
+	@echo ... language/native/windows/structure.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... parser/native/windows/parser.obj
+	@echo ... parser/native/windows/parser.i
+	@echo ... parser/native/windows/parser.s
 .PHONY : help
 
 

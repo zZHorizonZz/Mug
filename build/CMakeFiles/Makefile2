@@ -836,12 +836,12 @@ CMakeFiles/ContinuousSubmit.dir/clean:
 CMakeFiles/Mug.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Mug.dir\build.make CMakeFiles/Mug.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\Projects\Mug\build\CMakeFiles --progress-num=1,2,3,4,5 "Built target Mug"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\Projects\Mug\build\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14 "Built target Mug"
 .PHONY : CMakeFiles/Mug.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Mug.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\Projects\Mug\build\CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\Projects\Mug\build\CMakeFiles 14
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/Mug.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start D:\Projects\Mug\build\CMakeFiles 0
 .PHONY : CMakeFiles/Mug.dir/rule

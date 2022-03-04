@@ -10,7 +10,7 @@ typedef struct object_s {
 
 object empty_object = { 0x00 };
 
-struct object new_object(char* value);
+object *new_object(char* value);
 int equals(object *original, object *equal);
 
 #endif
