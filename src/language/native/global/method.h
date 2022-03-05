@@ -3,11 +3,12 @@
 
 #include "body.h"
 
-typedef struct method_s {
+typedef struct method_s
+{
     char *name;
-    body *body;    
+    body *body;
 } method;
 
-void evaluate_method(token_iterator *iterator) {
-    
+void evaluate_method(token_iterator *iterator)
+{
 }

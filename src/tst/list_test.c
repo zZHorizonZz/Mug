@@ -1,13 +1,14 @@
-#include <stdio.h> 
-#include <string.h> 
+#include <stdio.h>
+#include <string.h>
 
 #include "../obj/list.h"
 #include "../obj/object.h"
 
-void test_basic() {
+void test_basic()
+{
     printf("--------------------------------\n");
     printf("Running basic test...\n\n");
-    char* text = "Test";
+    char *text = "Test";
 
     struct list list;
     struct object object;
@@ -23,20 +24,27 @@ void test_basic() {
 
     add(&list, object);
 
-    if(list.last_index == 0) {
+    if (list.last_index == 0)
+    {
         printf("List doen't contain data. [Failed]");
         return;
     }
 
     struct object getter = get(&list, 0);
 
-    if(getter.value == 0x00) {
+    if (getter.value == 0x00)
+    {
         printf("List doesn't contains valid data. [Failed]\n");
         return;
-    } else {
-        if(getter.value == text) {
-            printf("Object added to list is valid. [Done]\n");   
-        } else {
+    }
+    else
+    {
+        if (getter.value == text)
+        {
+            printf("Object added to list is valid. [Done]\n");
+        }
+        else
+        {
             printf("Object is contained in list but doesn't have a valid data. [Failed]\n");
             return;
         }

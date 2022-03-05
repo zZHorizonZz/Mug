@@ -6,7 +6,8 @@
 
 #include "primitive.h"
 
-typedef struct number_s {
+typedef struct number_s
+{
     char type;
     mug_primitive *primitive;
 } number;

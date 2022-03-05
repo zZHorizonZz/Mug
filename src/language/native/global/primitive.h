@@ -10,7 +10,8 @@ typedef struct double_s mug_double;
 typedef struct string_s mug_string;
 typedef struct boolean_s mug_boolean;
 
-typedef union primitive_u {
+typedef union primitive_u
+{
     mug_byte *mug_byte;
     mug_short *mug_short;
     mug_int *mug_int;
@@ -21,35 +22,43 @@ typedef union primitive_u {
     mug_boolean *mug_boolean;
 } mug_primitive;
 
-struct byte_s {
+struct byte_s
+{
     char value;
 };
 
-struct short_s {
+struct short_s
+{
     short value;
 };
 
-struct int_s {
+struct int_s
+{
     int value;
 };
 
-struct long_s {
+struct long_s
+{
     long value;
 };
 
-struct float_s {
+struct float_s
+{
     float value;
 };
 
-struct double_s {
+struct double_s
+{
     double value;
 };
 
-struct string_s {
+struct string_s
+{
     char *value;
 };
 
-struct boolean_s {
+struct boolean_s
+{
     char value;
 };
 

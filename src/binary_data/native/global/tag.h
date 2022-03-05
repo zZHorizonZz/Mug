@@ -19,12 +19,14 @@ typedef struct double_tag_s double_tag;
 typedef struct string_tag_s string_tag;
 typedef struct boolean_tag_s boolean_tag;
 
-struct compound_s {
+struct compound_s
+{
     char type;
     tag *tag;
 };
 
-union tag_u {
+union tag_u
+{
     list_tag *list_tag;
     single_type_list_tag *single_type_list_tag;
     mapped_list_tag *mapped_list_tag;
@@ -38,52 +40,63 @@ union tag_u {
     boolean_tag *boolean_tag;
 };
 
-struct list_tag_s {
+struct list_tag_s
+{
     compound **list;
-    int list_size; 
+    int list_size;
 };
 
-struct single_type_list_tag_s {
+struct single_type_list_tag_s
+{
     char type;
     compound **list;
     int list_size;
 };
 
-struct mapped_list_tag_s {
+struct mapped_list_tag_s
+{
     char **mapping;
     compound **list;
     int list_size;
 };
 
-struct byte_tag_s {
+struct byte_tag_s
+{
     char value;
 };
 
-struct short_tag_s {
+struct short_tag_s
+{
     short value;
 };
 
-struct int_tag_s {
+struct int_tag_s
+{
     int value;
 };
 
-struct long_tag_s {
+struct long_tag_s
+{
     long value;
 };
 
-struct float_tag_s {
+struct float_tag_s
+{
     float value;
 };
 
-struct double_tag_s {
+struct double_tag_s
+{
     double value;
 };
 
-struct string_tag_s {
+struct string_tag_s
+{
     char *value;
 };
 
-struct boolean_tag_s {
+struct boolean_tag_s
+{
     char value;
 };
 

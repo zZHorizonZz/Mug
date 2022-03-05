@@ -3,6 +3,7 @@
 
 #include "token.h"
 
-void evaluate_block(token_iterator *iterator) {
-    if()
+void evaluate_block(token_iterator *iterator)
+{
+    if ()
 }

@@ -5,20 +5,23 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef struct buffer_s {
+typedef struct buffer_s
+{
     char *buffer;
-    
+
     int length;
     int write_index;
     int read_index;
 } buffer;
 
-typedef union float_int {
+typedef union float_int
+{
     float _float;
     int _int;
 } float_int;
 
-typedef union double_long {
+typedef union double_long
+{
     double _double;
     long _long;
 } double_long;
