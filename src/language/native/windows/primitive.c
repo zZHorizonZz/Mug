@@ -31,6 +31,7 @@ char create_primitive(mug_primitive *primitive, char *data)
         switch (data[length - 0x01])
         {
         case 0x64:
+        {
             char *number = strtok(data, "d");
             mug_double *mug_double = malloc(sizeof(struct double_s));
             if (mug_double == 0x00)
@@ -41,7 +42,9 @@ char create_primitive(mug_primitive *primitive, char *data)
             mug_double->value = atof(number);
             primitive->mug_double = mug_double;
             return 0x05;
+        }
         case 0x66:
+        {
             char *number = strtok(data, "f");
             mug_float *mug_float = malloc(sizeof(struct float_s));
             if (mug_float == 0x00)
@@ -52,7 +55,9 @@ char create_primitive(mug_primitive *primitive, char *data)
             mug_float->value = atof(number);
             primitive->mug_float = mug_float;
             return 0x04;
+        }
         case 0x6c:
+        {
             char *number = strtok(data, "l");
             mug_long *mug_long = malloc(sizeof(struct long_s));
             if (mug_long == 0x00)
@@ -64,7 +69,9 @@ char create_primitive(mug_primitive *primitive, char *data)
             primitive->mug_long = mug_long;
             free(number);
             return 0x03;
+        }
         default:
+        {
             mug_int *mug_int = malloc(sizeof(struct int_s));
             if (mug_int == 0x00)
             {
@@ -74,6 +81,7 @@ char create_primitive(mug_primitive *primitive, char *data)
             mug_int->value = atoi(data);
             primitive->mug_int = mug_int;
             return 0x02;
+        }
         }
     }
 

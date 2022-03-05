@@ -55,16 +55,17 @@ void evaluate_token(token *token, char *content)
     token->type = 0x00;
     token->identifier = 0x00;
 
-    if (token->data != 0x00)
+    if (content != 0x00)
     {
-        if(is_primitive(content) == 0x01) {
-            token->identifier = 0x05;
-            token->type = get_primitive_type(content);
+        if (is_constant(content) == 0x01)
+        {
+            token->type = 0x05;
+            token->identifier = get_primitive_type(content);
         }
-        
+
         token->data = malloc(strlen(content));
         strcpy(token->data, content);
-        free(content);
+        free(content); //There seems to be bug with freying of content.
     }
 }
 
@@ -107,7 +108,7 @@ int is_ignore(char letter)
     return 0;
 }
 
-int is_primitive(char *content)
+int is_constant(char *content)
 {
     int length = strlen(content);
     if (strcmp(content, "true") == 0x00 || strcmp(content, "false") == 0x00)
@@ -130,15 +131,17 @@ int is_primitive(char *content)
         switch (content[i])
         {
         case 0x64:
-            continue;
+            return 0x01;
         case 0x66:
-            continue;
+            return 0x01;
         case 0x6c:
-            continue;
+            return 0x01;
         default:
             return 0x00;
         }
     }
+
+    return 0x00;
 }
 
 token_iterator *create_iterator(size_t length, token **array)

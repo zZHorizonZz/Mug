@@ -266,7 +266,11 @@ void next_string_token(lexer *lexer)
     }
 
     char *data = malloc(strlen(current_text));
+    
     token->data = strcpy(data, current_text);
+    token->type = 0x05;
+    token->identifier = 0x06;
+
     next_token(lexer, token, offset);
 
     free(current_text);
