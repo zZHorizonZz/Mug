@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "token.h"
+#include "utilities.h"
 
 void evaluate_token_letter(token *token, char letter)
 {
@@ -56,6 +57,11 @@ void evaluate_token(token *token, char *content)
 
     if (token->data != 0x00)
     {
+        if(is_primitive(content) == 0x01) {
+            token->identifier = 0x05;
+            token->type = get_primitive_type(content);
+        }
+        
         token->data = malloc(strlen(content));
         strcpy(token->data, content);
         free(content);
@@ -75,6 +81,19 @@ int is_separator(char letter)
     return 0;
 }
 
+int is_operator(char letter)
+{
+    for (size_t i = 0; i < 16; i++)
+    {
+        if (OPERATOR[i] != 0x00 && letter == *OPERATOR[i])
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 int is_ignore(char letter)
 {
     for (size_t i = 0; i < 16; i++)
@@ -86,6 +105,40 @@ int is_ignore(char letter)
     }
 
     return 0;
+}
+
+int is_primitive(char *content)
+{
+    int length = strlen(content);
+    if (strcmp(content, "true") == 0x00 || strcmp(content, "false") == 0x00)
+    {
+        return 0x01;
+    }
+
+    if (length > 1 && content[0x00] == 0x22 && content[length] == 0x22)
+    {
+        return 0x01;
+    }
+
+    for (size_t i = 0; i <= length; i++)
+    {
+        if ((content[i] >= 0x30 && content[i] <= 0x39))
+        {
+            continue;
+        }
+
+        switch (content[i])
+        {
+        case 0x64:
+            continue;
+        case 0x66:
+            continue;
+        case 0x6c:
+            continue;
+        default:
+            return 0x00;
+        }
+    }
 }
 
 token_iterator *create_iterator(size_t length, token **array)

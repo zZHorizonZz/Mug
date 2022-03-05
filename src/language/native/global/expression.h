@@ -21,25 +21,25 @@ typedef struct expression_s
 
 struct value_expression_s
 {
-    char t;
+    char type;
+    mug_primitive *primitive;
 };
 
 struct operator_expression_s
 {
-    char t;
+    char operator;
 };
 
 struct reference_expression_s
 {
-    char t;
+    char *reference;
 };
 
 struct arithmetic_expression_s
 {
-    char type;
-
-    number *left_side;
-    number *right_side;
+    operator_expression *operator;
+    expression *left_side;
+    expression *right_side;
 };
 
 token_iterator *split_token_iterator(token_iterator *iterator, char type);

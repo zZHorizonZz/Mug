@@ -38,6 +38,8 @@ int iterator_previous(token_iterator *iterator);
 void free_iterator(token_iterator *iterator);
 
 int is_separator(char letter);
+int is_operator(char letter);
 int is_ignore(char letter);
+int is_primitive(char *content);
 
 #endif

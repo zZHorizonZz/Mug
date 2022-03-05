@@ -38,4 +38,24 @@ void evaluate_token_block(expression *expression, token_iterator *iterator)
 
 void evaluate_arithmetic_expression(expression *expression, token_iterator *iterator)
 {
+    if(iterator->length < 0) {
+        return;
+    }
+
+    iterator_next(iterator);
+    token *token_left = iterator->current_token; 
+    
+    if(token_left.)
+    number *number_left = malloc(sizeof(struct number_s));
+    if(number_left == 0x00) {
+        return;
+    }
+
+    number_left->primitive = malloc(sizeof(mug_primitive));
+    mug_primitive *left_side = number_left->primitive;
+    if(left_side == 0x00) {
+        return;
+    }
+
+
 }

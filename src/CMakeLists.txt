@@ -16,7 +16,10 @@ file(GLOB_RECURSE LANGUAGE_WINDOWS language/native/windows/*.c)
 file(GLOB_RECURSE PARSER_GLOBAL parser/native/global/*.h)
 file(GLOB_RECURSE PARSER_WINDOWS parser/native/windows/*.c)
 
-add_executable(Mug main.c ${BINARY_DATA_WINDOWS} ${BINARY_DATA_GLOBAL} ${COMPILER_GLOBAL} ${COMPILER_WINDOWS} ${LANGUAGE_GLOBAL} ${LANGUAGE_WINDOWS} ${PARSER_GLOBAL} ${PARSER_WINDOWS})
+file(GLOB_RECURSE UTILITIES_GLOBAL util/native/global/*.h)
+file(GLOB_RECURSE UTILITIES_WINDOWS util/native/windows/*.c)
+
+add_executable(Mug main.c ${BINARY_DATA_WINDOWS} ${BINARY_DATA_GLOBAL} ${COMPILER_GLOBAL} ${COMPILER_WINDOWS} ${LANGUAGE_GLOBAL} ${LANGUAGE_WINDOWS} ${PARSER_GLOBAL} ${PARSER_WINDOWS} ${UTILITIES_GLOBAL} ${UTILITIES_WINDOWS})
 
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/binary_data/native/global)
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/binary_data/native/windows)
@@ -32,6 +35,8 @@ target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/language/nativ
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/parser/native/global)
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/parser/native/windows)
 
+target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/util/native/global)
+target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/util/native/windows)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

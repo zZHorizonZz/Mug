@@ -1,6 +1,8 @@
 #ifndef PRIMITIVE_H
 #define PRIMITIVE_H
 
+#include <stdlib.h>
+
 typedef struct byte_s mug_byte;
 typedef struct short_s mug_short;
 typedef struct int_s mug_int;
@@ -61,5 +63,7 @@ struct boolean_s
 {
     char value;
 };
+
+char create_primitive(mug_primitive *primitive, char *data);
 
 #endif

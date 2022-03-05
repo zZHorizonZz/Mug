@@ -40,5 +40,8 @@
 | Bitwise XOR | 0x07 | '^' |
 | Bitwise OR | 0x07 | '|' |
     
+## Constant (Primitive):
+> Constants are value that have value which can not be changed by code for example integer ```64```, float ```8.16```, string ```"Mug"```
+
 ## Identifier:
-    Identifiers are objects which are not generics like name of the structure, repository, method
+>    Identifiers are objects which are not generics like name of the structure, repository, method
