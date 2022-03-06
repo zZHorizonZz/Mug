@@ -63,9 +63,15 @@ void evaluate_token(token *token, char *content)
             token->identifier = get_primitive_type(content);
         }
 
-        token->data = malloc(strlen(content));
+        token->data = malloc(strlen(content) + 1);
+        if (token->data == 0x00)
+        {
+            printf("\n[ERROR] Null pointer exception. (Token data are null)\n");
+            exit(0x01);
+            return;
+        }
         strcpy(token->data, content);
-        free(content); //There seems to be bug with freying of content.
+        free(content); // There seems to be bug with freying of content.
     }
 }
 
@@ -125,6 +131,10 @@ int is_constant(char *content)
     {
         if ((content[i] >= 0x30 && content[i] <= 0x39))
         {
+            if(i = strlen(content)) {
+                return 0x01;
+            }
+            
             continue;
         }
 

@@ -180,7 +180,13 @@ void evaluate_next_token(lexer *lexer)
             return;
         }
 
-        char *token_data = malloc(strlen(text));
+        char *token_data = malloc(strlen(text) + 1);
+        if(token_data == 0x00) {
+            printf("\n[ERROR] Null pointer exception. (Token data are null)\n");
+            exit(0x01);
+            return;
+        }
+
         evaluate_token(token, strcpy(token_data, text));
 
         if (token->type == 0x01 && token->identifier == 0x07)

@@ -55,7 +55,7 @@ int compile_file(char *path, char *name)
                 printf("[TOKEN] Operator token of type '%s'.\n", OPERATOR[token->identifier]);
                 break;
             case 0x05:
-                printf("[TOKEN] Primitive token of type '%s'.\n", token->identifier);
+                printf("[TOKEN] Primitive token of type '%s'.\n", token->data);
                 break;
             default:
                 break;
