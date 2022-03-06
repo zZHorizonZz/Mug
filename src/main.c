@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 
     if(strcmp(argv[1], "run") == 0x00) {
         printf("[Mug] Running code...\n");
-
+        
     }
     // test_basic();
 

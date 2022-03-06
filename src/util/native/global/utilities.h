@@ -21,5 +21,6 @@
 #include <stdlib.h>
 
 char get_primitive_type(char *data);
+char get_operator_type(char *data);
 
 #endif

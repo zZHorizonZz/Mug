@@ -1,12 +1,12 @@
 /**
  * Copyright 2022 Daniel Fiala
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,6 +18,7 @@
 #include <stdio.h>
 
 #include "lexer.c"
+#include "expression.h"
 
 struct binary
 {
@@ -82,6 +83,18 @@ int compile_file(char *path, char *name)
             printf("[TOKEN] Identifier token '%s'.\n", token->data);
         }
     }
+
+    token **tokens = malloc(sizeof(token) * (lexer->last_token_index - 1));
+    for (size_t i = 0; i < lexer->last_token_index - 1; i++)
+    {
+        tokens[i] = lexer->tokens[i];
+    }
+
+    token_iterator *iterator = create_iterator(lexer->last_token_index - 1, tokens);
+    expression *expression = malloc(sizeof(expression));
+
+    evaluate_token_block(expression, iterator);
+    run_expression(expression);
 
     fclose(fp);
 
