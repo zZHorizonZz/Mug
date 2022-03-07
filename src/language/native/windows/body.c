@@ -43,8 +43,8 @@ void evaluate_body(body *body, token_iterator *iterator)
                 }
 
                 expression_iterator = create_iterator(length, current_token_expression);
-                
-                evaluate_token_block()
+
+                // evaluate_token_block()
             }
         }
 

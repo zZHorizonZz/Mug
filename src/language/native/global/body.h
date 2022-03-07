@@ -19,35 +19,41 @@
 
 #include "expression.h"
 
-typedef struct body_s
+typedef struct body_s body;
+typedef union block_u block;
+typedef struct field_block_s field_block;
+typedef struct expression_blocks_s expression_block;
+typedef struct statement_block_s statement_block;
+
+struct body_s
 {
     size_t length;
     expression **expression;
-} body;
+};
 
-typedef union block_s
+union block_s
 {
     field_block *field_block;
     expression_block *expression_block;
     statement_block *statement_block;
-} block;
+};
 
-typedef struct field_block_s
+struct field_block_s
 {
     // todo add object type;
     char *name;
     expression *initializer;
-} field_block;
+};
 
-typedef struct expression_block_s
+struct expression_block_s
 {
     expression *expression;
-} expression_block;
+};
 
-typedef struct statement_blocks_s
+struct statement_blocks_s
 {
     char *t;
-} statement_block;
+};
 
 void evaluate_body(body *body, token_iterator *iterator);
 void add_expression(body *body, expression *expression);
