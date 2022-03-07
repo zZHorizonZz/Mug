@@ -1,12 +1,12 @@
 /**
  * Copyright 2022 Daniel Fiala
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -147,10 +147,11 @@ int is_constant(char *content)
     {
         if ((content[i] >= 0x30 && content[i] <= 0x39))
         {
-            if(i = strlen(content)) {
+            if (i = strlen(content))
+            {
                 return 0x01;
             }
-            
+
             continue;
         }
 
@@ -204,6 +205,16 @@ int iterator_previous(token_iterator *iterator)
 
     iterator->current_token = iterator->array[--iterator->index];
     return 1;
+}
+
+int iterator_has_next(token_iterator *iterator)
+{
+    if (iterator->index + 0x01 < iterator->length)
+    {
+        return 0x01;
+    }
+
+    return 0x00;
 }
 
 void free_iterator(token_iterator *iterator)

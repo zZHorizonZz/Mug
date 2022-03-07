@@ -51,6 +51,7 @@ token_iterator *create_iterator(size_t length, token **array);
 
 int iterator_next(token_iterator *iterator);
 int iterator_previous(token_iterator *iterator);
+int iterator_has_next(token_iterator *iterator);
 void free_iterator(token_iterator *iterator);
 
 int is_separator(char letter);

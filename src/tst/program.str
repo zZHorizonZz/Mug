@@ -10,6 +10,10 @@ repository Repository {
         int main() {
             return test.test;
         }
+
+        [int, string] tupleTest() {
+            return 5, "test";
+        }
     }
 
     structure Test {
