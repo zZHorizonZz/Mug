@@ -25,6 +25,6 @@ typedef struct method_s
     body *body;
 } method;
 
-void evaluate_method(token_iterator *iterator)
+void parse_method(token_iterator *iterator)
 {
 }

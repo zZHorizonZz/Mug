@@ -48,20 +48,20 @@ token_iterator *split_token_iterator(token_iterator *iterator, char type)
     }
 }
 
-void evaluate_token_block(expression *expression, token_iterator *iterator)
+void parse_token_block(expression *expression, token_iterator *iterator)
 {
     if (iterator->length == 0x01)
     {
-        evaluate_value_expression(expression, iterator);
+        parse_value_expression(expression, iterator);
     }
     else
     {
         expression->operator_expression = malloc(sizeof(operator_expression));
-        evaluate_operator_expression(expression, iterator);
+        parse_operator_expression(expression, iterator);
     }
 }
 
-void evaluate_operator_expression(expression *operator_expression, token_iterator *iterator)
+void parse_operator_expression(expression *operator_expression, token_iterator *iterator)
 {
     if (iterator->length < 0)
     {
@@ -81,7 +81,7 @@ void evaluate_operator_expression(expression *operator_expression, token_iterato
         value_token->array[0x00] = current_token;
         value_token->length = 0x01;
 
-        evaluate_value_expression(primitive_expression, value_token);
+        parse_value_expression(primitive_expression, value_token);
 
         iterator_next(iterator);
 
@@ -91,7 +91,7 @@ void evaluate_operator_expression(expression *operator_expression, token_iterato
         if (iterator->index + 0x02 < iterator->length && iterator->array[iterator->index + 0x02]->type == 0x03)
         {
             operator_expression->operator_expression->right_side = malloc(sizeof(expression));
-            evaluate_operator_expression(operator_expression->operator_expression->right_side, iterator);
+            parse_operator_expression(operator_expression->operator_expression->right_side, iterator);
         }
         else
         {
@@ -104,13 +104,13 @@ void evaluate_operator_expression(expression *operator_expression, token_iterato
             value_token->array[0x00] = current_token;
             value_token->length = 0x01;
 
-            evaluate_value_expression(primitive_expression, value_token);
+            parse_value_expression(primitive_expression, value_token);
             operator_expression->operator_expression->right_side = primitive_expression;
         }
     }
 }
 
-void evaluate_value_expression(expression *value_expression, token_iterator *iterator)
+void parse_value_expression(expression *value_expression, token_iterator *iterator)
 {
     if (iterator->length < 1)
     {

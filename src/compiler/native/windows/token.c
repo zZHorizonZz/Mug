@@ -20,14 +20,14 @@
 #include "token.h"
 #include "utilities.h"
 
-void evaluate_token_letter(token *token, char letter)
+void parse_token_letter(token *token, char letter)
 {
     char *buffer = malloc(sizeof(char));
     buffer[0] = letter;
-    return evaluate_token(token, buffer);
+    return parse_token(token, buffer);
 }
 
-void evaluate_token(token *token, char *content)
+void parse_token(token *token, char *content)
 {
     for (size_t i = 0; i < 16; i++)
     {

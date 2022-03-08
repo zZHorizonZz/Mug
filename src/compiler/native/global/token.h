@@ -44,8 +44,8 @@ static const char *OPERATOR[16] = {"+", "-", "*", "/", "<<", ">>", "|", "&", "^"
 static const char *BLANK[16] = {"//"};
 static const char *IGNORE[16] = {" ", "\n", "\r", "\t"};
 
-void evaluate_token_letter(token *token, char letter);
-void evaluate_token(token *token, char *content);
+void parse_token_letter(token *token, char letter);
+void parse_token(token *token, char *content);
 
 token_iterator *create_iterator(size_t length, token **array);
 

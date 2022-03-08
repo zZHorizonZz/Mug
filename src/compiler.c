@@ -49,7 +49,7 @@ int compile_file(char *path, char *name)
     printf("[Compiler] Evaluating content...");
     while (fgets(buffer, 256, fp))
     {
-        evaluate_content(lexer, buffer);
+        parse_content(lexer, buffer);
         free(buffer);
     }
 
@@ -93,7 +93,7 @@ int compile_file(char *path, char *name)
     token_iterator *iterator = create_iterator(lexer->last_token_index - 1, tokens);
     expression *expression = malloc(sizeof(expression));
 
-    evaluate_token_block(expression, iterator);
+    parse_token_block(expression, iterator);
     run_expression(expression);
 
     fclose(fp);

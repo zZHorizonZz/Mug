@@ -55,5 +55,5 @@ struct statement_blocks_s
     char *t;
 };
 
-void evaluate_body(body *body, token_iterator *iterator);
+void parse_body(body *body, token_iterator *iterator);
 void add_expression(body *body, expression *expression);

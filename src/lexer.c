@@ -39,8 +39,8 @@ char *create_token_binary(lexer *lexer);
 void add_binary_header(compound *binary);
 void add_binary_content(compound *binary, lexer *lexer);
 
-void evaluate_content(lexer *lexer, char *content);
-void evaluate_next_token(lexer *lexer);
+void parse_content(lexer *lexer, char *content);
+void parse_next_token(lexer *lexer);
 void next_token(lexer *lexer, token *token, int offset);
 void next_string_token(lexer *lexer);
 
@@ -109,7 +109,7 @@ void add_binary_content(compound *binary, lexer *lexer)
     add_value_to_mapped_list_tag(binary, "content", content);
 }
 
-void evaluate_content(lexer *lexer, char *content)
+void parse_content(lexer *lexer, char *content)
 {
     lexer->content = content;
     lexer->content_length = strlen(content);
@@ -125,12 +125,12 @@ void evaluate_content(lexer *lexer, char *content)
 
     while (lexer->last_index != lexer->content_length && current_depth <= max_depth)
     {
-        evaluate_next_token(lexer);
+        parse_next_token(lexer);
         current_depth++;
     }
 }
 
-void evaluate_next_token(lexer *lexer)
+void parse_next_token(lexer *lexer)
 {
     token *token = malloc(sizeof(struct token_s));
 
@@ -203,7 +203,7 @@ void evaluate_next_token(lexer *lexer)
             return;
         }
 
-        evaluate_token(token, strcpy(token_data, text));
+        parse_token(token, strcpy(token_data, text));
 
         if (token->type == 0x01 && token->identifier == 0x07)
         {

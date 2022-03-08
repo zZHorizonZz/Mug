@@ -52,9 +52,9 @@ struct reference_expression_s
 };
 
 token_iterator *split_token_iterator(token_iterator *iterator, char type);
-void evaluate_token_block(expression *expression, token_iterator *iterator);
-void evaluate_operator_expression(expression *operator_expression, token_iterator *iterator);
-void evaluate_value_expression(expression *value_expression, token_iterator *iterator);
+void parse_token_block(expression *expression, token_iterator *iterator);
+void parse_operator_expression(expression *operator_expression, token_iterator *iterator);
+void parse_value_expression(expression *value_expression, token_iterator *iterator);
 void run_expression(expression *expression);
 void run_value_expression(value_expression *expression);
 int run_operator_expression(operator_expression *expression);

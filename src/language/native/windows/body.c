@@ -16,7 +16,7 @@
 
 #include "body.h"
 
-void evaluate_body(body *body, token_iterator *iterator)
+void parse_body(body *body, token_iterator *iterator)
 {
     if (iterator->length < 1)
     {
@@ -44,7 +44,7 @@ void evaluate_body(body *body, token_iterator *iterator)
 
                 expression_iterator = create_iterator(length, current_token_expression);
 
-                // evaluate_token_block()
+                // parse_token_block()
             }
         }
 

@@ -19,7 +19,7 @@
 
 #include "token.h"
 
-void evaluate_block(token_iterator *iterator)
+void parse_block(token_iterator *iterator)
 {
     if ()
 }
