@@ -29,8 +29,9 @@ void parse_body(body *body, token_iterator *iterator)
     token **current_token_expression;
     token *current_token = iterator->current_token;
     token_iterator *expression_iterator;
+    expression *expression =
 
-    while (iterator_has_next(iterator) == 0x01)
+        while (iterator_has_next(iterator) == 0x01)
     {
         if (current_token->type == 0x01)
         {
@@ -44,7 +45,7 @@ void parse_body(body *body, token_iterator *iterator)
 
                 expression_iterator = create_iterator(length, current_token_expression);
 
-                // parse_token_block()
+                parse_token_block(expression_iterator);
             }
         }
 
@@ -58,6 +59,25 @@ void parse_body(body *body, token_iterator *iterator)
         }
 
         current_token_expression[length - 1] = current_token;
+    }
+}
+
+void parse_block(block *block, token_iterator *iterator)
+{
+    iterator_next(iterator);
+
+    token *current_token = iterator->current_token;
+
+    switch (current_token->type)
+    {
+    case 0x00:
+        
+        break;
+    case 0x02:
+
+        break;
+    default:
+        break;
     }
 }
 

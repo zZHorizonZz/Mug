@@ -94,7 +94,7 @@ int compile_file(char *path, char *name)
     expression *expression = malloc(sizeof(expression));
 
     parse_token_block(expression, iterator);
-    run_expression(expression);
+    execute_expression(expression);
 
     fclose(fp);
 

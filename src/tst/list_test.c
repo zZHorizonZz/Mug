@@ -23,7 +23,7 @@
 void test_basic()
 {
     printf("--------------------------------\n");
-    printf("Running basic test...\n\n");
+    printf("executening basic test...\n\n");
     char *text = "Test";
 
     struct list list;

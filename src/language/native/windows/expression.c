@@ -138,19 +138,19 @@ void parse_value_expression(expression *value_expression, token_iterator *iterat
     value_expression->value_expression->primitive = primitive;
 }
 
-void run_expression(expression *expression)
+void execute_expression(expression *expression)
 {
     if (expression->type = 0x00)
     {
-        run_value_expression(expression->value_expression);
+        execute_value_expression(expression->value_expression);
     }
     else
     {
-        printf("Result of calculation is %d", run_operator_expression(expression->operator_expression));
+        printf("Result of calculation is %d", execute_operator_expression(expression->operator_expression));
     }
 }
 
-void run_value_expression(value_expression *expression)
+void execute_value_expression(value_expression *expression)
 {
     switch (expression->type)
     {
@@ -183,7 +183,7 @@ void run_value_expression(value_expression *expression)
     }
 }
 
-int run_operator_expression(operator_expression *expression)
+int execute_operator_expression(operator_expression *expression)
 {
     if (expression->right_side->type == 0x00)
     {
@@ -228,28 +228,28 @@ int run_operator_expression(operator_expression *expression)
         case 0x00:
         {
             int result = expression->left_side->value_expression->primitive->mug_int->value +
-                         run_operator_expression(expression->right_side->operator_expression);
+                         execute_operator_expression(expression->right_side->operator_expression);
 
             return result;
         }
         case 0x01:
         {
             int result = expression->left_side->value_expression->primitive->mug_int->value +
-                         run_operator_expression(expression->right_side->operator_expression);
+                         execute_operator_expression(expression->right_side->operator_expression);
 
             return result;
         }
         case 0x02:
         {
             int result = expression->left_side->value_expression->primitive->mug_int->value +
-                         run_operator_expression(expression->right_side->operator_expression);
+                         execute_operator_expression(expression->right_side->operator_expression);
 
             return result;
         }
         case 0x03:
         {
             int result = expression->left_side->value_expression->primitive->mug_int->value +
-                         run_operator_expression(expression->right_side->operator_expression);
+                         execute_operator_expression(expression->right_side->operator_expression);
 
             return result;
         }

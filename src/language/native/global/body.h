@@ -20,6 +20,7 @@
 #include "expression.h"
 
 typedef struct body_s body;
+
 typedef union block_u block;
 typedef struct field_block_s field_block;
 typedef struct expression_blocks_s expression_block;
@@ -56,4 +57,5 @@ struct statement_blocks_s
 };
 
 void parse_body(body *body, token_iterator *iterator);
+void parse_block(block *block, token_iterator *iterator);
 void add_expression(body *body, expression *expression);
