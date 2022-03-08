@@ -14,15 +14,3 @@
  * limitations under the License.
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-
-#include "body.h"
-
-typedef struct method_s
-{
-    char *name;
-    body *body;
-} method;
-
-void parse_method(method *method, token_iterator *iterator);

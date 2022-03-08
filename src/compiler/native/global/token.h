@@ -48,6 +48,7 @@ void parse_token_letter(token *token, char letter);
 void parse_token(token *token, char *content);
 
 token_iterator *create_iterator(size_t length, token **array);
+int resize_iterator(token_iterator *iterator, int start, int end);
 
 int iterator_next(token_iterator *iterator);
 int iterator_previous(token_iterator *iterator);

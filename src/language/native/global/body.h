@@ -29,10 +29,10 @@ typedef struct statement_block_s statement_block;
 struct body_s
 {
     size_t length;
-    expression **expression;
+    block **expression;
 };
 
-union block_s
+union block_u
 {
     field_block *field_block;
     expression_block *expression_block;
@@ -41,7 +41,7 @@ union block_s
 
 struct field_block_s
 {
-    // todo add object type;
+    char *type;
     char *name;
     expression *initializer;
 };
@@ -58,4 +58,4 @@ struct statement_blocks_s
 
 void parse_body(body *body, token_iterator *iterator);
 void parse_block(block *block, token_iterator *iterator);
-void add_expression(body *body, expression *expression);
+void add_block(body *body, block *expression);

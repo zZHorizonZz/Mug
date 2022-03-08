@@ -185,6 +185,41 @@ token_iterator *create_iterator(size_t length, token **array)
     return iterator;
 }
 
+int resize_iterator(token_iterator *iterator, int start, int end)
+{
+    if (start > iterator->length || end > iterator->length)
+    {
+        return 0x00;
+    }
+
+    if (start > end)
+    {
+        return 0x00;
+    }
+
+    size_t final_length = end - start;
+    token **new_array = malloc(sizeof(token) * final_length);
+
+    if (new_array == 0x00)
+    {
+        return 0x00;
+    }
+
+    for (size_t i = 0; i < final_length; i++)
+    {
+        new_array[i] = iterator->array[i];
+    }
+
+    free(iterator->array);
+
+    iterator->array = new_array;
+    iterator->length = final_length;
+    iterator->index = -0x01;
+    iterator->current_token = 0x00;
+
+    return 0x01;
+}
+
 int iterator_next(token_iterator *iterator)
 {
     if (iterator->index >= iterator->length)
