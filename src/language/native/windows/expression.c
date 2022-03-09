@@ -15,91 +15,66 @@
  */
 
 #include "expression.h"
+#include "storage.h"
 
-token_iterator *split_token_iterator(token_iterator *iterator, char type)
+void parse_token_block(expression *expression, set *token_set)
 {
-    if (iterator->length < 0)
+    if (token_set->length == 0x01)
     {
-        return 0x00;
-    }
-
-    token **array;
-
-    for (size_t i = 0; i < iterator->length; i++)
-    {
-        token *token = iterator->array[i];
-        if (array == 0x00)
-        {
-            array = malloc(sizeof(struct token_s *));
-        }
-        else
-        {
-            array = realloc(array, sizeof(struct token_s *) * i + 1);
-        }
-
-        struct token_s *copy = malloc(sizeof(struct token_s));
-        array[i] = memcpy(copy, token, sizeof(struct token_s));
-
-        if (token->identifier == type)
-        {
-            token_iterator *iterator = create_iterator(i, array);
-            return iterator;
-        }
-    }
-}
-
-void parse_token_block(expression *expression, token_iterator *iterator)
-{
-    if (iterator->length == 0x01)
-    {
-        parse_value_expression(expression, iterator);
+        parse_value_expression(expression, token_set);
     }
     else
     {
         expression->operator_expression = malloc(sizeof(operator_expression));
-        parse_operator_expression(expression, iterator);
+        parse_operator_expression(expression, token_set);
     }
 }
 
-void parse_operator_expression(expression *operator_expression, token_iterator *iterator)
+void parse_operator_expression(expression *operator_expression, set *token_set)
 {
-    if (iterator->length < 0)
+    if (token_set->length < 0)
     {
         return;
     }
 
-    iterator_next(iterator);
-    token *current_token = iterator->current_token;
+    iterator *expression_iterator = create_iterator(token_set);
+
+    iterator_next(expression_iterator);
+    token *current_token = expression_iterator->current;
     operator_expression->type = 0x01;
 
     if (current_token->type == 0x05)
     {
         expression *primitive_expression = malloc(sizeof(expression));
 
-        token_iterator *value_token = calloc(4, sizeof(token_iterator));
+        set *value_token = create_set(0x00, 0x00);
         value_token->array = malloc(sizeof(token));
         value_token->array[0x00] = current_token;
         value_token->length = 0x01;
 
         parse_value_expression(primitive_expression, value_token);
 
-        iterator_next(iterator);
+        iterator_next(expression_iterator);
 
         operator_expression->operator_expression->left_side = primitive_expression;
-        operator_expression->operator_expression->operator= iterator->current_token->identifier;
 
-        if (iterator->index + 0x02 < iterator->length && iterator->array[iterator->index + 0x02]->type == 0x03)
+        token *operator= expression_iterator->current;
+        token *future = expression_iterator->set->array[expression_iterator->index + 0x02];
+
+        operator_expression->operator_expression->operator= operator->identifier;
+
+        if (expression_iterator->index + 0x02 < expression_iterator->set->length && future->type == 0x03)
         {
             operator_expression->operator_expression->right_side = malloc(sizeof(expression));
-            parse_operator_expression(operator_expression->operator_expression->right_side, iterator);
+            parse_operator_expression(operator_expression->operator_expression->right_side, expression_iterator->set);
         }
         else
         {
-            iterator_next(iterator);
-            current_token = iterator->current_token;
+            iterator_next(expression_iterator);
+            current_token = expression_iterator->current;
             expression *primitive_expression = malloc(sizeof(expression));
 
-            token_iterator *value_token = calloc(4, sizeof(token_iterator));
+            set *value_token = create_set(0x00, 0x00);
             value_token->array = malloc(sizeof(token));
             value_token->array[0x00] = current_token;
             value_token->length = 0x01;
@@ -110,15 +85,17 @@ void parse_operator_expression(expression *operator_expression, token_iterator *
     }
 }
 
-void parse_value_expression(expression *value_expression, token_iterator *iterator)
+void parse_value_expression(expression *value_expression, set *token_set)
 {
-    if (iterator->length < 1)
+    if (token_set->length < 1)
     {
         return;
     }
 
-    iterator_next(iterator);
-    token *value = iterator->current_token;
+    iterator *value_iterator = create_iterator(token_set);
+
+    iterator_next(value_iterator);
+    token *value = value_iterator->current;
 
     mug_primitive *primitive = malloc(sizeof(mug_primitive));
     if (primitive == 0x00)

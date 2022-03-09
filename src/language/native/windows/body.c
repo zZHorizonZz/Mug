@@ -15,23 +15,26 @@
  */
 
 #include "body.h"
+#include "storage.h"
 
-void parse_body(body *body, token_iterator *iterator)
+void parse_body(body *body, set *token_set)
 {
-    if (iterator->length < 1)
+    if (token_set->length < 1)
     {
         return;
     }
 
-    iterator_next(iterator);
+    iterator *token_iterator =create_iterator(token_set);
+
+    iterator_next(token_iterator);
 
     size_t length = 0x00;
     token **current_token_expression;
-    token *current_token = iterator->current_token;
-    token_iterator *expression_iterator;
+    token *current_token = token_iterator->current;
+    set *expression_set;
     expression *expression;
 
-    while (iterator_has_next(iterator) == 0x01)
+    while (iterator_has_next(token_iterator) == 0x01)
     {
         if (current_token->type == 0x01)
         {
@@ -43,11 +46,11 @@ void parse_body(body *body, token_iterator *iterator)
                     return;
                 }
 
-                expression_iterator = create_iterator(length, current_token_expression);
+                expression_set = create_set(length, (void**) current_token_expression);
                 block *block = malloc(sizeof(block));
-                parse_block(block, expression_iterator);
+                parse_block(body->body_block, block, expression_set);
 
-                free(expression_iterator);
+                free(expression_set);
             }
         }
 
@@ -62,53 +65,7 @@ void parse_body(body *body, token_iterator *iterator)
 
         current_token_expression[length - 1] = current_token;
 
-        iterator_next(iterator);
-        current_token = iterator->current_token;
+        iterator_next(token_iterator);
+        current_token = token_iterator->current;
     }
-}
-
-void parse_block(block *block, token_iterator *iterator)
-{
-    iterator_next(iterator);
-
-    token *current_token = iterator->current_token;
-
-    switch (current_token->type)
-    {
-    case 0x00:
-    {
-        field_block *field = malloc(sizeof(field_block));
-        expression *initializer = malloc(sizeof(initializer));
-
-        if (field == 0x00)
-        {
-            exit(0x01);
-            return;
-        }
-
-        if (iterator->array[iterator->index + 0x01]->type == 0x00)
-        {
-            field->type = current_token->data;
-            iterator_next(iterator);
-            field->name = current_token->data;
-        }
-        else
-        {
-            field->name = current_token->data;
-        }
-
-        iterator_next(iterator);
-        parse_token_block(initializer, resize_iterator(iterator, iterator->index, iterator->length));
-        break;
-    }
-    case 0x02:
-
-        break;
-    default:
-        break;
-    }
-}
-
-void add_block(body *body, block *expression)
-{
 }

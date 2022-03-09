@@ -14,23 +14,44 @@
  * limitations under the License.
  */
 
-#ifndef BODY_H
-#define BODY_H
+#ifndef BLOCK_H
+#define BLOCK_H
 
 #include <stdlib.h>
 #include <stdio.h>
 
 #include "expression.h"
-#include "block.h"
+#include "storage.h"
 
-typedef struct body_s body;
+typedef union block_u block;
+typedef struct field_block_s field_block;
+typedef struct expression_blocks_s expression_block;
+typedef struct statement_block_s statement_block;
 
-struct body_s
+union block_u
 {
-    size_t length;
-    set *body_block;
+    field_block *field_block;
+    expression_block *expression_block;
+    statement_block *statement_block;
 };
 
-void parse_body(body *body, set *token_set);
+struct field_block_s
+{
+    char *type;
+    char *name;
+    expression *initializer;
+};
+
+struct expression_block_s
+{
+    expression *expression;
+};
+
+struct statement_blocks_s
+{
+    char *t;
+};
+
+void parse_block(set *block_set, block *block, set *token_set);
 
 #endif

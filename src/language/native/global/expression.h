@@ -19,6 +19,7 @@
 
 #include "number.h"
 #include "token.h"
+#include "storage.h"
 
 typedef struct value_expression_s value_expression;
 typedef struct operator_expression_s operator_expression;
@@ -41,7 +42,7 @@ struct value_expression_s
 
 struct operator_expression_s
 {
-    char *operator;
+    char operator;
     expression *left_side;
     expression *right_side;
 };
@@ -51,10 +52,10 @@ struct reference_expression_s
     char *reference;
 };
 
-token_iterator *split_token_iterator(token_iterator *iterator, char type);
-void parse_token_block(expression *expression, token_iterator *iterator);
-void parse_operator_expression(expression *operator_expression, token_iterator *iterator);
-void parse_value_expression(expression *value_expression, token_iterator *iterator);
+//token_iterator *split_token_iterator(token_iterator *iterator, char type);
+void parse_token_block(expression *expression, set *token_set);
+void parse_operator_expression(expression *operator_expression, set *token_set);
+void parse_value_expression(expression *value_expression, set *token_set);
 void execute_expression(expression *expression);
 void execute_value_expression(value_expression *expression);
 int execute_operator_expression(operator_expression *expression);

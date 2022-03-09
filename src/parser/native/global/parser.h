@@ -16,10 +16,3 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
-#include "token.h"
-
-void parse_block(token_iterator *iterator)
-{
-    if ()
-}
