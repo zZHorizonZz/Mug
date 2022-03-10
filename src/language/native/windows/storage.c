@@ -18,7 +18,7 @@
 
 set *create_set(size_t length, void **array)
 {
-    set *set = calloc(4, sizeof(iterator));
+    set *set = calloc(2, sizeof(set) * length);
 
     if (set == 0x00)
     {

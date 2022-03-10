@@ -24,15 +24,15 @@ void parse_body(body *body, set *token_set)
         return;
     }
 
-    iterator *token_iterator =create_iterator(token_set);
+    iterator *token_iterator = create_iterator(token_set);
 
     iterator_next(token_iterator);
 
-    size_t length = 0x00;
-    token **current_token_expression;
     token *current_token = token_iterator->current;
-    set *expression_set;
+    set *expression_set = create_set(0x00, 0x00);
     expression *expression;
+
+    // TODO There is a bug with freeing of expression_set and also it seems like this will pase only one block even if there are two blocks.
 
     while (iterator_has_next(token_iterator) == 0x01)
     {
@@ -40,32 +40,23 @@ void parse_body(body *body, set *token_set)
         {
             if (current_token->identifier = 0x06)
             {
-                if (length < 1 || current_token_expression == 0x00)
+                if (expression_set->length < 1 || expression_set == 0x00)
                 {
                     exit(0x01);
                     return;
                 }
 
-                expression_set = create_set(length, (void**) current_token_expression);
                 block *block = malloc(sizeof(block));
                 parse_block(body->body_block, block, expression_set);
 
-                free(expression_set);
+                // free(expression_set);
+                expression_set = create_set(0x00, 0x00);
             }
         }
 
-        if (length == 0x00)
-        {
-            current_token_expression = malloc(sizeof(token) * length++);
-        }
-        else
-        {
-            current_token_expression = realloc(current_token_expression, sizeof(token) * length++);
-        }
-
-        current_token_expression[length - 1] = current_token;
-
+        set_add(expression_set, current_token);
         iterator_next(token_iterator);
+
         current_token = token_iterator->current;
     }
 }
