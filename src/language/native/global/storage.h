@@ -21,7 +21,8 @@
 typedef struct set_s set;
 typedef struct iterator_s iterator;
 
-struct set_s {
+struct set_s
+{
     size_t length;
     void **array;
 };
@@ -36,10 +37,13 @@ struct iterator_s
 
 set *create_set(size_t length, void **array);
 iterator *create_iterator(set *set);
+set *copy_set(set *destination, set *original);
+
+int set_add(set *set, void *object);
+set *set_resize(set *set, int start, int end);
 
 int iterator_next(iterator *iterator);
 int iterator_has_next(iterator *iterator);
-int iterator_resize(iterator *iterator, int start, int end);
 int iterator_free(iterator *iterator);
 
 #endif

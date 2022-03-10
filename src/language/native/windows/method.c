@@ -27,10 +27,45 @@ void parse_method(method *method, set *token_set)
     iterator_next(method_iterator);
     token *current_token = method_iterator->current;
 
-    if (current_token == 0x00)
+    if (current_token->type == 0x00)
     {
         method->name = current_token->data;
-        
+        iterator_next(method_iterator);
+        current_token = method_iterator->current;
+
+        if (current_token->type == 0x01 && current_token->identifier == 0x02)
+        {
+            iterator_next(method_iterator);
+            current_token = method_iterator->current;
+
+            if (current_token->type == 0x01 && current_token->identifier == 0x03)
+            {
+                iterator_next(method_iterator);
+                current_token = method_iterator->current;
+
+                if (current_token->type == 0x01 && current_token->identifier == 0x04)
+                {
+                    set *body_set = create_set(0x00, 0x00);
+
+                    while (method_iterator->index < token_set->length - 1)
+                    {
+                        iterator_next(method_iterator);
+                        current_token = method_iterator->current;
+
+                        set_add(body_set, current_token);
+                    }
+
+                    body *method_body = malloc(sizeof(body));
+                    if (method_body == 0x00)
+                    {
+                        exit(0x01);
+                        return;
+                    }
+
+                    parse_body(method_body, body_set);
+                }
+            }
+        }
     }
     else
     {

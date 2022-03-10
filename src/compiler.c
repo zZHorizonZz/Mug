@@ -19,7 +19,7 @@
 
 #include "lexer.c"
 #include "storage.h"
-#include "expression.h"
+#include "method.h"
 
 struct binary
 {
@@ -91,11 +91,11 @@ int compile_file(char *path, char *name)
         tokens[i] = lexer->tokens[i];
     }
 
-    set *token_set = create_set(lexer->last_token_index - 1, (void**) tokens);
-    expression *expression = malloc(sizeof(expression));
+    set *token_set = create_set(lexer->last_token_index - 1, (void **)tokens);
+    method *method = malloc(sizeof(method));
 
-    parse_token_block(expression, token_set);
-    execute_expression(expression);
+    parse_method(method, token_set);
+    // execute_expression(expression);
 
     fclose(fp);
 

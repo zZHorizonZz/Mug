@@ -33,11 +33,40 @@ set *create_set(size_t length, void **array)
 iterator *create_iterator(set *set)
 {
     iterator *iterator = calloc(3, sizeof(iterator));
-    if(iterator == 0x00) {
+    if (iterator == 0x00)
+    {
         return 0x00;
     }
 
     iterator->set = set;
+}
+
+set *copy_set(set *destination, set *original)
+{
+    destination->array = malloc(sizeof(void *) * original->length);
+    for (size_t i = 0; i < original->length; i++)
+    {
+        destination->array[i] = original->array[i];
+    }
+
+    destination->length = original->length;
+    return destination;
+}
+
+int set_add(set *set, void *object)
+{
+    if (set->array == 0x00)
+    {
+        set->array = malloc(sizeof(void *));
+    }
+    else
+    {
+        set->array = realloc(set->array, sizeof(void *) * (set->length + 1));
+    }
+
+    set->array[set->length] = object;
+    set->length++;
+    return 0x01;
 }
 
 int iterator_next(iterator *iterator)
@@ -61,9 +90,9 @@ int iterator_has_next(iterator *iterator)
     return 0x00;
 }
 
-int iterator_resize(iterator *iterator, int start, int end)
+set *set_resize(set *original, int start, int end)
 {
-    if (start > iterator->set->length || end > iterator->set->length)
+    if (start > original->length || end > original->length)
     {
         return 0x00;
     }
@@ -76,24 +105,22 @@ int iterator_resize(iterator *iterator, int start, int end)
     size_t final_length = end - start;
     void **new_array = malloc(sizeof(void *) * final_length);
 
-    if (new_array == 0x00)
+    set *new_set = copy_set(malloc(sizeof(void *) * original->length), original);
+
+    if (new_array == 0x00 || new_set == 0x00)
     {
         return 0x00;
     }
 
     for (size_t i = 0; i < final_length; i++)
     {
-        new_array[i] = iterator->set->array[i];
+        new_array[i] = original->array[i];
     }
 
-    free(iterator->set->array);
+    new_set->array = new_array;
+    new_set->length = final_length;
 
-    iterator->set->array = new_array;
-    iterator->set->length = final_length;
-    iterator->index = -0x01;
-    iterator->current = 0x00;
-
-    return 0x01;
+    return new_set;
 }
 
 int iterator_free(iterator *iterator)
@@ -111,6 +138,6 @@ int iterator_free(iterator *iterator)
     free(iterator->set->array);
     free(iterator->set);
     free(iterator);
-    
+
     return 0x01;
 }
