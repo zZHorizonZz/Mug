@@ -1,4 +1,6 @@
 repository Repository {
+    attach Test.Test;
+
     structure Main {
 
         Test test;
@@ -7,11 +9,11 @@ repository Repository {
             test = Test();
         }
 
-        int main() {
+        main() : int {
             return test.test;
         }
 
-        [int, string] tupleTest() {
+        tupleTest() : [int, string] {
             return 5, "test";
         }
     }

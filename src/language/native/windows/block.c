@@ -50,7 +50,7 @@ void parse_block(set *block_set, block *block, set *token_set)
         }
 
         iterator_next(block_iterator);
-        parse_token_block(initializer, resize_iterator(block_iterator, block_iterator->index, block_iterator->set->length));
+        parse_token_block(initializer, iterator_resize(block_iterator, block_iterator->index, block_iterator->set->length));
         break;
     }
     case 0x02:

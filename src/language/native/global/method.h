@@ -25,4 +25,4 @@ typedef struct method_s
     body *body;
 } method;
 
-void parse_method(method *method, token_iterator *iterator);
+void parse_method(method *method, set *token_set);

@@ -38,7 +38,6 @@ iterator *create_iterator(set *set)
     }
 
     iterator->set = set;
-    iterator->index = -0x01;
 }
 
 int iterator_next(iterator *iterator)
