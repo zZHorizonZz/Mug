@@ -39,6 +39,8 @@ iterator *create_iterator(set *set)
     }
 
     iterator->set = set;
+    iterator->current = set->array[0x00];
+    iterator->index = 0x00;
 }
 
 set *copy_set(set *destination, set *original)
@@ -76,7 +78,7 @@ int iterator_next(iterator *iterator)
         return 0x00;
     }
 
-    iterator->current = iterator->set->array[iterator->index++];
+    iterator->current = iterator->set->array[++iterator->index];
     return 0x01;
 }
 

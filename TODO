@@ -1,3 +1,4 @@
 [ X ] Create foundation type which will contain metadata information about structure fields, methods, etc.
 [ X ] Rework compiler to compile output from parser and not from lexer.
 [ X ] Create tuple implementation.
+[ X ] Add field set to method which executes code in the method to use it for references.
