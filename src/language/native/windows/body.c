@@ -34,8 +34,11 @@ void parse_body(body *body, set *token_set)
 
     // TODO There is a bug with freeing of expression_set and also it seems like this will pase only one block even if there are two blocks.
 
+    int iterations = 0;
     while (iterator_has_next(token_iterator) == 0x01)
     {
+        printf("Iteration %d\n", ++iterations);
+
         if (current_token->type == 0x01)
         {
             if (current_token->identifier = 0x06)
@@ -45,6 +48,8 @@ void parse_body(body *body, set *token_set)
                     exit(0x01);
                     return;
                 }
+
+                printf("New block.");
 
                 block *block = malloc(sizeof(block));
                 parse_block(body->body_block, block, expression_set);

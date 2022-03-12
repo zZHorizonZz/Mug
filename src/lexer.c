@@ -1,12 +1,12 @@
 /**
  * Copyright 2022 Daniel Fiala
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -197,7 +197,8 @@ void parse_next_token(lexer *lexer)
         }
 
         char *token_data = malloc(strlen(text) + 1);
-        if(token_data == 0x00) {
+        if (token_data == 0x00)
+        {
             printf("\n[ERROR] Null pointer exception. (Token data are null)\n");
             exit(0x01);
             return;
@@ -214,7 +215,7 @@ void parse_next_token(lexer *lexer)
             return;
         }
 
-        if (token->type != 0x00)
+        if (token->type != 0x00 && token->type != 0x05)
         {
             break;
         }
@@ -288,7 +289,7 @@ void next_string_token(lexer *lexer)
     }
 
     char *data = malloc(strlen(current_text));
-    
+
     token->data = strcpy(data, current_text);
     token->type = 0x05;
     token->identifier = 0x06;
