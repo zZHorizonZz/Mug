@@ -69,6 +69,8 @@ struct mug_method_s
 struct body_s
 {
     size_t length;
+
+    char *body_type;
     set *body_block;
 };
 
@@ -83,11 +85,14 @@ struct field_block_s
 {
     char *type;
     char *name;
+
+    char initializer_type;
     expression *initializer;
 };
 
 struct expression_block_s
 {
+    char expression_type;
     expression *expression;
 };
 
@@ -112,6 +117,10 @@ struct value_expression_s
 struct operator_expression_s
 {
     char operator;
+
+    char left_side_type;
+    char right_side_type;
+
     union expression_u *left_side;
     union expression_u *right_side;
 };
