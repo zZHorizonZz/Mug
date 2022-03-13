@@ -165,8 +165,8 @@ void execute_body(body *body);
 // ─── BLOCK ──────────────────────────────────────────────────────────────────────
 //
 
-void parse_block(block *block, set *token_set);
-void execute_block(block *block);
+char parse_block(block *block, set *token_set);
+void execute_block(char type, block *block);
 void execute_field_block(field_block *field_block);
 
 //
@@ -176,7 +176,7 @@ void execute_field_block(field_block *field_block);
 void parse_token_block(expression *expression, set *token_set);
 void parse_operator_expression(expression *operator_expression, set *token_set);
 void parse_value_expression(expression *value_expression, set *token_set);
-void execute_expression(expression *expression);
+void execute_expression(char type, expression *expression);
 void execute_value_expression(value_expression *expression);
 int execute_operator_expression(operator_expression *expression);
 

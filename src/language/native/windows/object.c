@@ -166,7 +166,7 @@ void parse_body(body *body, set *token_set)
  * ─── BLOCK ──────────────────────────────────────────────────────────────────────
  */
 
-void parse_block(block *block, set *token_set)
+char parse_block(block *block, set *token_set)
 {
     iterator *block_iterator = create_iterator(token_set);
     token *current_token = block_iterator->current;
@@ -199,9 +199,8 @@ void parse_block(block *block, set *token_set)
         set *block_set = set_resize(block_iterator->set, block_iterator->index, block_iterator->set->length);
         parse_token_block(initializer, block_set);
 
-        block->type = 0x00;
-        block->block->field_block = field;
-        return;
+        block->field_block = field;
+        return 0x00;
     }
     case 0x02:
 
@@ -211,12 +210,12 @@ void parse_block(block *block, set *token_set)
     }
 }
 
-void execute_block(block *block)
+void execute_block(char type, block *block)
 {
-    switch (block->type)
+    switch (type)
     {
     case 0x00:
-        execute_field_block(block->block->field_block);
+        execute_field_block(block->field_block);
         break;
 
     default:
@@ -226,7 +225,7 @@ void execute_block(block *block)
 
 void execute_field_block(field_block *field_block)
 {
-    execute_expression(field_block->initializer);
+    execute_expression(0x00, field_block->initializer);
 }
 
 /*
@@ -257,7 +256,6 @@ void parse_operator_expression(expression *operator_expression, set *token_set)
 
     iterator_next(expression_iterator);
     token *current_token = expression_iterator->current;
-    operator_expression->type = 0x01;
 
     if (current_token->type == 0x05)
     {
@@ -320,7 +318,6 @@ void parse_value_expression(expression *value_expression, set *token_set)
     }
 
     value_expression->value_expression = malloc(sizeof(struct value_expression_s));
-    value_expression->type = 0x00;
 
     if (value_expression->value_expression == 0x00)
     {
@@ -331,9 +328,9 @@ void parse_value_expression(expression *value_expression, set *token_set)
     value_expression->value_expression->primitive = primitive;
 }
 
-void execute_expression(expression *expression)
+void execute_expression(char type, expression *expression)
 {
-    if (expression->type = 0x00)
+    if (type = 0x00)
     {
         execute_value_expression(expression->value_expression);
     }
@@ -378,7 +375,7 @@ void execute_value_expression(value_expression *expression)
 
 int execute_operator_expression(operator_expression *expression)
 {
-    if (expression->right_side->type == 0x00)
+    if (expression->right_side_type == 0x00)
     {
         switch ((int)expression->operator)
         {
