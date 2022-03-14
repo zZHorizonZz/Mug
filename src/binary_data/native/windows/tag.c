@@ -17,6 +17,13 @@ void create_list_tag(compound *compound)
 {
     list_tag *list = malloc(sizeof(union tag_u));
 
+    if (list == 0x00)
+    {
+        return;
+    }
+
+    list->list = 0x00;
+    list->list_size = 0x00;
     compound->tag->list_tag = list;
     compound->type = 0x01;
 }
@@ -29,6 +36,8 @@ void create_single_type_list_tag(compound *compound, char type)
         return;
     }
 
+    list->list = 0x00;
+    list->list_size = 0x00;
     list->type = type;
 
     compound->tag->single_type_list_tag = list;
@@ -42,6 +51,10 @@ void create_mapped_list_tag(compound *compound)
     {
         return;
     }
+
+    list->list = 0x00;
+    list->mapping = 0x00;
+    list->list_size = 0x00;
 
     compound->tag->mapped_list_tag = list;
     compound->type = 0x03;

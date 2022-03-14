@@ -137,11 +137,14 @@ void parse_body(body *body, set *token_set)
                 }
 
                 block *block = malloc(sizeof(block));
-                parse_block(block, expression_set);
 
+                parse_block(block, expression_set);
                 set_free(expression_set);
+                iterator_next(token_iterator);
 
                 expression_set = create_set(0x00, 0x00);
+                current_token = token_iterator->current;
+
                 continue;
             }
         }

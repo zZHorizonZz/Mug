@@ -18,29 +18,30 @@
 
 set *create_set(size_t length, void **array)
 {
-    set *set = malloc(sizeof(set));
+    set *new_set = malloc(sizeof(set));
 
-    if (set == 0x00)
+    if (new_set == 0x00)
     {
         return 0x00;
     }
 
-    set->length = length;
-    set->array = array;
-    return set;
+    new_set->length = length;
+    new_set->array = array;
+    return new_set;
 }
 
 iterator *create_iterator(set *set)
 {
-    iterator *iterator = malloc(sizeof(iterator));
-    if (iterator == 0x00)
+    iterator *new_iterator = malloc(sizeof(iterator));
+    if (new_iterator == 0x00)
     {
         return 0x00;
     }
 
-    iterator->set = set;
-    iterator->current = set->array[0x00];
-    iterator->index = 0x00;
+    new_iterator->set = set;
+    new_iterator->current = set->array[0x00];
+    new_iterator->index = 0x00;
+    return new_iterator;
 }
 
 set *copy_set(set *destination, set *original)

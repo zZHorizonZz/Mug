@@ -210,6 +210,11 @@ char *create_binary(compound *compound)
 {
     buffer *buffer = malloc(sizeof(struct buffer_s));
 
+    buffer->buffer = 0x00;
+    buffer->length = 0x00;
+    buffer->read_index = 0x00;
+    buffer->write_index = 0x00;
+
     write_byte(buffer, compound->type);
     write_tag(buffer, compound);
 
