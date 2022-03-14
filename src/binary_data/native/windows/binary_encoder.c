@@ -195,7 +195,6 @@ void write_tag(buffer *buffer, compound *compound)
         write_double(buffer, compound->tag->double_tag->value);
         break;
     case 0x0A:
-        write_int(buffer, strlen(compound->tag->string_tag->value));
         write_string(buffer, compound->tag->string_tag->value);
         break;
     case 0x0B:

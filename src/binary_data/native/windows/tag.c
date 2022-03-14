@@ -3,7 +3,7 @@
 compound *create_empty_compound()
 {
     compound *compound = malloc(sizeof(struct compound_s));
-    tag *tag = malloc(sizeof(tag));
+    tag *tag = malloc(sizeof(union tag_u));
     if (compound == 0x00 || tag == 0x00)
     {
         return 0x00;

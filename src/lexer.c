@@ -97,6 +97,9 @@ void add_binary_content(compound *binary, lexer *lexer)
         add_value_to_single_type_list_tag(content, type);
         add_value_to_single_type_list_tag(content, identifier);
 
+        // TODO There is a bug with token-data and also but this will be mitigated with rework of this system to write expressions
+        // TODO Also there is a bug with this list which is only for single type but then we are writing string.
+
         if (token->data != 0x00)
         {
             compound *data = create_empty_compound();
