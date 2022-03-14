@@ -134,8 +134,6 @@ struct reference_expression_s
 // ─── OBJECT ─────────────────────────────────────────────────────────────────────
 //
 
-mug_object empty_object = {0x00};
-
 mug_object *new_object(char *value);
 int equals(mug_object *original, mug_object *equal);
 

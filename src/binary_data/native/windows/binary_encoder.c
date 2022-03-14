@@ -208,7 +208,7 @@ void write_tag(buffer *buffer, compound *compound)
 
 char *create_binary(compound *compound)
 {
-    buffer *buffer = calloc(4, sizeof(struct buffer_s));
+    buffer *buffer = malloc(sizeof(struct buffer_s));
 
     write_byte(buffer, compound->type);
     write_tag(buffer, compound);

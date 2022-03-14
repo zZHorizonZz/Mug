@@ -17,7 +17,6 @@
 #include <stdio.h>
 
 #include "compiler.c"
-#include "expression.h"
 #include "primitive.h"
 
 int main(int argc, char **argv)

@@ -18,7 +18,7 @@
 
 set *create_set(size_t length, void **array)
 {
-    set *set = calloc(2, sizeof(set) * length);
+    set *set = malloc(sizeof(set));
 
     if (set == 0x00)
     {
@@ -32,7 +32,7 @@ set *create_set(size_t length, void **array)
 
 iterator *create_iterator(set *set)
 {
-    iterator *iterator = calloc(3, sizeof(iterator));
+    iterator *iterator = malloc(sizeof(iterator));
     if (iterator == 0x00)
     {
         return 0x00;
@@ -45,7 +45,17 @@ iterator *create_iterator(set *set)
 
 set *copy_set(set *destination, set *original)
 {
-    destination->array = malloc(sizeof(void *) * original->length);
+    if (destination == 0x00 || original == 0x00)
+    {
+        return destination;
+    }
+
+    destination->array = calloc(original->length, sizeof(void *));
+    if (destination->array == 0x00)
+    {
+        return destination;
+    }
+
     for (size_t i = 0; i < original->length; i++)
     {
         destination->array[i] = original->array[i];
@@ -69,6 +79,22 @@ int set_add(set *set, void *object)
     set->array[set->length] = object;
     set->length++;
     return 0x01;
+}
+
+void set_free(set *set)
+{
+    if (set == 0x00)
+    {
+        return;
+    }
+
+    for (size_t i = 0; i < set->length; i++)
+    {
+        free(set->array[i]);
+    }
+
+    free(set->array);
+    free(set);
 }
 
 int iterator_next(iterator *iterator)
@@ -105,9 +131,9 @@ set *set_resize(set *original, int start, int end)
     }
 
     size_t final_length = end - start;
-    void **new_array = malloc(sizeof(void *) * final_length);
+    void **new_array = calloc(final_length, sizeof(void *));
 
-    set *new_set = copy_set(malloc(sizeof(void *) * original->length), original);
+    set *new_set = copy_set(malloc(sizeof(set)), original);
 
     if (new_array == 0x00 || new_set == 0x00)
     {

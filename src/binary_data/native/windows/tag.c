@@ -15,7 +15,7 @@ compound *create_empty_compound()
 
 void create_list_tag(compound *compound)
 {
-    list_tag *list = calloc(2, sizeof(union tag_u));
+    list_tag *list = malloc(sizeof(union tag_u));
 
     compound->tag->list_tag = list;
     compound->type = 0x01;
@@ -23,7 +23,7 @@ void create_list_tag(compound *compound)
 
 void create_single_type_list_tag(compound *compound, char type)
 {
-    single_type_list_tag *list = calloc(3, sizeof(union tag_u));
+    single_type_list_tag *list = malloc(sizeof(union tag_u));
     if (list == 0x00)
     {
         return;
@@ -37,7 +37,7 @@ void create_single_type_list_tag(compound *compound, char type)
 
 void create_mapped_list_tag(compound *compound)
 {
-    mapped_list_tag *list = calloc(3, sizeof(union tag_u));
+    mapped_list_tag *list = malloc(sizeof(union tag_u));
     if (list == 0x00)
     {
         return;
@@ -49,7 +49,7 @@ void create_mapped_list_tag(compound *compound)
 
 void create_byte_tag(compound *compound, char value)
 {
-    byte_tag *tag = calloc(1, sizeof(union tag_u));
+    byte_tag *tag = malloc(sizeof(union tag_u));
     if (tag == 0x00)
     {
         return;
@@ -63,7 +63,7 @@ void create_byte_tag(compound *compound, char value)
 
 void create_short_tag(compound *compound, short value)
 {
-    short_tag *tag = calloc(1, sizeof(union tag_u));
+    short_tag *tag = malloc(sizeof(union tag_u));
     if (tag == 0x00)
     {
         return;
@@ -77,7 +77,7 @@ void create_short_tag(compound *compound, short value)
 
 void create_int_tag(compound *compound, int value)
 {
-    int_tag *tag = calloc(1, sizeof(union tag_u));
+    int_tag *tag = malloc(sizeof(union tag_u));
     if (tag == 0x00)
     {
         return;
@@ -91,7 +91,7 @@ void create_int_tag(compound *compound, int value)
 
 void create_long_tag(compound *compound, long value)
 {
-    long_tag *tag = calloc(1, sizeof(union tag_u));
+    long_tag *tag = malloc(sizeof(union tag_u));
     if (tag == 0x00)
     {
         return;
@@ -105,7 +105,7 @@ void create_long_tag(compound *compound, long value)
 
 void create_float_tag(compound *compound, float value)
 {
-    float_tag *tag = calloc(1, sizeof(union tag_u));
+    float_tag *tag = malloc(sizeof(union tag_u));
     if (tag == 0x00)
     {
         return;
@@ -119,7 +119,7 @@ void create_float_tag(compound *compound, float value)
 
 void create_double_tag(compound *compound, double value)
 {
-    double_tag *tag = calloc(1, sizeof(union tag_u));
+    double_tag *tag = malloc(sizeof(union tag_u));
     if (tag == 0x00)
     {
         return;
@@ -133,7 +133,7 @@ void create_double_tag(compound *compound, double value)
 
 void create_string_tag(compound *compound, char *value)
 {
-    string_tag *tag = calloc(1, sizeof(union tag_u));
+    string_tag *tag = malloc(sizeof(union tag_u));
     if (tag == 0x00)
     {
         return;
@@ -147,7 +147,7 @@ void create_string_tag(compound *compound, char *value)
 
 void create_boolean_tag(compound *compound, char value)
 {
-    boolean_tag *tag = calloc(1, sizeof(union tag_u));
+    boolean_tag *tag = malloc(sizeof(union tag_u));
     if (tag == 0x00)
     {
         return;

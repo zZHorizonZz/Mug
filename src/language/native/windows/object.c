@@ -123,13 +123,8 @@ void parse_body(body *body, set *token_set)
     set *expression_set = create_set(0x00, 0x00);
     expression *expression;
 
-    // TODO There is a bug with freeing of expression_set and also it seems like this will pase only one block even if there are two blocks.
-
-    printf("Length: %d", token_set->length);
-
     while (iterator_has_next(token_iterator) == 0x01)
     {
-        printf("Index %d\n", token_iterator->index);
 
         if (current_token->type == 0x01)
         {
@@ -141,19 +136,15 @@ void parse_body(body *body, set *token_set)
                     return;
                 }
 
-                printf("New block.\n");
-
                 block *block = malloc(sizeof(block));
-                parse_block(body->body_block, block, expression_set);
+                parse_block(block, expression_set);
 
-                // free(expression_set);
+                set_free(expression_set);
+
                 expression_set = create_set(0x00, 0x00);
+                continue;
             }
         }
-
-        printf("Current type: %d\n", current_token->type);
-        printf("Current Identifier: %d\n", current_token->identifier);
-        printf("Current token: %s\n", current_token->data);
 
         set_add(expression_set, current_token);
         iterator_next(token_iterator);
@@ -198,6 +189,7 @@ char parse_block(block *block, set *token_set)
 
         set *block_set = set_resize(block_iterator->set, block_iterator->index, block_iterator->set->length);
         parse_token_block(initializer, block_set);
+        free(block_iterator);
 
         block->field_block = field;
         return 0x00;

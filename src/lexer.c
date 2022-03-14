@@ -46,7 +46,7 @@ void next_string_token(lexer *lexer);
 
 char *create_token_binary(lexer *lexer)
 {
-    compound *binary = calloc(2, sizeof(struct compound_s));
+    compound *binary = malloc(sizeof(struct compound_s));
     tag *tag = malloc(sizeof(tag));
 
     binary->tag = tag;

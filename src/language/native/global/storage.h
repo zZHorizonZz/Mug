@@ -37,10 +37,11 @@ struct iterator_s
 
 set *create_set(size_t length, void **array);
 iterator *create_iterator(set *set);
-set *copy_set(set *destination, set *original);
 
-int set_add(set *set, void *object);
+set *copy_set(set *destination, set *original);
 set *set_resize(set *set, int start, int end);
+void set_free(set *set);
+int set_add(set *set, void *object);
 
 int iterator_next(iterator *iterator);
 int iterator_has_next(iterator *iterator);
