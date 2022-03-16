@@ -85,25 +85,29 @@ int compile_file(char *path, char *name)
         }
     }
 
-    token **tokens = calloc(lexer->last_token_index - 1, sizeof(token*));
+    token **tokens = calloc(lexer->last_token_index - 1, sizeof(token *));
     for (size_t i = 0; i < lexer->last_token_index - 1; i++)
     {
         tokens[i] = lexer->tokens[i];
     }
 
     set *token_set = create_set(lexer->last_token_index - 1, (void **)tokens);
-    mug_method *method = malloc(sizeof(method));
+    mug_method *method = malloc(sizeof(mug_method));
 
+    printf("[Method] Parsing method ...");
     parse_method(method, token_set);
-    // execute_expression(expression);
+    printf(" %s [Done] \n", method->name);
+    printf("[Method] Executing method %s", method->name);
+    execute_method(method);
+    printf(" [Done] \n");
 
     fclose(fp);
 
     printf("[Compiler] Creating token binary... ");
-    char *binary = create_token_binary(lexer);
+    // char *binary = create_token_binary(lexer);
     printf(" [Done]");
 
-    create_binary_file(0x00, 0x00, binary, lexer->last_token_index * 0x02);
+    // create_binary_file(0x00, 0x00, binary, lexer->last_token_index * 0x02);
 
     free(lexer->content);
     free(lexer->tokens);

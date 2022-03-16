@@ -141,6 +141,7 @@ int equals(mug_object *original, mug_object *equal);
 // ─── FOUNDATION ─────────────────────────────────────────────────────────────────
 //
 
+mug_foundation *new_foundation();
 mug_object *find_foundation(char *location, char *name);
 int register_foundation(mug_object *foundation);
 int remove_foundation(char *location, char *name);
@@ -149,6 +150,7 @@ int remove_foundation(char *location, char *name);
 // ─── METHOD ─────────────────────────────────────────────────────────────────────
 //
 
+mug_method *new_method();
 void parse_method(mug_method *method, set *token_set);
 void execute_method(mug_method *method);
 
@@ -156,6 +158,7 @@ void execute_method(mug_method *method);
 // ─── BODY ───────────────────────────────────────────────────────────────────────
 //
 
+body *new_body();
 void parse_body(body *body, set *token_set);
 void execute_body(body *body);
 
@@ -163,6 +166,7 @@ void execute_body(body *body);
 // ─── BLOCK ──────────────────────────────────────────────────────────────────────
 //
 
+block *new_block();
 char parse_block(block *block, set *token_set);
 void execute_block(char type, block *block);
 void execute_field_block(field_block *field_block);

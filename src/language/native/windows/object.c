@@ -58,6 +58,8 @@ void parse_method(mug_method *method, set *token_set)
     if (current_token->type == 0x00)
     {
         method->name = current_token->data;
+        printf("Method name %s", method->name);
+
         iterator_next(method_iterator);
         current_token = method_iterator->current;
 
@@ -91,6 +93,7 @@ void parse_method(mug_method *method, set *token_set)
                     }
 
                     parse_body(method_body, body_set);
+                    method->body = method_body;
                 }
             }
         }
@@ -104,6 +107,12 @@ void parse_method(mug_method *method, set *token_set)
 
 void execute_method(mug_method *method)
 {
+    if (method->body == 0x00)
+    {
+        return;
+    }
+
+    execute_body(method->body);
 }
 
 /*
@@ -138,7 +147,9 @@ void parse_body(body *body, set *token_set)
 
                 block *block = malloc(sizeof(block));
 
-                parse_block(block, expression_set);
+                set_add(body->body_block, block);
+                body->body_type[body->body_block->length - 1] = parse_block(block, expression_set);
+
                 set_free(expression_set);
                 iterator_next(token_iterator);
 
@@ -153,6 +164,19 @@ void parse_body(body *body, set *token_set)
         iterator_next(token_iterator);
 
         current_token = token_iterator->current;
+    }
+}
+
+void execute_body(body *body)
+{
+    if (body->length < 1)
+    {
+        return;
+    }
+
+    for (size_t i = 0; i < body->length; i++)
+    {
+        execute_block(body->body_type[i], body->body_block->array[i]);
     }
 }
 
@@ -175,7 +199,7 @@ char parse_block(block *block, set *token_set)
         if (field == 0x00)
         {
             exit(0x01);
-            return;
+            return 0x08;
         }
 
         token *future = block_iterator->set->array[block_iterator->index + 0x01];
