@@ -70,7 +70,7 @@ struct body_s
 {
     size_t length;
 
-    char *body_type;
+    set *body_type;
     set *body_block;
 };
 

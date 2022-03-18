@@ -92,7 +92,7 @@ int compile_file(char *path, char *name)
     }
 
     set *token_set = create_set(lexer->last_token_index - 1, (void **)tokens);
-    mug_method *method = malloc(sizeof(mug_method));
+    mug_method *method = new_method();
 
     printf("[Method] Parsing method ...");
     parse_method(method, token_set);

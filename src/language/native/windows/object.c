@@ -45,6 +45,17 @@ int equals(mug_object *original, mug_object *equal)
  * ─── METHOD ─────────────────────────────────────────────────────────────────────
  */
 
+mug_method *new_method()
+{
+    mug_method *method = malloc(sizeof(mug_method));
+    if (method == 0x00)
+    {
+    }
+
+    method->body = new_body();
+    return method;
+}
+
 void parse_method(mug_method *method, set *token_set)
 {
     if (token_set->length < 0)
@@ -85,15 +96,13 @@ void parse_method(mug_method *method, set *token_set)
                         set_add(body_set, current_token);
                     }
 
-                    body *method_body = malloc(sizeof(body));
-                    if (method_body == 0x00)
+                    if (method->body == 0x00)
                     {
                         exit(0x01);
                         return;
                     }
 
-                    parse_body(method_body, body_set);
-                    method->body = method_body;
+                    parse_body(method->body, body_set);
                 }
             }
         }
@@ -118,6 +127,20 @@ void execute_method(mug_method *method)
 /*
  * ─── BODY ───────────────────────────────────────────────────────────────────────
  */
+
+body *new_body()
+{
+    body *new_body = malloc(sizeof(body));
+    if (new_body == 0x00)
+    {
+    }
+
+    new_body->body_block = create_set(0x00, 0x00);
+    new_body->body_type = create_set(0x00, 0x00);
+    new_body->length = 0x00;
+
+    return new_body;
+}
 
 void parse_body(body *body, set *token_set)
 {
@@ -145,10 +168,13 @@ void parse_body(body *body, set *token_set)
                     return;
                 }
 
-                block *block = malloc(sizeof(block));
+                block *block = new_block();
+                char type = parse_block(block, expression_set);
 
                 set_add(body->body_block, block);
-                body->body_type[body->body_block->length - 1] = parse_block(block, expression_set);
+                set_add(body->body_type, &type);
+
+                body->length++;
 
                 set_free(expression_set);
                 iterator_next(token_iterator);
@@ -176,13 +202,26 @@ void execute_body(body *body)
 
     for (size_t i = 0; i < body->length; i++)
     {
-        execute_block(body->body_type[i], body->body_block->array[i]);
+        block *block = body->body_block->array[i];
+        char *type = body->body_type->array[i];
+
+        execute_block(*type, block);
     }
 }
 
 /*
  * ─── BLOCK ──────────────────────────────────────────────────────────────────────
  */
+
+block *new_block()
+{
+    block *new_block = malloc(sizeof(block));
+    if (new_block == 0x00)
+    {
+    }
+
+    return new_block;
+}
 
 char parse_block(block *block, set *token_set)
 {

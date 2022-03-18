@@ -30,7 +30,7 @@ typedef struct token_s
 
 static const char *SEPARATOR[16] = {".", ",", "(", ")", "{", "}", ";", "\""};
 static const char *KEYWORD[16] = {"repository", "structure", "void", "native", "if", "else", "elseif", "while"};
-static const char *OPERATOR[16] = {"+", "-", "*", "/", "<<", ">>", "|", "&", "^"};
+static const char *OPERATOR[16] = {"+", "-", "*", "/", "<<", ">>", "|", "&", "^", "="};
 static const char *BLANK[16] = {"//"};
 static const char *IGNORE[16] = {" ", "\n", "\r", "\t"};
 
