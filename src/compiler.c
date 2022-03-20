@@ -20,6 +20,7 @@
 #include "lexer.c"
 #include "storage.h"
 #include "object.h"
+#include "parser.h"
 
 struct binary
 {
@@ -32,7 +33,14 @@ int create_binary_file(int *path, char *name, char *binary, int binary_size);
 
 int compile_file(char *path, char *name)
 {
-    printf("[Compiler] Compiling file %s/%s.\n", path, name);
+    pattern *pattern = compile_pattern(OPERATOR_EXPRESSION);
+    for (size_t i = 0; i < pattern->length; i++)
+    {
+        char value = pattern->pattern[i];
+        printf("[Pattern] %d\n", value);
+    }
+
+    /*printf("[Compiler] Compiling file %s/%s.\n", path, name);
     FILE *fp = fopen("D:\\program.str", "r");
 
     if (fp == 0x00)
@@ -112,7 +120,7 @@ int compile_file(char *path, char *name)
     free(lexer->content);
     free(lexer->tokens);
     free(lexer->current_token);
-    free(lexer);
+    free(lexer);*/
 }
 
 int create_binary_file(int *path, char *name, char *binary, int binary_size)

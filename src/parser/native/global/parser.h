@@ -1,12 +1,12 @@
 /**
  * Copyright 2022 Daniel Fiala
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +19,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "object.h"
 
@@ -30,9 +31,18 @@ static const char *DECLARED_FIELD_BLOCK = "<IDENTIFIER> <IDENTIFIER> = (EXPRESSI
 static const char *FIELD_BLOCK = "<IDENTIFIER> = (EXPRESSION)";
 static const char *RETURN_BLOCK = "'return' ?(EXPRESSION)?";
 
-char parse_block(block *block, set *token_set);
+typedef struct pattern_s pattern;
 
-char is_mathing(char *rule, set *token_set);
+struct pattern_s
+{
+    size_t length;
+    char *pattern;
+};
+
+// char parse_block(block *block, set *token_set);
+
+char is_mathing(const char *rule, set *token_set);
+pattern *compile_pattern(const char *rule);
 
 char is_expression(set *token_set);
 char is_value_expression(set *token_set);
