@@ -22,34 +22,66 @@
 
 char is_mathing(const char *rule, set *token_set)
 {
+    pattern *rule_patter = compile_pattern(rule);
+    for (size_t i = 0; i < rule_patter->pattern; i++)
+    {
+        char type = rule_patter->pattern[i];
+        token *token = token_set->array[i];
+
+        if (type < 0x10 && type == token->type)
+        {
+            continue;
+        }
+
+        if (type >= 0x10 && type < 0x20)
+        {
+            if (type == 0x10 && type + 0x10 == token->type)
+            {
+                continue;
+            }
+        }
+
+        if (type >= 0x20 && type < 0x80)
+        {
+            char identifier = type % 0x10;
+            if (identifier == token->identifier)
+            {
+                continue;
+            }
+        }
+
+        return 0x00;
+    }
+
+    return 0x01;
 }
 
-char parse_token_type(char *input)
+char parse_token_type(const char *input)
 {
     if (input == 0x00)
     {
         return -0x01;
     }
 
-    if (strcmp(input, "PRIMITIVE") == 0X00)
+    if (strcmp(input, "PRIMITIVE") == 0x00)
+    {
+        return 0x05;
+    }
+
+    if (strcmp(input, "OPERATOR") == 0x00)
+    {
+        return 0x03;
+    }
+
+    if (strcmp(input, "IDENTIFIER") == 0x00)
     {
         return 0x00;
-    }
-
-    if (strcmp(input, "OPERATOR") == 0X00)
-    {
-        return 0x01;
-    }
-
-    if (strcmp(input, "IDENTIFIER") == 0X00)
-    {
-        return 0x02;
     }
 
     return -0x01;
 }
 
-char parse_expression_type(char *input)
+char parse_expression_type(const char *input)
 {
     if (input == 0x00)
     {
@@ -64,7 +96,7 @@ char parse_expression_type(char *input)
     return -0x01;
 }
 
-token *parse_specific_token_type(char *input)
+token *parse_specific_token_type(const char *input)
 {
     if (input == 0x00)
     {
@@ -77,7 +109,7 @@ token *parse_specific_token_type(char *input)
     return specific_token;
 }
 
-void expand_pattern(pattern *pattern, char rule)
+void expand_pattern(pattern *pattern, const char rule)
 {
     pattern->length++;
 
@@ -117,6 +149,11 @@ pattern *compile_pattern(const char *rule)
 
         switch (current_char)
         {
+        case 0x20:
+        {
+            continue;
+        }
+
         case 0x3C:
         {
             type = 0x01;
@@ -155,7 +192,7 @@ pattern *compile_pattern(const char *rule)
         {
             if (type == 0x02)
             {
-                char expression_type = 16 + parse_expression_type(text_holder);
+                char expression_type = 0x10 + parse_expression_type(text_holder);
 
                 expand_pattern(rule_pattern, expression_type);
                 free(text_holder);
@@ -181,8 +218,8 @@ pattern *compile_pattern(const char *rule)
             }
             else
             {
-                token *keyword_token = parse_specific_token_type(text_holder);
-                char value = 0x20 + (keyword_token->type * 0x10 + keyword_token->identifier);
+                token *token = parse_specific_token_type(text_holder);
+                char value = 0x10 + (token->type * 0x10 + token->identifier);
 
                 expand_pattern(rule_pattern, value);
                 free(text_holder);
@@ -219,28 +256,35 @@ pattern *compile_pattern(const char *rule)
 
 char is_expression(set *token_set)
 {
+    return is_mathing(EXPRESSION, token_set);
 }
 
 char is_value_expression(set *token_set)
 {
+    return is_mathing(VALUE_EXPRESSION, token_set);
 }
 
 char is_operator_expression(set *token_set)
 {
+    return is_mathing(OPERATOR_EXPRESSION, token_set);
 }
 
 char is_reference_expression(set *token_set)
 {
+    return is_mathing(REFERENCE_EXPRESSION, token_set);
 }
 
 char is_declared_field_block(set *token_set)
 {
+    return is_mathing(DECLARED_FIELD_BLOCK, token_set);
 }
 
 char is_field_block(set *token_set)
 {
+    return is_mathing(FIELD_BLOCK, token_set);
 }
 
 char is_return_block(set *token_set)
 {
+    return is_mathing(RETURN_BLOCK, token_set);
 }

@@ -27,8 +27,8 @@ static const char *EXPRESSION = "VALUE_EXPRESSION|OPERATOR_EXPRESSION|REFERENCE_
 static const char *VALUE_EXPRESSION = "<PRIMITIVE>";
 static const char *OPERATOR_EXPRESSION = "(EXPRESSION)<OPERATOR>(EXPRESSION)";
 static const char *REFERENCE_EXPRESSION = "<IDENTIFIER>?()?";
-static const char *DECLARED_FIELD_BLOCK = "<IDENTIFIER> <IDENTIFIER> = (EXPRESSION)";
-static const char *FIELD_BLOCK = "<IDENTIFIER> = (EXPRESSION)";
+static const char *DECLARED_FIELD_BLOCK = "<IDENTIFIER> <IDENTIFIER> '=' (EXPRESSION)";
+static const char *FIELD_BLOCK = "<IDENTIFIER> '=' (EXPRESSION)";
 static const char *RETURN_BLOCK = "'return' ?(EXPRESSION)?";
 
 typedef struct pattern_s pattern;
