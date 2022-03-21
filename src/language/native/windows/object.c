@@ -223,7 +223,7 @@ block *new_block()
     return new_block;
 }
 
-char parse_block(block *block, set *token_set)
+/*char parse_block(block *block, set *token_set)
 {
     iterator *block_iterator = create_iterator(token_set);
     token *current_token = block_iterator->current;
@@ -266,7 +266,7 @@ char parse_block(block *block, set *token_set)
     default:
         break;
     }
-}
+}*/
 
 void execute_block(char type, block *block)
 {

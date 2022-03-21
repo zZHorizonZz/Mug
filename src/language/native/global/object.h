@@ -151,7 +151,6 @@ int remove_foundation(char *location, char *name);
 //
 
 mug_method *new_method();
-void parse_method(mug_method *method, set *token_set);
 void execute_method(mug_method *method);
 
 //
@@ -159,7 +158,6 @@ void execute_method(mug_method *method);
 //
 
 body *new_body();
-void parse_body(body *body, set *token_set);
 void execute_body(body *body);
 
 //
@@ -167,7 +165,6 @@ void execute_body(body *body);
 //
 
 block *new_block();
-char parse_block(block *block, set *token_set);
 void execute_block(char type, block *block);
 void execute_field_block(field_block *field_block);
 
@@ -175,8 +172,6 @@ void execute_field_block(field_block *field_block);
 // ─── EXPRESSION ─────────────────────────────────────────────────────────────────
 //
 
-void parse_token_block(expression *expression, set *token_set);
-void parse_operator_expression(expression *operator_expression, set *token_set);
 void parse_value_expression(expression *value_expression, set *token_set);
 void execute_expression(char type, expression *expression);
 void execute_value_expression(value_expression *expression);

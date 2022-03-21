@@ -36,20 +36,35 @@ typedef struct pattern_s pattern;
 struct pattern_s
 {
     size_t length;
-    char *pattern;
+    unsigned char *pattern;
 };
 
-// char parse_block(block *block, set *token_set);
+void parse_method(mug_method *method, set *token_set);
+void parse_body(body *body, set *token_set);
+char parse_block(block *block, set *token_set);
 
 char is_mathing(const char *rule, set *token_set);
+unsigned char parse_token_type(const char *input);
+unsigned char parse_expression_type(const char *input);
+token *parse_specific_token_type(const char *input);
+
+void expand_pattern(pattern *pattern, const char rule);
+
 pattern *compile_pattern(const char *rule);
 
 char is_expression(set *token_set);
 char is_value_expression(set *token_set);
 char is_operator_expression(set *token_set);
 char is_reference_expression(set *token_set);
+
 char is_declared_field_block(set *token_set);
 char is_field_block(set *token_set);
 char is_return_block(set *token_set);
+
+void parse_field_block(field_block *field_block, set *token_set);
+void parse_return_block();
+void parse_token_block(expression *expression, set *token_set);
+void parse_operator_expression(expression *operator_expression, set *token_set);
+void parse_value_expression(expression *value_expression, set *token_set);
 
 #endif

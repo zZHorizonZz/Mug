@@ -16,17 +16,58 @@
 
 #include "parser.h"
 
-/*char parse_block(block *block, set *token_set)
+char parse_block(block *block, set *token_set)
 {
-}*/
+    if (is_expression(token_set))
+    {
+
+    }
+
+    if (is_value_expression(token_set))
+    {
+
+    }
+
+    if (is_operator_expression(token_set))
+    {
+
+    }
+
+    if (is_reference_expression(token_set))
+    {
+
+    }
+
+    if (is_declared_field_block(token_set))
+    {
+        
+    }
+
+    if (is_field_block(token_set))
+    {
+
+    }
+
+    if (is_return_block(token_set))
+    {
+
+    }
+}
 
 char is_mathing(const char *rule, set *token_set)
 {
     pattern *rule_patter = compile_pattern(rule);
     for (size_t i = 0; i < rule_patter->pattern; i++)
     {
-        char type = rule_patter->pattern[i];
+        short type = rule_patter->pattern[i];
         token *token = token_set->array[i];
+        char optional = 0x00;
+
+        if (type - 0x80 >= 0x00)
+        {
+            optional = 0x01;
+            type -= 0x80;
+        }
 
         if (type < 0x10 && type == token->type)
         {
@@ -50,13 +91,18 @@ char is_mathing(const char *rule, set *token_set)
             }
         }
 
+        if (optional == 0x01)
+        {
+            continue;
+        }
+
         return 0x00;
     }
 
     return 0x01;
 }
 
-char parse_token_type(const char *input)
+unsigned char parse_token_type(const char *input)
 {
     if (input == 0x00)
     {
@@ -81,7 +127,7 @@ char parse_token_type(const char *input)
     return -0x01;
 }
 
-char parse_expression_type(const char *input)
+unsigned char parse_expression_type(const char *input)
 {
     if (input == 0x00)
     {
@@ -142,6 +188,7 @@ pattern *compile_pattern(const char *rule)
     size_t text_length = 0x00;
     char *text_holder = 0x00;
     char type = 0x00;
+    char optional = 0x00;
 
     for (size_t i = 0; i < strlen(rule); i++)
     {
@@ -154,6 +201,18 @@ pattern *compile_pattern(const char *rule)
             continue;
         }
 
+        case 0x3F:
+        {
+            if (optional == 0x00)
+            {
+                optional = 0x01;
+            }
+            else
+            {
+                optional = 0x00;
+            }
+        }
+
         case 0x3C:
         {
             type = 0x01;
@@ -164,7 +223,11 @@ pattern *compile_pattern(const char *rule)
         {
             if (type == 0x01)
             {
-                char token_type = parse_token_type(text_holder);
+                unsigned char token_type = parse_token_type(text_holder);
+                if (optional == 0x01)
+                {
+                    token_type += 0x80;
+                }
 
                 expand_pattern(rule_pattern, token_type);
                 free(text_holder);
@@ -192,7 +255,11 @@ pattern *compile_pattern(const char *rule)
         {
             if (type == 0x02)
             {
-                char expression_type = 0x10 + parse_expression_type(text_holder);
+                unsigned char expression_type = 0x10 + parse_expression_type(text_holder);
+                if (expression_type == 0x01)
+                {
+                    expression_type += 0x80;
+                }
 
                 expand_pattern(rule_pattern, expression_type);
                 free(text_holder);
@@ -219,7 +286,11 @@ pattern *compile_pattern(const char *rule)
             else
             {
                 token *token = parse_specific_token_type(text_holder);
-                char value = 0x10 + (token->type * 0x10 + token->identifier);
+                unsigned char value = 0x10 + (token->type * 0x10 + token->identifier);
+                if (value == 0x01)
+                {
+                    value += 0x80;
+                }
 
                 expand_pattern(rule_pattern, value);
                 free(text_holder);
