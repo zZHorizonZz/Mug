@@ -16,51 +16,186 @@
 
 #include "parser.h"
 
+void parse_method(mug_method *method, set *token_set)
+{
+    if (token_set->length < 0)
+    {
+        return;
+    }
+
+    iterator *method_iterator = create_iterator(token_set);
+    token *current_token = method_iterator->current;
+
+    if (current_token->type == 0x00)
+    {
+        method->name = current_token->data;
+        printf("Method name %s", method->name);
+
+        iterator_next(method_iterator);
+        current_token = method_iterator->current;
+
+        if (current_token->type == 0x01 && current_token->identifier == 0x02)
+        {
+            iterator_next(method_iterator);
+            current_token = method_iterator->current;
+
+            if (current_token->type == 0x01 && current_token->identifier == 0x03)
+            {
+                iterator_next(method_iterator);
+                current_token = method_iterator->current;
+
+                if (current_token->type == 0x01 && current_token->identifier == 0x04)
+                {
+                    set *body_set = create_set(0x00, 0x00);
+
+                    while (method_iterator->index < token_set->length - 1)
+                    {
+                        iterator_next(method_iterator);
+                        current_token = method_iterator->current;
+
+                        set_add(body_set, current_token);
+                    }
+
+                    if (method->body == 0x00)
+                    {
+                        exit(0x01);
+                        return;
+                    }
+
+                    parse_body(method->body, body_set);
+                }
+            }
+        }
+    }
+    else
+    {
+        exit(0x01);
+        return;
+    }
+}
+
+void parse_body(body *body, set *token_set)
+{
+    if (token_set->length < 1)
+    {
+        return;
+    }
+
+    iterator *token_iterator = create_iterator(token_set);
+
+    token *current_token = token_iterator->current;
+    set *expression_set = create_set(0x00, 0x00);
+    expression *expression;
+
+    while (iterator_has_next(token_iterator) == 0x01)
+    {
+
+        if (current_token->type == 0x01)
+        {
+            if (current_token->identifier = 0x06)
+            {
+                if (expression_set->length < 1 || expression_set == 0x00)
+                {
+                    exit(0x01);
+                    return;
+                }
+
+                block *block = new_block();
+                char type = parse_block(block, expression_set);
+
+                set_add(body->body_block, block);
+                set_add(body->body_type, &type);
+
+                body->length++;
+
+                set_free(expression_set);
+                iterator_next(token_iterator);
+
+                expression_set = create_set(0x00, 0x00);
+                current_token = token_iterator->current;
+
+                continue;
+            }
+        }
+
+        set_add(expression_set, current_token);
+        iterator_next(token_iterator);
+
+        current_token = token_iterator->current;
+    }
+}
+
 char parse_block(block *block, set *token_set)
 {
-    if (is_expression(token_set))
-    {
+    char type = evaluate_type(token_set);
 
+    switch (type)
+    {
+    case 0x02:
+    case 0x03:
+    case 0x04:
+    {
+        expression_block *_expression_block = malloc(sizeof(expression_block));
+        block->expression_block = _expression_block;
+        parse_expression_block(_expression_block, token_set, type);
+        break;
     }
 
-    if (is_value_expression(token_set))
-    {
+    default:
+        break;
+    }
+}
 
+char evaluate_type(set *token_set)
+{
+    char type = 0x00;
+
+    if (is_value_expression(token_set) == 0x01)
+    {
+        type = 0x01;
     }
 
-    if (is_operator_expression(token_set))
+    if (is_operator_expression(token_set) == 0x01)
     {
-
+        type = 0x02;
     }
 
-    if (is_reference_expression(token_set))
+    if (is_reference_expression(token_set) == 0x01)
     {
-
+        type = 0x03;
     }
 
-    if (is_declared_field_block(token_set))
+    if (is_declared_field_block(token_set) == 0x01)
     {
-        
+        type = 0x04;
     }
 
-    if (is_field_block(token_set))
+    if (is_field_block(token_set) == 0x01)
     {
-
+        type = 0x05;
     }
 
-    if (is_return_block(token_set))
+    if (is_return_block(token_set) == 0x01)
     {
-
+        type = 0x06;
     }
+
+    return type;
 }
 
 char is_mathing(const char *rule, set *token_set)
 {
     pattern *rule_patter = compile_pattern(rule);
-    for (size_t i = 0; i < rule_patter->pattern; i++)
+
+    for (size_t i = 0; i < rule_patter->length; i++)
     {
+        if (i >= token_set->length)
+        {
+            return 0x00;
+        }
+
         short type = rule_patter->pattern[i];
-        token *token = token_set->array[i];
+        token *_token = token_set->array[i];
         char optional = 0x00;
 
         if (type - 0x80 >= 0x00)
@@ -69,23 +204,42 @@ char is_mathing(const char *rule, set *token_set)
             type -= 0x80;
         }
 
-        if (type < 0x10 && type == token->type)
+        if (type < 0x10 && type == _token->type)
         {
             continue;
         }
 
         if (type >= 0x10 && type < 0x20)
         {
-            if (type == 0x10 && type + 0x10 == token->type)
+            if (type == 0x10)
             {
-                continue;
+                if (_token->type == 0x00 || _token->type == 0x05)
+                {
+                    if (i + 1 < token_set->length)
+                    {
+                        token *_operator_token = token_set->array[i + 1];
+                        if (_operator_token->type == 0x03)
+                        {
+                            set *expression_set = create_set(0x00, 0x00);
+                            for (size_t x = i + 2; x < token_set->length; x++)
+                            {
+                                set_add(expression_set, token_set->array[x]);
+                            }
+                            if (is_expression(expression_set) == 0x01)
+                            {
+                                printf("teetette");
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
 
         if (type >= 0x20 && type < 0x80)
         {
             char identifier = type % 0x10;
-            if (identifier == token->identifier)
+            if (identifier == _token->identifier)
             {
                 continue;
             }
@@ -327,7 +481,22 @@ pattern *compile_pattern(const char *rule)
 
 char is_expression(set *token_set)
 {
-    return is_mathing(EXPRESSION, token_set);
+    if (is_operator_expression(token_set) == 0x01)
+    {
+        return 0x01;
+    }
+
+    if (is_reference_expression(token_set) == 0x01)
+    {
+        return 0x01;
+    }
+
+    if (is_value_expression(token_set) == 0x01)
+    {
+        return 0x01;
+    }
+
+    return 0x00;
 }
 
 char is_value_expression(set *token_set)
@@ -358,4 +527,121 @@ char is_field_block(set *token_set)
 char is_return_block(set *token_set)
 {
     return is_mathing(RETURN_BLOCK, token_set);
+}
+
+void parse_expression_block(expression_block *block, set *token_set, char type)
+{
+    expression *_expression = malloc(sizeof(expression));
+
+    switch (type)
+    {
+    case 0x01:
+    {
+        parse_value_expression(_expression, token_set);
+        break;
+    }
+
+    case 0x02:
+    {
+        parse_operator_expression(_expression, token_set);
+        break;
+    }
+
+    case 0x03:
+    {
+        // parse_reference_expression(_expression, token_set);
+        break;
+    }
+
+    default:
+        // TODO Log error
+        break;
+    }
+
+    block->expression = _expression;
+}
+
+void parse_operator_expression(expression *_expression, set *token_set)
+{
+    if (token_set->length < 0)
+    {
+        return;
+    }
+
+    iterator *expression_iterator = create_iterator(token_set);
+
+    iterator_next(expression_iterator);
+    token *current_token = expression_iterator->current;
+
+    _expression->operator_expression = malloc(sizeof(operator_expression));
+
+    if (current_token->type == 0x05)
+    {
+        expression *primitive_expression = malloc(sizeof(expression));
+
+        set *value_token = create_set(0x00, 0x00);
+        value_token->array = malloc(sizeof(token));
+        value_token->array[0x00] = current_token;
+        value_token->length = 0x01;
+
+        parse_value_expression(primitive_expression, value_token);
+
+        iterator_next(expression_iterator);
+
+        _expression->operator_expression->left_side = primitive_expression;
+
+        token *operator= expression_iterator->current;
+        token *future = expression_iterator->set->array[expression_iterator->index + 0x02];
+
+        _expression->operator_expression->operator= operator->identifier;
+
+        if (expression_iterator->index + 0x02 < expression_iterator->set->length && future->type == 0x03)
+        {
+            _expression->operator_expression->right_side = malloc(sizeof(expression));
+            parse_operator_expression(_expression->operator_expression->right_side, expression_iterator->set);
+        }
+        else
+        {
+            iterator_next(expression_iterator);
+            current_token = expression_iterator->current;
+            expression *primitive_expression = malloc(sizeof(expression));
+
+            set *value_token = create_set(0x00, 0x00);
+            value_token->array = malloc(sizeof(token));
+            value_token->array[0x00] = current_token;
+            value_token->length = 0x01;
+
+            parse_value_expression(primitive_expression, value_token);
+            _expression->operator_expression->right_side = primitive_expression;
+        }
+    }
+}
+
+void parse_value_expression(expression *value_expression, set *token_set)
+{
+    if (token_set->length < 1)
+    {
+        return;
+    }
+
+    iterator *value_iterator = create_iterator(token_set);
+
+    iterator_next(value_iterator);
+    token *value = value_iterator->current;
+
+    mug_primitive *primitive = malloc(sizeof(mug_primitive));
+    if (primitive == 0x00)
+    {
+        return;
+    }
+
+    value_expression->value_expression = malloc(sizeof(struct value_expression_s));
+
+    if (value_expression->value_expression == 0x00)
+    {
+        return;
+    }
+
+    value_expression->value_expression->type = create_primitive(primitive, value->data);
+    value_expression->value_expression->primitive = primitive;
 }

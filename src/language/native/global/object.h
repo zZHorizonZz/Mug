@@ -36,8 +36,9 @@ typedef struct body_s body;
 
 typedef union block_u block;
 typedef struct field_block_s field_block;
-typedef struct expression_blocks_s expression_block;
+typedef struct expression_block_s expression_block;
 typedef struct statement_block_s statement_block;
+typedef struct return_block_s return_block;
 
 typedef union expression_u expression;
 typedef struct value_expression_s value_expression;
@@ -88,6 +89,14 @@ struct field_block_s
 
     char initializer_type;
     expression *initializer;
+};
+
+struct return_block_s
+{
+    char *type;
+
+    char expression_type;
+    expression *expression;
 };
 
 struct expression_block_s
@@ -172,7 +181,6 @@ void execute_field_block(field_block *field_block);
 // ─── EXPRESSION ─────────────────────────────────────────────────────────────────
 //
 
-void parse_value_expression(expression *value_expression, set *token_set);
 void execute_expression(char type, expression *expression);
 void execute_value_expression(value_expression *expression);
 int execute_operator_expression(operator_expression *expression);

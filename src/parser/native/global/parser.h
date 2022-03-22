@@ -23,7 +23,6 @@
 
 #include "object.h"
 
-static const char *EXPRESSION = "VALUE_EXPRESSION|OPERATOR_EXPRESSION|REFERENCE_EXPRESSION";
 static const char *VALUE_EXPRESSION = "<PRIMITIVE>";
 static const char *OPERATOR_EXPRESSION = "(EXPRESSION)<OPERATOR>(EXPRESSION)";
 static const char *REFERENCE_EXPRESSION = "<IDENTIFIER>?()?";
@@ -43,6 +42,7 @@ void parse_method(mug_method *method, set *token_set);
 void parse_body(body *body, set *token_set);
 char parse_block(block *block, set *token_set);
 
+char evaluate_type(set *token_set);
 char is_mathing(const char *rule, set *token_set);
 unsigned char parse_token_type(const char *input);
 unsigned char parse_expression_type(const char *input);
@@ -63,7 +63,8 @@ char is_return_block(set *token_set);
 
 void parse_field_block(field_block *field_block, set *token_set);
 void parse_return_block();
-void parse_token_block(expression *expression, set *token_set);
+void parse_expression_block(expression_block *expression_block, set *token_set, char type);
+
 void parse_operator_expression(expression *operator_expression, set *token_set);
 void parse_value_expression(expression *value_expression, set *token_set);
 
