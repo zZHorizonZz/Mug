@@ -119,9 +119,16 @@ void execute_block(char type, block *block)
     switch (type)
     {
     case 0x00:
+    {
+        execute_expression(block->expression_block->expression_type, block->expression_block->expression);
+        break;
+    }
+
+    case 0x01:
+    {
         execute_field_block(block->field_block);
         break;
-
+    }
     default:
         break;
     }
@@ -138,13 +145,27 @@ void execute_field_block(field_block *field_block)
 
 void execute_expression(char type, expression *expression)
 {
-    if (type = 0x00)
+    switch (type)
+    {
+    case 0x00:
     {
         execute_value_expression(expression->value_expression);
+        break;
     }
-    else
+
+    case 0x01:
     {
-        printf("Result of calculation is %d", execute_operator_expression(expression->operator_expression));
+        //execute_reference_expression(expression->value_expression);
+        break;
+    }
+
+    case 0x02:
+    {
+        execute_operator_expression(expression->operator_expression);
+        break;
+    }
+    default:
+        break;
     }
 }
 

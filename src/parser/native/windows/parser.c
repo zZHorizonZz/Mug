@@ -24,6 +24,8 @@ void parse_method(mug_method *method, set *token_set)
     }
 
     iterator *method_iterator = create_iterator(token_set);
+    iterator_next(method_iterator);
+
     token *current_token = method_iterator->current;
 
     if (current_token->type == 0x00)
@@ -82,13 +84,14 @@ void parse_body(body *body, set *token_set)
     }
 
     iterator *token_iterator = create_iterator(token_set);
-
-    token *current_token = token_iterator->current;
+    
     set *expression_set = create_set(0x00, 0x00);
     expression *expression;
 
     while (iterator_has_next(token_iterator) == 0x01)
     {
+        iterator_next(token_iterator);
+        token *current_token = token_iterator->current;
 
         if (current_token->type == 0x01)
         {
@@ -109,19 +112,14 @@ void parse_body(body *body, set *token_set)
                 body->length++;
 
                 set_free(expression_set);
-                iterator_next(token_iterator);
 
                 expression_set = create_set(0x00, 0x00);
-                current_token = token_iterator->current;
 
                 continue;
             }
         }
 
         set_add(expression_set, current_token);
-        iterator_next(token_iterator);
-
-        current_token = token_iterator->current;
     }
 }
 
@@ -131,19 +129,21 @@ char parse_block(block *block, set *token_set)
 
     switch (type)
     {
+    case 0x01:
     case 0x02:
     case 0x03:
-    case 0x04:
     {
         expression_block *_expression_block = malloc(sizeof(expression_block));
         block->expression_block = _expression_block;
         parse_expression_block(_expression_block, token_set, type);
-        break;
+        return 0x01;
     }
 
     default:
         break;
     }
+
+    return 0x00;
 }
 
 char evaluate_type(set *token_set)

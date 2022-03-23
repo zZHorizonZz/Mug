@@ -29,7 +29,7 @@ struct set_s
 
 struct iterator_s
 {
-    int index;
+    size_t index;
     void *current;
 
     set *set;

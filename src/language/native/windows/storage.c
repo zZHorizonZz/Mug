@@ -39,8 +39,8 @@ iterator *create_iterator(set *set)
     }
 
     new_iterator->set = set;
-    new_iterator->current = set->array[0x00];
     new_iterator->index = 0x00;
+    new_iterator->current = 0x00;
     return new_iterator;
 }
 
@@ -100,12 +100,19 @@ void set_free(set *set)
 
 int iterator_next(iterator *iterator)
 {
-    if (iterator->index >= iterator->set->length)
+    if (iterator->current != 0x00 && iterator->index >= iterator->set->length)
     {
         return 0x00;
     }
 
-    iterator->current = iterator->set->array[++iterator->index];
+    if (iterator->current == 0x00)
+    {
+        iterator->current = iterator->set->array[iterator->index];
+    }
+    else
+    {
+        iterator->current = iterator->set->array[++iterator->index];
+    }
     return 0x01;
 }
 
