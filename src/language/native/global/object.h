@@ -23,6 +23,7 @@
 #include "storage.h"
 #include "primitive.h"
 #include "token.h"
+#include "foundation.h"
 
 //
 // ─── STRUCTURE ──────────────────────────────────────────────────────────────────
@@ -104,8 +105,7 @@ struct mug_method_s
 
 struct mug_field_s
 {
-    field_type field_type;
-    unsigned char metadata;
+    mug_foundation *type;
 
     char *name;
     mug_object *value;
@@ -128,8 +128,7 @@ union block_u
 
 struct field_block_s
 {
-    field_type field_type;
-    unsigned char metadata;
+    mug_foundation *type;
     char *name;
 
     char initializer_type;
@@ -184,28 +183,14 @@ struct reference_expression_s
 };
 
 //
-// ─── NATIVE ─────────────────────────────────────────────────────────────────────
-//
-
-mug_foundation *load_primitive_foundation(basic_primitive primitive_type, char *name);
-void load_native_primitive(mug_object *environment, mug_object *main_structure);
-mug_object *build_primitive_object(mug_primitive *primitive);
-
-//
 // ─── OBJECT ─────────────────────────────────────────────────────────────────────
 //
 
-mug_object *new_object(char *value);
+mug_object *new_object(mug_foundation *foundation);
 int equals(mug_object *original, mug_object *equal);
 
-//
-// ─── FOUNDATION ─────────────────────────────────────────────────────────────────
-//
-
-mug_foundation *new_foundation();
-mug_object *find_foundation(char *location, char *name);
-int register_foundation(mug_object *foundation);
-int remove_foundation(char *location, char *name);
+void load_native_primitive(mug_object *environment, mug_object *main_structure);
+mug_object *build_primitive_object(mug_primitive *primitive);
 
 //
 // ─── METHOD ─────────────────────────────────────────────────────────────────────

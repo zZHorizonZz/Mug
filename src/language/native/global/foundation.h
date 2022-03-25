@@ -12,35 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef ENVIRONMENT_H
-#define ENVIRONMENT_H
+//
+// ─── NATIVE ─────────────────────────────────────────────────────────────────────
+//
 
-#include "parser.h"
-#include "object.h"
-#include "storage.h"
+#ifndef FOUNDATION_H
+#define FOUNDATION_H
 
-typedef struct mug_program_s mug_program;
+#include "primitive.h"
+
 typedef struct mug_environment_s mug_environment;
+typedef struct mug_foundation_s mug_foundation;
+typedef struct mug_object_s mug_object;
 
-struct mug_program_s
-{
-    char *path;
-    char *name;
-};
+typedef enum basic_primitive_e basic_primitive;
 
-struct mug_environment_s
-{
-    mug_program *program;
-
-    set *native_foundations;
-    set *native_objects;
-};
-
-int launch_program(mug_program *program);
-
-void load_native(mug_environment *environment);
-
+mug_foundation *load_primitive_foundation(basic_primitive primitive_type, char *name);
 mug_foundation *get_native_foundation(mug_environment *environment, char *location, char *name);
-mug_object *get_native_foundation(mug_environment *environment, char *location, char *name);
+mug_object *get_native_object(mug_environment *environment, char *location, char *name);
+
+mug_foundation *new_foundation();
 
 #endif

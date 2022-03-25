@@ -531,7 +531,6 @@ char is_return_block(set *token_set)
 
 void parse_field_block(field_block *field_block, set *token_set)
 {
-    field
 }
 
 void parse_expression_block(expression_block *block, set *token_set, char type)
@@ -647,6 +646,7 @@ void parse_value_expression(expression *value_expression, set *token_set)
         return;
     }
 
-    value_expression->value_expression->type = create_primitive(primitive, value->data);
+    // todo static environment variable
+    value_expression->value_expression->type = new_primitive_object() create_primitive(primitive, value->data);
     value_expression->value_expression->primitive = primitive;
 }

@@ -19,81 +19,16 @@
 
 #include "object.h"
 
-//
-// ─── NATIVE ─────────────────────────────────────────────────────────────────────
-//
-
-mug_foundation *load_primitive_foundation(basic_primitive primitive_type, char *name)
-{
-    mug_foundation *foundation = new_foundation("System", name);
-
-    foundation->metadata = 0x00 << 0x01;
-    foundation->type = primitive_type;
-
-    return foundation;
-}
-
-mug_object *build_primitive_object(mug_primitive *primitive)
-{
-
-    mug_object *object = malloc(sizeof(mug_object));
-    if (object == 0x00)
-    {
-        return 0x00;
-    }
-
-    object
-}
-
-//
-// ─── FOUNDATION ─────────────────────────────────────────────────────────────────
-//
-
-mug_foundation *new_foundation(char *location, char *name)
-{
-    mug_foundation *foundation = malloc(sizeof(mug_foundation));
-    if (foundation == 0x00)
-    {
-        return 0x00;
-    }
-
-    foundation->location = location;
-    foundation->name = name;
-    return foundation;
-}
-
-mug_object *find_foundation(char *location, char *name)
-{
-}
-
-int register_foundation(mug_object *foundation)
-{
-}
-
-int remove_foundation(char *location, char *name)
-{
-}
-
 /*
  * ─── OBJECT ─────────────────────────────────────────────────────────────────────
  */
 
 mug_object *new_object(char *value)
 {
-    mug_object *obj = malloc(sizeof(mug_object));
-    obj->value = value;
-    return obj;
 }
 
 int equals(mug_object *original, mug_object *equal)
 {
-    int valid = 0;
-    if (original->value == equal->value)
-    {
-        valid = 1;
-    }
-
-    return valid;
 }
 
 /*
@@ -226,31 +161,32 @@ void execute_expression(char type, expression *expression)
 
 void execute_value_expression(value_expression *expression)
 {
-    switch (expression->type)
+    mug_primitive *primitive = expression->value->primitive;
+    switch (expression->value->foundation->type)
     {
     case 0x00:
-        printf("Byte value is %c", expression->primitive->mug_byte->value);
+        printf("Byte value is %c", primitive->mug_byte->value);
         break;
     case 0x01:
-        printf("Short value is %d", expression->primitive->mug_short->value);
+        printf("Short value is %d", primitive->mug_short->value);
         break;
     case 0x02:
-        printf("Int value is %d", expression->primitive->mug_int->value);
+        printf("Int value is %d", primitive->mug_int->value);
         break;
     case 0x03:
-        printf("Long value is %d", expression->primitive->mug_long->value);
+        printf("Long value is %d", primitive->mug_long->value);
         break;
     case 0x04:
-        printf("Float value is %f", expression->primitive->mug_float->value);
+        printf("Float value is %f", primitive->mug_float->value);
         break;
     case 0x05:
-        printf("Double value is %f", expression->primitive->mug_double->value);
+        printf("Double value is %f", primitive->mug_double->value);
         break;
     case 0x06:
-        printf("String value is %s", expression->primitive->mug_string->value);
+        printf("String value is %s", primitive->mug_string->value);
         break;
     case 0x07:
-        printf("Boolean value is %c", expression->primitive->mug_boolean->value);
+        printf("Boolean value is %c", primitive->mug_boolean->value);
         break;
     default:
         break;
@@ -265,29 +201,29 @@ int execute_operator_expression(operator_expression *expression)
         {
         case 0x00:
         {
-            int result = expression->left_side->value_expression->primitive->mug_int->value +
-                         expression->right_side->value_expression->primitive->mug_int->value;
+            int result = expression->left_side->value_expression->value->primitive->mug_int->value +
+                         expression->right_side->value_expression->value->primitive->mug_int->value;
 
             return result;
         }
         case 0x01:
         {
-            int result = expression->left_side->value_expression->primitive->mug_int->value +
-                         expression->right_side->value_expression->primitive->mug_int->value;
+            int result = expression->left_side->value_expression->value->primitive->mug_int->value +
+                         expression->right_side->value_expression->value->primitive->mug_int->value;
 
             return result;
         }
         case 0x02:
         {
-            int result = expression->left_side->value_expression->primitive->mug_int->value +
-                         expression->right_side->value_expression->primitive->mug_int->value;
+            int result = expression->left_side->value_expression->value->primitive->mug_int->value +
+                         expression->right_side->value_expression->value->primitive->mug_int->value;
 
             return result;
         }
         case 0x03:
         {
-            int result = expression->left_side->value_expression->primitive->mug_int->value +
-                         expression->right_side->value_expression->primitive->mug_int->value;
+            int result = expression->left_side->value_expression->value->primitive->mug_int->value +
+                         expression->right_side->value_expression->value->primitive->mug_int->value;
 
             return result;
         }
@@ -301,28 +237,28 @@ int execute_operator_expression(operator_expression *expression)
         {
         case 0x00:
         {
-            int result = expression->left_side->value_expression->primitive->mug_int->value +
+            int result = expression->left_side->value_expression->value->primitive->mug_int->value +
                          execute_operator_expression(expression->right_side->operator_expression);
 
             return result;
         }
         case 0x01:
         {
-            int result = expression->left_side->value_expression->primitive->mug_int->value +
+            int result = expression->left_side->value_expression->value->primitive->mug_int->value +
                          execute_operator_expression(expression->right_side->operator_expression);
 
             return result;
         }
         case 0x02:
         {
-            int result = expression->left_side->value_expression->primitive->mug_int->value +
+            int result = expression->left_side->value_expression->value->primitive->mug_int->value +
                          execute_operator_expression(expression->right_side->operator_expression);
 
             return result;
         }
         case 0x03:
         {
-            int result = expression->left_side->value_expression->primitive->mug_int->value +
+            int result = expression->left_side->value_expression->value->primitive->mug_int->value +
                          execute_operator_expression(expression->right_side->operator_expression);
 
             return result;

@@ -24,17 +24,25 @@ int launch_program(mug_program *program_data)
     }
 
     mug_environment *environment = malloc(sizeof(mug_environment));
+    if (environment == 0x00)
+    {
+        return 0x02;
+    }
+
+    environment->native_foundations = create_set(0x00, 0x00);
+    environment->native_objects = create_set(0x00, 0x00);
+
     load_native(environment);
 }
 
 void load_native(mug_environment *environment)
 {
-    load_primitive_foundation(BYTE, "byte");
-    load_primitive_foundation(SHORT, "short");
-    load_primitive_foundation(INT, "int");
-    load_primitive_foundation(LONG, "long");
-    load_primitive_foundation(FLOAT, "float");
-    load_primitive_foundation(DOUBLE, "double");
-    load_primitive_foundation(STRING, "string");
-    load_primitive_foundation(BOOL, "bool");
+    set_add(environment->native_foundations, load_primitive_foundation(BYTE, "byte"));
+    set_add(environment->native_foundations, load_primitive_foundation(SHORT, "short"));
+    set_add(environment->native_foundations, load_primitive_foundation(INT, "int"));
+    set_add(environment->native_foundations, load_primitive_foundation(LONG, "long"));
+    set_add(environment->native_foundations, load_primitive_foundation(FLOAT, "float"));
+    set_add(environment->native_foundations, load_primitive_foundation(DOUBLE, "double"));
+    set_add(environment->native_foundations, load_primitive_foundation(STRING, "string"));
+    set_add(environment->native_foundations, load_primitive_foundation(BOOL, "bool"));
 }

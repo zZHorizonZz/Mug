@@ -22,6 +22,7 @@
 #include <string.h>
 
 #include "object.h"
+#include "generic.h"
 
 static const char *VALUE_EXPRESSION = "<PRIMITIVE>";
 static const char *OPERATOR_EXPRESSION = "(EXPRESSION)<OPERATOR>(EXPRESSION)";
