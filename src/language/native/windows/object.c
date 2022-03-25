@@ -19,6 +19,61 @@
 
 #include "object.h"
 
+//
+// ─── NATIVE ─────────────────────────────────────────────────────────────────────
+//
+
+mug_foundation *load_primitive_foundation(basic_primitive primitive_type, char *name)
+{
+    mug_foundation *foundation = new_foundation("System", name);
+
+    foundation->metadata = 0x00 << 0x01;
+    foundation->type = primitive_type;
+
+    return foundation;
+}
+
+mug_object *build_primitive_object(mug_primitive *primitive)
+{
+
+    mug_object *object = malloc(sizeof(mug_object));
+    if (object == 0x00)
+    {
+        return 0x00;
+    }
+
+    object
+}
+
+//
+// ─── FOUNDATION ─────────────────────────────────────────────────────────────────
+//
+
+mug_foundation *new_foundation(char *location, char *name)
+{
+    mug_foundation *foundation = malloc(sizeof(mug_foundation));
+    if (foundation == 0x00)
+    {
+        return 0x00;
+    }
+
+    foundation->location = location;
+    foundation->name = name;
+    return foundation;
+}
+
+mug_object *find_foundation(char *location, char *name)
+{
+}
+
+int register_foundation(mug_object *foundation)
+{
+}
+
+int remove_foundation(char *location, char *name)
+{
+}
+
 /*
  * ─── OBJECT ─────────────────────────────────────────────────────────────────────
  */
@@ -155,7 +210,7 @@ void execute_expression(char type, expression *expression)
 
     case 0x01:
     {
-        //execute_reference_expression(expression->value_expression);
+        // execute_reference_expression(expression->value_expression);
         break;
     }
 

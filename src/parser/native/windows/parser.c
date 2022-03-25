@@ -84,7 +84,7 @@ void parse_body(body *body, set *token_set)
     }
 
     iterator *token_iterator = create_iterator(token_set);
-    
+
     set *expression_set = create_set(0x00, 0x00);
     expression *expression;
 
@@ -527,6 +527,11 @@ char is_field_block(set *token_set)
 char is_return_block(set *token_set)
 {
     return is_mathing(RETURN_BLOCK, token_set);
+}
+
+void parse_field_block(field_block *field_block, set *token_set)
+{
+    field
 }
 
 void parse_expression_block(expression_block *block, set *token_set, char type)

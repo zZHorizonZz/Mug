@@ -28,9 +28,14 @@
 // ─── STRUCTURE ──────────────────────────────────────────────────────────────────
 //
 
+typedef enum field_type_e field_type;
+typedef enum basic_primitive_e basic_primitive;
+typedef enum advanced_primitive_e advanced_primitive;
+
 typedef struct mug_object_s mug_object;
 typedef struct mug_foundation_s mug_foundation;
 typedef struct mug_method_s mug_method;
+typedef struct mug_field_s mug_field;
 
 typedef struct body_s body;
 
@@ -45,15 +50,45 @@ typedef struct value_expression_s value_expression;
 typedef struct operator_expression_s operator_expression;
 typedef struct reference_expression_s reference_expression;
 
+enum field_type_e
+{
+    BASIC_PRIMITIVE,
+    ADVANCED_PRIMITIVE
+};
+
+enum basic_primitive_e
+{
+    BYTE,
+    SHORT,
+    INT,
+    LONG,
+    FLOAT,
+    DOUBLE,
+    STRING,
+    BOOL
+};
+
+enum advanced_primitive_e
+{
+    FOUNDATION,
+    OBJECT
+};
+
 struct mug_object_s
 {
-    char *value;
+    mug_foundation *foundation;
+
+    mug_primitive *primitive;
+    mug_field **fields;
 };
 
 struct mug_foundation_s
 {
-    char *location;
-    char *name;
+    const char *location;
+    const char *name;
+
+    unsigned char metadata;
+    unsigned char type;
 
     size_t method_count;
     size_t field_count;
@@ -65,6 +100,15 @@ struct mug_method_s
 {
     char *name;
     body *body;
+};
+
+struct mug_field_s
+{
+    field_type field_type;
+    unsigned char metadata;
+
+    char *name;
+    mug_object *value;
 };
 
 struct body_s
@@ -84,7 +128,8 @@ union block_u
 
 struct field_block_s
 {
-    char *type;
+    field_type field_type;
+    unsigned char metadata;
     char *name;
 
     char initializer_type;
@@ -119,8 +164,7 @@ union expression_u
 
 struct value_expression_s
 {
-    char type;
-    mug_primitive *primitive;
+    mug_object *value;
 };
 
 struct operator_expression_s
@@ -138,6 +182,14 @@ struct reference_expression_s
 {
     char *reference;
 };
+
+//
+// ─── NATIVE ─────────────────────────────────────────────────────────────────────
+//
+
+mug_foundation *load_primitive_foundation(basic_primitive primitive_type, char *name);
+void load_native_primitive(mug_object *environment, mug_object *main_structure);
+mug_object *build_primitive_object(mug_primitive *primitive);
 
 //
 // ─── OBJECT ─────────────────────────────────────────────────────────────────────
