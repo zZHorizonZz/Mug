@@ -28,11 +28,51 @@ typedef struct token_s
     char *data;
 } token;
 
-static const char *SEPARATOR[16] = {".", ",", "(", ")", "{", "}", ";", "\""};
-static const char *KEYWORD[16] = {"repository", "structure", "void", "native", "if", "else", "elseif", "while", "return"};
-static const char *OPERATOR[16] = {"+", "-", "*", "/", "<<", ">>", "|", "&", "^", "="};
+static const char *SEPARATOR[16] = {".",
+                                    ",",
+                                    "(",
+                                    ")",
+                                    "{",
+                                    "}",
+                                    ";",
+                                    "\""};
+
+static const char *KEYWORD[32] = {"repository",
+                                  "structure",
+                                  "void",
+                                  "native",
+                                  "if",
+                                  "else",
+                                  "elseif",
+                                  "while",
+                                  "return",
+                                  "byte",
+                                  "short",
+                                  "int",
+                                  "long",
+                                  "float",
+                                  "long",
+                                  "string",
+                                  "bool",
+                                  "foundation",
+                                  "structure",
+                                  "object"};
+
+static const char *OPERATOR[16] = {"+",
+                                   "-",
+                                   "*",
+                                   "/",
+                                   "<<",
+                                   ">>",
+                                   "|",
+                                   "&",
+                                   "^",
+                                   "="};
 static const char *BLANK[16] = {"//"};
-static const char *IGNORE[16] = {" ", "\n", "\r", "\t"};
+static const char *IGNORE[16] = {" ",
+                                 "\n",
+                                 "\r",
+                                 "\t"};
 
 void parse_token_letter(token *token, char letter);
 void parse_token(token *token, char *content);

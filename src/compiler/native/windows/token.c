@@ -29,42 +29,57 @@ void parse_token_letter(token *token, char letter)
 
 void parse_token(token *token, char *content)
 {
-    for (size_t i = 0; i < 16; i++)
+    for (size_t i = 0; i < 0x20; i++)
     {
-        if (SEPARATOR[i] != 0x00 && strlen(content) == 1 && content[0] == *SEPARATOR[i])
+        if (i >= 0x10)
         {
-            token->type = 0x01;
-            token->identifier = i;
-            token->data = 0x00;
+            if (KEYWORD[i] != 0x00 && strcmp(content, KEYWORD[i]) == 0)
+            {
+                token->type = 0x02;
+                token->identifier = i;
+                token->data = 0x00;
 
-            return;
+                return;
+            }
+            continue;
         }
-
-        if (KEYWORD[i] != 0x00 && strcmp(content, KEYWORD[i]) == 0)
+        else
         {
-            token->type = 0x02;
-            token->identifier = i;
-            token->data = 0x00;
+            if (SEPARATOR[i] != 0x00 && strlen(content) == 1 && content[0] == *SEPARATOR[i])
+            {
+                token->type = 0x01;
+                token->identifier = i;
+                token->data = 0x00;
 
-            return;
-        }
+                return;
+            }
 
-        if (OPERATOR[i] != 0x00 && strcmp(content, OPERATOR[i]) == 0)
-        {
-            token->type = 0x03;
-            token->identifier = i;
-            token->data = 0x00;
+            if (KEYWORD[i] != 0x00 && strcmp(content, KEYWORD[i]) == 0)
+            {
+                token->type = 0x02;
+                token->identifier = i;
+                token->data = 0x00;
 
-            return;
-        }
+                return;
+            }
 
-        if (BLANK[i] != 0x00 && strcmp(content, BLANK[i]) == 0)
-        {
-            token->type = 0x04;
-            token->identifier = i;
-            token->data = 0x00;
+            if (OPERATOR[i] != 0x00 && strcmp(content, OPERATOR[i]) == 0)
+            {
+                token->type = 0x03;
+                token->identifier = i;
+                token->data = 0x00;
 
-            return;
+                return;
+            }
+
+            if (BLANK[i] != 0x00 && strcmp(content, BLANK[i]) == 0)
+            {
+                token->type = 0x04;
+                token->identifier = i;
+                token->data = 0x00;
+
+                return;
+            }
         }
     }
 
