@@ -36,34 +36,8 @@ int equals(mug_object *original, mug_object *equal);
 void load_native_primitive(mug_object *environment, mug_object *main_structure);
 mug_object *build_primitive_object(mug_primitive *primitive);
 
-//
-// ─── METHOD ─────────────────────────────────────────────────────────────────────
-//
-
 mug_method *new_method();
-void execute_method(mug_method *method);
-
-//
-// ─── BODY ───────────────────────────────────────────────────────────────────────
-//
-
 body *new_body();
-void execute_body(body *body);
-
-//
-// ─── BLOCK ──────────────────────────────────────────────────────────────────────
-//
-
 block *new_block();
-void execute_block(char type, block *block);
-void execute_field_block(field_block *field_block);
-
-//
-// ─── EXPRESSION ─────────────────────────────────────────────────────────────────
-//
-
-void execute_expression(char type, expression *expression);
-void execute_value_expression(value_expression *expression);
-int execute_operator_expression(operator_expression *expression);
 
 #endif

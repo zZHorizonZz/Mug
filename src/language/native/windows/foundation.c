@@ -16,10 +16,6 @@
 
 #include "foundation.h"
 
-//
-// ─── NATIVE ─────────────────────────────────────────────────────────────────────
-//
-
 mug_foundation *load_primitive_foundation(basic_primitive primitive_type, char *name)
 {
     mug_foundation *foundation = new_foundation("System", name);
@@ -40,10 +36,6 @@ mug_object *build_primitive_object(mug_primitive *primitive)
     }
 
 }
-
-//
-// ─── FOUNDATION ─────────────────────────────────────────────────────────────────
-//
 
 mug_foundation *new_foundation(char *location, char *name)
 {

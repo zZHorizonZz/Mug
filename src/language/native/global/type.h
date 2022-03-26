@@ -20,6 +20,7 @@
 #include "token.h"
 
 typedef struct mug_program_s mug_program;
+typedef struct mug_machine_s mug_machine;
 typedef struct mug_environment_s mug_environment;
 
 typedef enum field_type_e field_type;
@@ -48,6 +49,16 @@ struct mug_program_s
 {
     char *path;
     char *name;
+};
+
+struct mug_machine_s
+{
+    char os_type;
+    char *os_name;
+
+    char metadata;
+
+    mug_environment *environment;
 };
 
 struct mug_environment_s

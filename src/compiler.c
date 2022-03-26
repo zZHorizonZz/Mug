@@ -96,7 +96,7 @@ int compile_file(char *path, char *name)
     mug_method *method = new_method();
 
     printf("[Method] Parsing method ...");
-    parse_method(method, token_set);
+    //parse_method(method, token_set);
     printf(" %s [Done] \n", method->name);
     printf("[Method] Executing method %s", method->name);
     execute_method(method);

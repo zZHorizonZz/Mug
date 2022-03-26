@@ -39,19 +39,25 @@ struct pattern_s
     unsigned char *pattern;
 };
 
-void parse_method(mug_method *method, set *token_set);
-void parse_body(body *body, set *token_set);
-char parse_block(block *block, set *token_set);
+void expand_pattern(pattern *pattern, const char rule);
+pattern *compile_pattern(const char *rule);
 
-char evaluate_type(set *token_set);
-char is_mathing(const char *rule, set *token_set);
+void parse_method(mug_environment *environment, mug_method *method, set *token_set);
+void parse_body(mug_environment *environment, body *body, set *token_set);
+char parse_block(mug_environment *environment, block *block, set *token_set);
 unsigned char parse_token_type(const char *input);
 unsigned char parse_expression_type(const char *input);
 token *parse_specific_token_type(const char *input);
 
-void expand_pattern(pattern *pattern, const char rule);
+void parse_field_block(mug_environment *environment, field_block *field_block, set *token_set);
+void parse_return_block();
+void parse_expression_block(mug_environment *environment, expression_block *expression_block, set *token_set, char type);
 
-pattern *compile_pattern(const char *rule);
+void parse_operator_expression(mug_environment *environment, expression *operator_expression, set *token_set);
+void parse_value_expression(mug_environment *environment, expression *value_expression, set *token_set);
+
+char evaluate_type(set *token_set);
+char is_mathing(const char *rule, set *token_set);
 
 char is_expression(set *token_set);
 char is_value_expression(set *token_set);
@@ -61,12 +67,5 @@ char is_reference_expression(set *token_set);
 char is_declared_field_block(set *token_set);
 char is_field_block(set *token_set);
 char is_return_block(set *token_set);
-
-void parse_field_block(field_block *field_block, set *token_set);
-void parse_return_block();
-void parse_expression_block(expression_block *expression_block, set *token_set, char type);
-
-void parse_operator_expression(expression *operator_expression, set *token_set);
-void parse_value_expression(expression *value_expression, set *token_set);
 
 #endif

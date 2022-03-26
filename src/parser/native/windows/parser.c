@@ -16,7 +16,7 @@
 
 #include "parser.h"
 
-void parse_method(mug_method *method, set *token_set)
+void parse_method(mug_environment *environment, mug_method *method, set *token_set)
 {
     if (token_set->length < 0)
     {
@@ -64,7 +64,7 @@ void parse_method(mug_method *method, set *token_set)
                         return;
                     }
 
-                    parse_body(method->body, body_set);
+                    parse_body(environment, method->body, body_set);
                 }
             }
         }
@@ -76,7 +76,7 @@ void parse_method(mug_method *method, set *token_set)
     }
 }
 
-void parse_body(body *body, set *token_set)
+void parse_body(mug_environment *environment, body *body, set *token_set)
 {
     if (token_set->length < 1)
     {
@@ -104,7 +104,7 @@ void parse_body(body *body, set *token_set)
                 }
 
                 block *block = new_block();
-                char type = parse_block(block, expression_set);
+                char type = parse_block(environment, block, expression_set);
 
                 set_add(body->body_block, block);
                 set_add(body->body_type, &type);
@@ -123,7 +123,7 @@ void parse_body(body *body, set *token_set)
     }
 }
 
-char parse_block(block *block, set *token_set)
+char parse_block(mug_environment *environment, block *block, set *token_set)
 {
     char type = evaluate_type(token_set);
 
@@ -135,7 +135,7 @@ char parse_block(block *block, set *token_set)
     {
         expression_block *_expression_block = malloc(sizeof(expression_block));
         block->expression_block = _expression_block;
-        parse_expression_block(_expression_block, token_set, type);
+        parse_expression_block(environment, _expression_block, token_set, type);
         return 0x01;
     }
 
@@ -227,7 +227,6 @@ char is_mathing(const char *rule, set *token_set)
                             }
                             if (is_expression(expression_set) == 0x01)
                             {
-                                printf("teetette");
                                 break;
                             }
                         }
@@ -529,11 +528,11 @@ char is_return_block(set *token_set)
     return is_mathing(RETURN_BLOCK, token_set);
 }
 
-void parse_field_block(field_block *field_block, set *token_set)
+void parse_field_block(mug_environment *environment, field_block *field_block, set *token_set)
 {
 }
 
-void parse_expression_block(expression_block *block, set *token_set, char type)
+void parse_expression_block(mug_environment *environment, expression_block *block, set *token_set, char type)
 {
     expression *_expression = malloc(sizeof(expression));
 
@@ -541,13 +540,13 @@ void parse_expression_block(expression_block *block, set *token_set, char type)
     {
     case 0x01:
     {
-        parse_value_expression(_expression, token_set);
+        parse_value_expression(environment, _expression, token_set);
         break;
     }
 
     case 0x02:
     {
-        parse_operator_expression(_expression, token_set);
+        parse_operator_expression(environment, _expression, token_set);
         break;
     }
 
@@ -565,7 +564,7 @@ void parse_expression_block(expression_block *block, set *token_set, char type)
     block->expression = _expression;
 }
 
-void parse_operator_expression(expression *_expression, set *token_set)
+void parse_operator_expression(mug_environment *environment, expression *_expression, set *token_set)
 {
     if (token_set->length < 0)
     {
@@ -588,7 +587,7 @@ void parse_operator_expression(expression *_expression, set *token_set)
         value_token->array[0x00] = current_token;
         value_token->length = 0x01;
 
-        parse_value_expression(primitive_expression, value_token);
+        parse_value_expression(environment, primitive_expression, value_token);
 
         iterator_next(expression_iterator);
 
@@ -602,7 +601,7 @@ void parse_operator_expression(expression *_expression, set *token_set)
         if (expression_iterator->index + 0x02 < expression_iterator->set->length && future->type == 0x03)
         {
             _expression->operator_expression->right_side = malloc(sizeof(expression));
-            parse_operator_expression(_expression->operator_expression->right_side, expression_iterator->set);
+            parse_operator_expression(environment, _expression->operator_expression->right_side, expression_iterator->set);
         }
         else
         {
@@ -615,13 +614,13 @@ void parse_operator_expression(expression *_expression, set *token_set)
             value_token->array[0x00] = current_token;
             value_token->length = 0x01;
 
-            parse_value_expression(primitive_expression, value_token);
+            parse_value_expression(environment, primitive_expression, value_token);
             _expression->operator_expression->right_side = primitive_expression;
         }
     }
 }
 
-void parse_value_expression(expression *value_expression, set *token_set)
+void parse_value_expression(mug_environment *environment, expression *value_expression, set *token_set)
 {
     if (token_set->length < 1)
     {
@@ -646,7 +645,5 @@ void parse_value_expression(expression *value_expression, set *token_set)
         return;
     }
 
-    // todo static environment variable
-    /*value_expression->value_expression->type = new_primitive_object() create_primitive(primitive, value->data);
-    value_expression->value_expression->primitive = primitive;*/
+    value_expression->value_expression->value = new_primitive_object(environment, value->data);
 }
