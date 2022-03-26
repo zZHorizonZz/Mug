@@ -24,7 +24,6 @@ typedef struct mug_machine_s mug_machine;
 typedef struct mug_environment_s mug_environment;
 
 typedef enum field_type_e field_type;
-typedef enum basic_primitive_e basic_primitive;
 typedef enum advanced_primitive_e advanced_primitive;
 
 typedef struct mug_object_s mug_object;
@@ -73,18 +72,6 @@ enum field_type_e
 {
     BASIC_PRIMITIVE,
     ADVANCED_PRIMITIVE
-};
-
-enum basic_primitive_e
-{
-    BYTE,
-    SHORT,
-    INT,
-    LONG,
-    FLOAT,
-    DOUBLE,
-    STRING,
-    BOOL
 };
 
 enum advanced_primitive_e

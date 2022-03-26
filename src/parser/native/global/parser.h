@@ -51,13 +51,15 @@ token *parse_specific_token_type(const char *input);
 
 void parse_field_block(mug_environment *environment, field_block *field_block, set *token_set);
 void parse_return_block();
-void parse_expression_block(mug_environment *environment, expression_block *expression_block, set *token_set, char type);
+void parse_expression_block(mug_environment *environment, expression_block *expression_block, set *token_set);
 
+void parse_expression(mug_environment *environment, expression *expression_block, set *token_set);
 void parse_operator_expression(mug_environment *environment, expression *operator_expression, set *token_set);
 void parse_value_expression(mug_environment *environment, expression *value_expression, set *token_set);
 
 char evaluate_type(set *token_set);
 char is_mathing(const char *rule, set *token_set);
+unsigned char get_expression_type(set *token_set);
 
 char is_expression(set *token_set);
 char is_value_expression(set *token_set);

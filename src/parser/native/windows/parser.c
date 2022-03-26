@@ -31,7 +31,6 @@ void parse_method(mug_environment *environment, mug_method *method, set *token_s
     if (current_token->type == 0x00)
     {
         method->name = current_token->data;
-        printf("Method name %s", method->name);
 
         iterator_next(method_iterator);
         current_token = method_iterator->current;
@@ -135,8 +134,17 @@ char parse_block(mug_environment *environment, block *block, set *token_set)
     {
         expression_block *_expression_block = malloc(sizeof(expression_block));
         block->expression_block = _expression_block;
-        parse_expression_block(environment, _expression_block, token_set, type);
+        parse_expression_block(environment, _expression_block, token_set);
         return 0x01;
+    }
+    case 0x04:
+    {
+        field_block *_field_block = malloc(sizeof(field_block));
+        block->field_block = _field_block;
+        parse_field_block(environment, _field_block, token_set);
+    }
+    case 0x05:
+    {
     }
 
     default:
@@ -478,6 +486,26 @@ pattern *compile_pattern(const char *rule)
     return rule_pattern;
 }
 
+unsigned char get_expression_type(set *token_set)
+{
+    if (is_operator_expression(token_set) == 0x01)
+    {
+        return 0x01;
+    }
+
+    if (is_reference_expression(token_set) == 0x01)
+    {
+        return 0x02;
+    }
+
+    if (is_value_expression(token_set) == 0x01)
+    {
+        return 0x03;
+    }
+
+    return 0x00;
+}
+
 char is_expression(set *token_set)
 {
     if (is_operator_expression(token_set) == 0x01)
@@ -530,11 +558,66 @@ char is_return_block(set *token_set)
 
 void parse_field_block(mug_environment *environment, field_block *field_block, set *token_set)
 {
+    iterator *iterator = create_iterator(token_set);
+
+    char declared = 0x00;
+    set *expression = create_set(0x00, 0x00);
+
+    while (iterator_has_next(iterator))
+    {
+        token *_token = (token *)iterator_next(iterator);
+
+        if (declared == 0x00)
+        {
+            if (_token->type == 0x00)
+            {
+                if (field_block->type == 0x00)
+                {
+                    // todo finding of a foundation
+                }
+                else
+                {
+                    field_block->name = _token->data;
+                }
+            }
+
+            if (_token->type == 0x02 && _token->identifier >= 0x0A && _token->identifier <= 0x14)
+            {
+                mug_foundation *primitive = get_native_foundation(environment, LOCATION, get_name(_token->identifier - 0x0A));
+                field_block->type = primitive;
+            }
+        }
+        else
+        {
+            set_add(expression, _token);
+        }
+
+        if (_token->type == 0x03 && _token->identifier == 0x09)
+        {
+            declared == 0x01;
+        }
+    }
+
+    field_block->initializer = malloc(sizeof(expression_block));
+    parse_expression(environment, field_block->initializer, expression);
 }
 
-void parse_expression_block(mug_environment *environment, expression_block *block, set *token_set, char type)
+void parse_expression_block(mug_environment *environment, expression_block *block, set *token_set)
 {
     expression *_expression = malloc(sizeof(expression));
+    if (_expression == 0x00)
+    {
+        exit(0x01);
+    }
+
+    parse_expression(environment, _expression, token_set);
+
+    block->expression = _expression;
+}
+
+void parse_expression(mug_environment *environment, expression *_expression, set *token_set)
+{
+    unsigned char type = get_expression_type(token_set);
 
     switch (type)
     {
@@ -560,8 +643,6 @@ void parse_expression_block(mug_environment *environment, expression_block *bloc
         // TODO Log error
         break;
     }
-
-    block->expression = _expression;
 }
 
 void parse_operator_expression(mug_environment *environment, expression *_expression, set *token_set)

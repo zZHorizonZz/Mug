@@ -16,7 +16,7 @@
 
 #include "foundation.h"
 
-mug_foundation *load_primitive_foundation(basic_primitive primitive_type, char *name)
+mug_foundation *load_primitive_foundation(primitive_type primitive_type, char *name)
 {
     mug_foundation *foundation = new_foundation("System", name);
 

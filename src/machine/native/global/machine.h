@@ -15,7 +15,11 @@
 #ifndef MACHINE_H
 #define MACHINE_H
 
+#include "osutil.c"
+#include "environment.h"
 #include "type.h"
+
+void launch_machine(char *path, char *name);
 
 void execute_method(mug_method *method);
 void execute_body(body *body);

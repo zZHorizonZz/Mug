@@ -19,6 +19,8 @@
 
 #include <stdlib.h>
 
+typedef enum primitive_type_e primitive_type;
+
 typedef struct byte_s mug_byte;
 typedef struct short_s mug_short;
 typedef struct int_s mug_int;
@@ -27,6 +29,18 @@ typedef struct float_s mug_float;
 typedef struct double_s mug_double;
 typedef struct string_s mug_string;
 typedef struct boolean_s mug_boolean;
+
+enum primitive_type_e
+{
+    BYTE,
+    SHORT,
+    INT,
+    LONG,
+    FLOAT,
+    DOUBLE,
+    STRING,
+    BOOL
+};
 
 typedef union primitive_u
 {
@@ -81,5 +95,6 @@ struct boolean_s
 };
 
 char create_primitive(mug_primitive *primitive, char *data);
+char *get_name(primitive_type type);
 
 #endif

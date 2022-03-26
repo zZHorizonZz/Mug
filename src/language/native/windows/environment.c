@@ -16,15 +16,9 @@
 
 #include "environment.h"
 
-int launch_program(mug_program *program_data)
+int launch_environment(mug_program *program_data, mug_environment *environment)
 {
     if (program_data->path == 0x00 || program_data->name == 0x00)
-    {
-        return 0x02;
-    }
-
-    mug_environment *environment = malloc(sizeof(mug_environment));
-    if (environment == 0x00)
     {
         return 0x02;
     }
@@ -33,6 +27,8 @@ int launch_program(mug_program *program_data)
     environment->native_objects = create_set(0x00, 0x00);
 
     load_native(environment);
+
+
 }
 
 void load_native(mug_environment *environment)

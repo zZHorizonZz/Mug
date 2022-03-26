@@ -16,6 +16,35 @@
 
 #include "machine.h"
 
+void launch_machine(char *path, char *name)
+{
+    mug_program *program = malloc(sizeof(mug_program));
+    mug_environment *environment = malloc(sizeof(mug_environment));
+
+    if (program == 0x00 || environment == 0x00)
+    {
+        return 0x02;
+    }
+
+    program->path = path;
+    program->name = name;
+
+    // TODO Add native machine object registration.
+
+    mug_machine *machine = malloc(sizeof(mug_machine));
+    if (machine == 0x00)
+    {
+        return 0x02;
+    }
+
+    machine->environment = environment;
+
+    machine->os_type = get_os_type();
+    machine->os_name = get_os_name();
+
+    launch_environment(program, environment);
+}
+
 void execute_method(mug_method *method)
 {
     if (method->body == 0x00)

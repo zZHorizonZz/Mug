@@ -21,7 +21,7 @@
 
 extern mug_environment ENVIRONMENT;
 
-int launch_program(mug_program *program);
+int launch_environment(mug_program *program, mug_environment *environment);
 
 void load_native(mug_environment *environment);
 

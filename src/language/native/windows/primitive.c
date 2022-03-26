@@ -1,12 +1,12 @@
 /**
  * Copyright 2022 Daniel Fiala
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -102,4 +102,47 @@ char create_primitive(mug_primitive *primitive, char *data)
     }
 
     return 0x08;
+}
+
+char *get_name(primitive_type type)
+{
+    switch (type)
+    {
+    case 0x00:
+    {
+        return "byte";
+    }
+    case 0x01:
+    {
+        return "short";
+    }
+    case 0x02:
+    {
+        return "int";
+    }
+    case 0x03:
+    {
+        return "long";
+    }
+    case 0x04:
+    {
+        return "float";
+    }
+    case 0x05:
+    {
+        return "double";
+    }
+    case 0x06:
+    {
+        return "string";
+    }
+    case 0x07:
+    {
+        return "bool";
+    }
+    default:
+        break;
+    }
+
+    return 0x00;
 }
