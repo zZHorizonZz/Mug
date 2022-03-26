@@ -20,12 +20,7 @@
 #define FOUNDATION_H
 
 #include "primitive.h"
-
-typedef struct mug_environment_s mug_environment;
-typedef struct mug_foundation_s mug_foundation;
-typedef struct mug_object_s mug_object;
-
-typedef enum basic_primitive_e basic_primitive;
+#include "type.h"
 
 mug_foundation *load_primitive_foundation(basic_primitive primitive_type, char *name);
 mug_foundation *get_native_foundation(mug_environment *environment, char *location, char *name);

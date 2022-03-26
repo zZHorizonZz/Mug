@@ -39,7 +39,6 @@ mug_object *build_primitive_object(mug_primitive *primitive)
         return 0x00;
     }
 
-    object
 }
 
 //

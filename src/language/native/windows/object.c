@@ -23,7 +23,7 @@
  * ─── OBJECT ─────────────────────────────────────────────────────────────────────
  */
 
-mug_object *new_object(char *value)
+mug_object *new_object(mug_foundation *foundation)
 {
 }
 

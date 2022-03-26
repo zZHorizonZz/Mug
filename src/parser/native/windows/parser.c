@@ -647,6 +647,6 @@ void parse_value_expression(expression *value_expression, set *token_set)
     }
 
     // todo static environment variable
-    value_expression->value_expression->type = new_primitive_object() create_primitive(primitive, value->data);
-    value_expression->value_expression->primitive = primitive;
+    /*value_expression->value_expression->type = new_primitive_object() create_primitive(primitive, value->data);
+    value_expression->value_expression->primitive = primitive;*/
 }
