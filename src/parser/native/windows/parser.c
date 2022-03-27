@@ -16,6 +16,10 @@
 
 #include "parser.h"
 
+void parse_structure(mug_environment *environment, mug_structure *structure, set *token_set)
+{
+}
+
 void parse_method(mug_environment *environment, mug_method *method, set *token_set)
 {
     if (token_set->length < 0)

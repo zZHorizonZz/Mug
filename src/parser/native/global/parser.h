@@ -42,9 +42,11 @@ struct pattern_s
 void expand_pattern(pattern *pattern, const char rule);
 pattern *compile_pattern(const char *rule);
 
+void parse_structure(mug_environment *environment, mug_structure *structure, set *token_set);
 void parse_method(mug_environment *environment, mug_method *method, set *token_set);
 void parse_body(mug_environment *environment, body *body, set *token_set);
 char parse_block(mug_environment *environment, block *block, set *token_set);
+
 unsigned char parse_token_type(const char *input);
 unsigned char parse_expression_type(const char *input);
 token *parse_specific_token_type(const char *input);

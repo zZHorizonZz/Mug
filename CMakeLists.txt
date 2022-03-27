@@ -16,12 +16,15 @@ file(GLOB_RECURSE LANGUAGE_WINDOWS src/language/native/windows/*.c)
 file(GLOB_RECURSE PARSER_GLOBAL src/parser/native/global/*.h)
 file(GLOB_RECURSE PARSER_WINDOWS src/parser/native/windows/*.c)
 
+file(GLOB_RECURSE MACHINE_GLOBAL src/machine/native/global/*.h)
+file(GLOB_RECURSE MACHINE_WINDOWS src/machine/native/windows/*.c)
+
 file(GLOB_RECURSE UTILITIES_GLOBAL src/util/native/global/*.h)
 file(GLOB_RECURSE UTILITIES_WINDOWS src/util/native/windows/*.c)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
-add_executable(Mug src/main.c ${BINARY_DATA_WINDOWS} ${BINARY_DATA_GLOBAL} ${COMPILER_GLOBAL} ${COMPILER_WINDOWS} ${LANGUAGE_GLOBAL} ${LANGUAGE_WINDOWS} ${PARSER_GLOBAL} ${PARSER_WINDOWS} ${UTILITIES_GLOBAL} ${UTILITIES_WINDOWS})
+add_executable(Mug src/main.c ${BINARY_DATA_WINDOWS} ${BINARY_DATA_GLOBAL} ${COMPILER_GLOBAL} ${COMPILER_WINDOWS} ${MACHINE_GLOBAL} ${MACHINE_WINDOWS} ${LANGUAGE_GLOBAL} ${LANGUAGE_WINDOWS} ${PARSER_GLOBAL} ${PARSER_WINDOWS} ${UTILITIES_GLOBAL} ${UTILITIES_WINDOWS})
 
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/binary_data/native/global)
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/binary_data/native/windows)
@@ -29,13 +32,14 @@ target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/binary_dat
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/compiler/native/global)
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/compiler/native/windows)
 
-
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/language/native/global)
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/language/native/windows)
 
-
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/parser/native/global)
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/parser/native/windows)
+
+target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/machine/native/global)
+target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/machine/native/windows)
 
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/util/native/global)
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/util/native/windows)

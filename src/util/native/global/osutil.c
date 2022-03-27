@@ -20,7 +20,6 @@ typedef enum os_type_e os_type;
 
 enum os_type_e
 {
-    WIN32,
     WIN64,
     UNIX,
     BSD,
@@ -30,10 +29,6 @@ enum os_type_e
 
 os_type get_os_type()
 {
-#ifdef _WIN32
-    return WIN32;
-#endif
-
 #ifdef _WIN64
     return WIN64;
 #endif
@@ -64,17 +59,15 @@ char *get_os_name()
     switch (type)
     {
     case 0x00:
-        return "Windows 32-bit";
-    case 0x01:
         return "Windows 64-bit";
-    case 0x02:
+    case 0x01:
         return "Unix";
-    case 0x03:
+    case 0x02:
         return "BSD";
-    case 0x04:
+    case 0x03:
         return "Apple";
-    case 0x05:
+    case 0x04:
     default:
-        return "Uknown";
+        return "Unknown";
     }
 }

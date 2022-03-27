@@ -12,4 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#def
+#ifndef METHOD_H
+#define METHOD_H
+
+#include "type.h"
+
+void call_method_by_name(mug_environment *environment, mug_structure *structure, char *name, ...);
+void call_method(mug_environment *environment, mug_structure *structure, mug_method *method, ...);
+
+#endif

@@ -29,8 +29,6 @@ void launch_machine(char *path, char *name)
     program->path = path;
     program->name = name;
 
-    // TODO Add native machine structure registration.
-
     mug_machine *machine = malloc(sizeof(mug_machine));
     if (machine == 0x00)
     {
@@ -41,6 +39,12 @@ void launch_machine(char *path, char *name)
 
     machine->os_type = get_os_type();
     machine->os_name = get_os_name();
+
+    if (machine->os_type == 0x00 || machine->os_type == 0x04)
+    {
+        printf("Your operation system is not supported!");
+        exit(0x03);
+    }
 
     launch_environment(program, environment);
 }
