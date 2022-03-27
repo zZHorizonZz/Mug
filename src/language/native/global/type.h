@@ -26,7 +26,7 @@ typedef struct mug_environment_s mug_environment;
 typedef enum field_type_e field_type;
 typedef enum advanced_primitive_e advanced_primitive;
 
-typedef struct mug_object_s mug_object;
+typedef struct mug_structure_s mug_structure;
 typedef struct mug_foundation_s mug_foundation;
 typedef struct mug_method_s mug_method;
 typedef struct mug_field_s mug_field;
@@ -65,7 +65,7 @@ struct mug_environment_s
     mug_program *program;
 
     set *native_foundations;
-    set *native_objects;
+    set *native_structures;
 };
 
 enum field_type_e
@@ -77,10 +77,10 @@ enum field_type_e
 enum advanced_primitive_e
 {
     FOUNDATION,
-    OBJECT
+    STRUCTURE
 };
 
-struct mug_object_s
+struct mug_structure_s
 {
     mug_foundation *foundation;
 
@@ -113,7 +113,7 @@ struct mug_field_s
     mug_foundation *type;
 
     char *name;
-    mug_object *value;
+    mug_structure *value;
 };
 
 struct body_s
@@ -168,7 +168,7 @@ union expression_u
 
 struct value_expression_s
 {
-    mug_object *value;
+    mug_structure *value;
 };
 
 struct operator_expression_s

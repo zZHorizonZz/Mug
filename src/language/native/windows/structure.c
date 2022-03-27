@@ -17,17 +17,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "object.h"
+#include "structure.h"
 
 /*
  * ─── OBJECT ─────────────────────────────────────────────────────────────────────
  */
 
-mug_object *new_object(mug_foundation *foundation)
+mug_structure *new_structure(mug_foundation *foundation)
 {
 }
 
-int equals(mug_object *original, mug_object *equal)
+int equals(mug_structure *original, mug_structure *equal)
 {
 }
 

@@ -16,7 +16,7 @@
 
 #include "generic.h"
 
-mug_object *new_primitive_object(mug_environment *environment, char *data)
+mug_structure *new_primitive_structure(mug_environment *environment, char *data)
 {
     mug_primitive *primitive = malloc(sizeof(mug_primitive));
     mug_foundation *foundation = 0x00;
@@ -69,8 +69,8 @@ mug_object *new_primitive_object(mug_environment *environment, char *data)
         break;
     }
 
-    mug_object *object = new_object(foundation);
-    object->primitive = primitive;
+    mug_structure *structure = new_structure(foundation);
+    structure->primitive = primitive;
 
-    return object;
+    return structure;
 }

@@ -30,11 +30,11 @@
 // ─── OBJECT ─────────────────────────────────────────────────────────────────────
 //
 
-mug_object *new_object(mug_foundation *foundation);
-int equals(mug_object *original, mug_object *equal);
+mug_structure *new_structure(mug_foundation *foundation);
+int equals(mug_structure *original, mug_structure *equal);
 
-void load_native_primitive(mug_object *environment, mug_object *main_structure);
-mug_object *build_primitive_object(mug_primitive *primitive);
+void load_native_primitive(mug_structure *environment, mug_structure *main_structure);
+mug_structure *build_primitive_object(mug_primitive *primitive);
 
 mug_method *new_method();
 body *new_body();

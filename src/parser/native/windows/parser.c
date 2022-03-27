@@ -726,5 +726,5 @@ void parse_value_expression(mug_environment *environment, expression *value_expr
         return;
     }
 
-    value_expression->value_expression->value = new_primitive_object(environment, value->data);
+    value_expression->value_expression->value = new_primitive_structure(environment, value->data);
 }

@@ -24,11 +24,11 @@ int launch_environment(mug_program *program_data, mug_environment *environment)
     }
 
     environment->native_foundations = create_set(0x00, 0x00);
-    environment->native_objects = create_set(0x00, 0x00);
+    environment->native_structures = create_set(0x00, 0x00);
 
     load_native(environment);
 
-
+    // TODO Add structure parsing and test the final maybe.
 }
 
 void load_native(mug_environment *environment)

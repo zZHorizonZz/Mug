@@ -19,7 +19,7 @@
 
 #include "lexer.c"
 #include "storage.h"
-#include "object.h"
+#include "structure.h"
 #include "parser.h"
 
 struct binary

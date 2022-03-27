@@ -13,7 +13,7 @@
 // limitations under the License.
 
 repository System {
-    structure Object {
+    structure structure {
 
         native getFoundation() : foundation;
     }

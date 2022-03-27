@@ -26,11 +26,11 @@ mug_foundation *load_primitive_foundation(primitive_type primitive_type, char *n
     return foundation;
 }
 
-mug_object *build_primitive_object(mug_primitive *primitive)
+mug_structure *build_primitive_structure(mug_primitive *primitive)
 {
 
-    mug_object *object = malloc(sizeof(mug_object));
-    if (object == 0x00)
+    mug_structure *structure = malloc(sizeof(mug_structure));
+    if (structure == 0x00)
     {
         return 0x00;
     }
@@ -50,11 +50,11 @@ mug_foundation *new_foundation(char *location, char *name)
     return foundation;
 }
 
-mug_object *find_foundation(char *location, char *name)
+mug_structure *find_foundation(char *location, char *name)
 {
 }
 
-int register_foundation(mug_object *foundation)
+int register_foundation(mug_structure *foundation)
 {
 }
 
@@ -78,6 +78,6 @@ mug_foundation *get_native_foundation(mug_environment *environment, char *locati
     return foundation;
 }
 
-mug_object *get_native_object(mug_environment *environment, char *location, char *name)
+mug_structure *get_native_structure(mug_environment *environment, char *location, char *name)
 {
 }

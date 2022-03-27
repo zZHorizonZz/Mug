@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "object.h"
+#include "structure.h"
 #include "generic.h"
 
 static const char *VALUE_EXPRESSION = "<PRIMITIVE>";

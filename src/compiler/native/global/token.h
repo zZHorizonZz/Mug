@@ -56,7 +56,7 @@ static const char *KEYWORD[32] = {"repository",
                                   "bool",
                                   "foundation",
                                   "structure",
-                                  "object"};
+                                  "structure"};
 
 static const char *OPERATOR[16] = {"+",
                                    "-",

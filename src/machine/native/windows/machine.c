@@ -29,7 +29,7 @@ void launch_machine(char *path, char *name)
     program->path = path;
     program->name = name;
 
-    // TODO Add native machine object registration.
+    // TODO Add native machine structure registration.
 
     mug_machine *machine = malloc(sizeof(mug_machine));
     if (machine == 0x00)
