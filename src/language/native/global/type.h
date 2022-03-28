@@ -33,13 +33,13 @@ typedef struct mug_field_s mug_field;
 
 typedef struct body_s body;
 
-typedef union block_u block;
+typedef struct block_s block;
 typedef struct field_block_s field_block;
 typedef struct expression_block_s expression_block;
 typedef struct statement_block_s statement_block;
 typedef struct return_block_s return_block;
 
-typedef union expression_u expression;
+typedef struct expression_s expression;
 typedef struct value_expression_s value_expression;
 typedef struct operator_expression_s operator_expression;
 typedef struct reference_expression_s reference_expression;
@@ -120,12 +120,13 @@ struct body_s
 {
     size_t length;
 
-    set *body_type;
     set *body_block;
 };
 
-union block_u
+struct block_s
 {
+    char type;
+
     field_block *field_block;
     expression_block *expression_block;
     statement_block *statement_block;
@@ -159,8 +160,10 @@ struct statement_blocks_s
     char *t;
 };
 
-union expression_u
+struct expression_s
 {
+    char type;
+
     value_expression *value_expression;
     operator_expression *operator_expression;
     reference_expression *reference_expression;
@@ -178,8 +181,8 @@ struct operator_expression_s
     char left_side_type;
     char right_side_type;
 
-    union expression_u *left_side;
-    union expression_u *right_side;
+    expression *left_side;
+    expression *right_side;
 };
 
 struct reference_expression_s

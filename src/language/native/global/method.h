@@ -16,6 +16,7 @@
 #define METHOD_H
 
 #include "type.h"
+#include "body.h"
 
 void call_method_by_name(mug_environment *environment, mug_structure *structure, char *name, ...);
 void call_method(mug_environment *environment, mug_structure *structure, mug_method *method, ...);

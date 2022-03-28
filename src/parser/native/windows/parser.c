@@ -107,10 +107,9 @@ void parse_body(mug_environment *environment, body *body, set *token_set)
                 }
 
                 block *block = new_block();
-                char type = parse_block(environment, block, expression_set);
-
+                
+                parse_block(environment, block, expression_set);
                 set_add(body->body_block, block);
-                set_add(body->body_type, &type);
 
                 body->length++;
 
@@ -137,14 +136,20 @@ char parse_block(mug_environment *environment, block *block, set *token_set)
     case 0x03:
     {
         expression_block *_expression_block = malloc(sizeof(expression_block));
+
+        block->type = 0x01;
         block->expression_block = _expression_block;
+
         parse_expression_block(environment, _expression_block, token_set);
         return 0x01;
     }
     case 0x04:
     {
         field_block *_field_block = malloc(sizeof(field_block));
+
+        block->type = 0x02;
         block->field_block = _field_block;
+
         parse_field_block(environment, _field_block, token_set);
     }
     case 0x05:
@@ -647,6 +652,8 @@ void parse_expression(mug_environment *environment, expression *_expression, set
         // TODO Log error
         break;
     }
+
+    _expression->type = type;
 }
 
 void parse_operator_expression(mug_environment *environment, expression *_expression, set *token_set)
