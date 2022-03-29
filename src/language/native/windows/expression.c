@@ -120,6 +120,44 @@ mug_primitive *call_operator_add(mug_environment *environment, mug_structure *st
         mug_primitive *left_side = expression->left_side->primitive;
         mug_primitive *right_side = expression->right_side->primitive;
 
+        switch (expression->left_side_type)
+        {
+            case 0x00:
+            {
+                left_side->mug_byte->value += right_side->mug_byte->value;
+                break;
+            }
+
+            case 0x01:
+            {
+                left_side->mug_short->value += right_side->mug_short->value;
+                break;
+            }
+
+            case 0x02:
+            {
+                left_side->mug_int->value += right_side->mug_int->value;
+                break;
+            }
+
+            case 0x03:
+            {
+                left_side->mug_long->value += right_side->mug_long->value;
+                break;
+            }
+
+            case 0x04:
+            {
+                left_side->mug_float->value += right_side->mug_float->value;
+                break;
+            }
+
+            case 0x05:
+            {
+                left_side->mug_double->value += right_side->mug_double->value;
+                break;
+            }
+        }
         // todo sum two values with checks for overflows
         
         //int result = expression->left_side->value_expression->value->primitive->mug_int->value +

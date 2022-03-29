@@ -16,8 +16,6 @@
 
 #include "primitive.h"
 
-#include <string.h>
-
 char create_primitive(mug_primitive *primitive, char *data)
 {
     int length = strlen(data);
@@ -145,4 +143,17 @@ char *get_name(primitive_type type)
     }
 
     return 0x00;
+}
+
+char convert_primitive(mug_primitive *primitive, primitive_type type, primitive_type conversion_type)
+{
+    switch (type)
+    {
+    case 0x00:
+        CONVERT_PRIMITIVE(byte, primitive, primitive->mug_byte, conversion_type);
+        break;
+
+    default:
+        break;
+    }
 }
