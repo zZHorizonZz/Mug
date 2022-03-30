@@ -12,6 +12,8 @@ file(GLOB_RECURSE COMPILER_WINDOWS src/compiler/native/windows/*.c)
 
 file(GLOB_RECURSE LANGUAGE_GLOBAL src/language/native/global/*.h)
 file(GLOB_RECURSE LANGUAGE_WINDOWS src/language/native/windows/*.c)
+file(GLOB_RECURSE LANGUAGE_SHARED_H src/language/native/shared/*.h)
+file(GLOB_RECURSE LANGUAGE_SHARED_C src/language/native/shared/*.c)
 
 file(GLOB_RECURSE PARSER_GLOBAL src/parser/native/global/*.h)
 file(GLOB_RECURSE PARSER_WINDOWS src/parser/native/windows/*.c)
@@ -24,7 +26,7 @@ file(GLOB_RECURSE UTILITIES_WINDOWS src/util/native/windows/*.c)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
-add_executable(Mug src/main.c ${BINARY_DATA_WINDOWS} ${BINARY_DATA_GLOBAL} ${COMPILER_GLOBAL} ${COMPILER_WINDOWS} ${MACHINE_GLOBAL} ${MACHINE_WINDOWS} ${LANGUAGE_GLOBAL} ${LANGUAGE_WINDOWS} ${PARSER_GLOBAL} ${PARSER_WINDOWS} ${UTILITIES_GLOBAL} ${UTILITIES_WINDOWS})
+add_executable(Mug src/main.c ${BINARY_DATA_WINDOWS} ${BINARY_DATA_GLOBAL} ${COMPILER_GLOBAL} ${COMPILER_WINDOWS} ${MACHINE_GLOBAL} ${MACHINE_WINDOWS} ${LANGUAGE_GLOBAL} ${LANGUAGE_WINDOWS} ${LANGUAGE_SHARED_H} ${LANGUAGE_SHARED_C} ${PARSER_GLOBAL} ${PARSER_WINDOWS} ${UTILITIES_GLOBAL} ${UTILITIES_WINDOWS})
 
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/binary_data/native/global)
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/binary_data/native/windows)
@@ -34,6 +36,7 @@ target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/compiler/n
 
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/language/native/global)
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/language/native/windows)
+target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/language/native/shared)
 
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/parser/native/global)
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/parser/native/windows)

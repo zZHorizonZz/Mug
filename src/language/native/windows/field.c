@@ -13,17 +13,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-#ifndef BLOCK_H
-#define BLOCK_H
-
-#include "type.h"
-#include "expression.h"
-#include "builder.c"
-
-void call_block(mug_environment *environment, mug_structure *structure, mug_method *method, block *body);
-
-void call_expression_block(mug_environment *environment, mug_structure *structure, mug_method *method, expression_block *body);
-void call_field_block(mug_environment *environment, mug_structure *structure, mug_method *method, field_block *body);
-
-#endif

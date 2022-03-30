@@ -59,22 +59,6 @@ void execute_method(mug_method *method)
     execute_body(method->body);
 }
 
-void execute_body(body *body)
-{
-    if (body->length < 1)
-    {
-        return;
-    }
-
-    for (size_t i = 0; i < body->length; i++)
-    {
-        block *block = body->body_block->array[i];
-        char *type = body->body_type->array[i];
-
-        execute_block(*type, block);
-    }
-}
-
 void execute_block(char type, block *block)
 {
     switch (type)

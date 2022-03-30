@@ -152,8 +152,50 @@ char convert_primitive(mug_primitive *primitive, primitive_type type, primitive_
     case 0x00:
         CONVERT_PRIMITIVE(byte, primitive, primitive->mug_byte, conversion_type);
         break;
+    case 0x01:
+        CONVERT_PRIMITIVE(short, primitive, primitive->mug_short, conversion_type);
+        break;
+    case 0x02:
+        CONVERT_PRIMITIVE(int, primitive, primitive->mug_int, conversion_type);
+        break;
+    case 0x03:
+        CONVERT_PRIMITIVE(long, primitive, primitive->mug_long, conversion_type);
+        break;
+    case 0x04:
+        CONVERT_PRIMITIVE(float, primitive, primitive->mug_float, conversion_type);
+        break;
+    case 0x05:
+        CONVERT_PRIMITIVE(double, primitive, primitive->mug_double, conversion_type);
+        break;
+    case 0x06:
+        return 0x01;
+    case 0x07:
+        CONVERT_PRIMITIVE(boolean, primitive, primitive->mug_boolean, conversion_type);
+        break;
 
     default:
         break;
     }
+
+    return 0x00;
+}
+
+mug_primitive *sum_primitive(mug_primitive *left_side, char left_side_type, mug_primitive *right_side, char right_side_type)
+{
+    PROCESS_OPERATION(left_side, left_side_type, right_side, right_side_type, +);
+}
+
+mug_primitive *subtract_primitive(mug_primitive *left_side, char left_side_type, mug_primitive *right_side, char right_side_type)
+{
+    PROCESS_OPERATION(left_side, left_side_type, right_side, right_side_type, -);
+}
+
+mug_primitive *multiply_primitive(mug_primitive *left_side, char left_side_type, mug_primitive *right_side, char right_side_type)
+{
+    PROCESS_OPERATION(left_side, left_side_type, right_side, right_side_type, *);
+}
+
+mug_primitive *divide_primitive(mug_primitive *left_side, char left_side_type, mug_primitive *right_side, char right_side_type)
+{
+    PROCESS_OPERATION(left_side, left_side_type, right_side, right_side_type, /);
 }

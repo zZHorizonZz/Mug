@@ -22,8 +22,7 @@ mug_primitive *call_expression(mug_environment *environment, mug_structure *stru
     {
     case 0x00:
     {
-        call_value_expression(environment, structure, method, expression->value_expression);
-        break;
+        return call_value_expression(environment, structure, method, expression->value_expression);
     }
 
     case 0x01:
@@ -34,12 +33,13 @@ mug_primitive *call_expression(mug_environment *environment, mug_structure *stru
 
     case 0x02:
     {
-        call_operator_expression(environment, structure, method, expression->operator_expression);
-        break;
+        return call_operator_expression(environment, structure, method, expression->operator_expression);
     }
     default:
         break;
     }
+
+    return 0x00;
 }
 
 mug_primitive *call_value_expression(mug_environment *environment, mug_structure *structure, mug_method *method, value_expression *expression)
@@ -74,6 +74,8 @@ mug_primitive *call_value_expression(mug_environment *environment, mug_structure
     default:
         break;
     }
+
+    return primitive;
 }
 
 mug_primitive *call_operator_expression(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
@@ -117,72 +119,86 @@ mug_primitive *call_operator_add(mug_environment *environment, mug_structure *st
 {
     if (expression->right_side_type == 0x00)
     {
-        mug_primitive *left_side = expression->left_side->primitive;
-        mug_primitive *right_side = expression->right_side->primitive;
-
-        switch (expression->left_side_type)
-        {
-            case 0x00:
-            {
-                left_side->mug_byte->value += right_side->mug_byte->value;
-                break;
-            }
-
-            case 0x01:
-            {
-                left_side->mug_short->value += right_side->mug_short->value;
-                break;
-            }
-
-            case 0x02:
-            {
-                left_side->mug_int->value += right_side->mug_int->value;
-                break;
-            }
-
-            case 0x03:
-            {
-                left_side->mug_long->value += right_side->mug_long->value;
-                break;
-            }
-
-            case 0x04:
-            {
-                left_side->mug_float->value += right_side->mug_float->value;
-                break;
-            }
-
-            case 0x05:
-            {
-                left_side->mug_double->value += right_side->mug_double->value;
-                break;
-            }
-        }
-        // todo sum two values with checks for overflows
-        
-        //int result = expression->left_side->value_expression->value->primitive->mug_int->value +
-          //           expression->right_side->value_expression->value->primitive->mug_int->value;
-
-        
-        return result;
+        return sum_primitive(expression->left_side->value_expression->value->primitive,
+                             expression->left_side_type,
+                             expression->right_side->value_expression->value->primitive,
+                             expression->right_side_type);
     }
     else
     {
-        int result = expression->left_side->value_expression->value->primitive->mug_int->value +
-                     execute_operator_expression(expression->right_side->operator_expression);
-
-        return result;
+        mug_primitive *right_side = call_operator_expression(environment,
+                                                             structure,
+                                                             method,
+                                                             expression->right_side->operator_expression);
+        return sum_primitive(expression->left_side->value_expression->value->primitive,
+                             expression->left_side_type,
+                             right_side,
+                             expression->right_side_type);
     }
 }
 
 mug_primitive *call_operator_subtract(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
 {
+    if (expression->right_side_type == 0x00)
+    {
+        return subtract_primitive(expression->left_side->value_expression->value->primitive,
+                                  expression->left_side_type,
+                                  expression->right_side->value_expression->value->primitive,
+                                  expression->right_side_type);
+    }
+    else
+    {
+        mug_primitive *right_side = call_operator_expression(environment,
+                                                             structure,
+                                                             method,
+                                                             expression->right_side->operator_expression);
+        return subtract_primitive(expression->left_side->value_expression->value->primitive,
+                                  expression->left_side_type,
+                                  right_side,
+                                  expression->right_side_type);
+    }
 }
 
 mug_primitive *call_operator_multiply(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
 {
+    if (expression->right_side_type == 0x00)
+    {
+        return multiply_primitive(expression->left_side->value_expression->value->primitive,
+                                  expression->left_side_type,
+                                  expression->right_side->value_expression->value->primitive,
+                                  expression->right_side_type);
+    }
+    else
+    {
+        mug_primitive *right_side = call_operator_expression(environment,
+                                                             structure,
+                                                             method,
+                                                             expression->right_side->operator_expression);
+        return multiply_primitive(expression->left_side->value_expression->value->primitive,
+                                  expression->left_side_type,
+                                  right_side,
+                                  expression->right_side_type);
+    }
 }
 
 mug_primitive *call_operator_divide(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
 {
+    if (expression->right_side_type == 0x00)
+    {
+        return divide_primitive(expression->left_side->value_expression->value->primitive,
+                                expression->left_side_type,
+                                expression->right_side->value_expression->value->primitive,
+                                expression->right_side_type);
+    }
+    else
+    {
+        mug_primitive *right_side = call_operator_expression(environment,
+                                                             structure,
+                                                             method,
+                                                             expression->right_side->operator_expression);
+        return divide_primitive(expression->left_side->value_expression->value->primitive,
+                                expression->left_side_type,
+                                right_side,
+                                expression->right_side_type);
+    }
 }

@@ -16,9 +16,9 @@
 
 #include "foundation.h"
 
-mug_foundation *load_primitive_foundation(primitive_type primitive_type, char *name)
+mug_foundation *load_primitive_foundation(mug_environment *environment, primitive_type primitive_type, char *name)
 {
-    mug_foundation *foundation = new_foundation("System", name);
+    mug_foundation *foundation = new_foundation(environment, "System", name);
 
     foundation->metadata = 0x00 << 0x01;
     foundation->type = primitive_type;
@@ -26,18 +26,7 @@ mug_foundation *load_primitive_foundation(primitive_type primitive_type, char *n
     return foundation;
 }
 
-mug_structure *build_primitive_structure(mug_primitive *primitive)
-{
-
-    mug_structure *structure = malloc(sizeof(mug_structure));
-    if (structure == 0x00)
-    {
-        return 0x00;
-    }
-
-}
-
-mug_foundation *new_foundation(char *location, char *name)
+mug_foundation *new_foundation(mug_environment *environment, char *location, char *name)
 {
     mug_foundation *foundation = malloc(sizeof(mug_foundation));
     if (foundation == 0x00)
@@ -50,15 +39,15 @@ mug_foundation *new_foundation(char *location, char *name)
     return foundation;
 }
 
-mug_structure *find_foundation(char *location, char *name)
+mug_structure *find_foundation(mug_environment *environment, char *location, char *name)
 {
 }
 
-int register_foundation(mug_structure *foundation)
+int register_foundation(mug_environment *environment, mug_structure *foundation)
 {
 }
 
-int remove_foundation(char *location, char *name)
+int remove_foundation(mug_environment *environment, char *location, char *name)
 {
 }
 
@@ -69,12 +58,13 @@ mug_foundation *get_native_foundation(mug_environment *environment, char *locati
     {
         mug_foundation *compare = environment->native_foundations->array[i];
 
-        if(strcmp(compare->location, location) == 0x00 && strcmp(compare->name, name) == 0x00) {
+        if (strcmp(compare->location, location) == 0x00 && strcmp(compare->name, name) == 0x00)
+        {
             foundation = compare;
             break;
         }
     }
-    
+
     return foundation;
 }
 

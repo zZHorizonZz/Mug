@@ -19,7 +19,7 @@
 
 #include "type.h"
 
-void call_expression(mug_environment *environment, mug_structure *structure, mug_method *method, expression *expression);
+mug_primitive *call_expression(mug_environment *environment, mug_structure *structure, mug_method *method, expression *expression);
 
 mug_primitive *call_value_expression(mug_environment *environment, mug_structure *structure, mug_method *method, value_expression *expression);
 mug_primitive *call_operator_expression(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression);

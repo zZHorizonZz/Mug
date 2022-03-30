@@ -23,8 +23,17 @@
  * ─── OBJECT ─────────────────────────────────────────────────────────────────────
  */
 
-mug_structure *new_structure(mug_foundation *foundation)
+mug_structure *new_structure(mug_environment *environment, mug_foundation *foundation)
 {
+    mug_structure *structure = malloc(sizeof(mug_structure));
+    if (structure == 0x00)
+    {
+        fprintf(stderr, "Error: Could not allocate memory for structure.\n");
+        exit(0x01);
+    }
+
+    structure->foundation = foundation;
+    return structure;
 }
 
 int equals(mug_structure *original, mug_structure *equal)
@@ -58,7 +67,6 @@ body *new_body()
     }
 
     new_body->body_block = create_set(0x00, 0x00);
-    new_body->body_type = create_set(0x00, 0x00);
     new_body->length = 0x00;
 
     return new_body;
@@ -76,4 +84,13 @@ block *new_block()
     }
 
     return new_block;
+}
+
+mug_structure *build_primitive_structure(mug_environment *environment, mug_primitive *primitive, primitive_type type)
+{
+    mug_foundation *foundation = get_native_foundation(environment, "System", get_name(type));
+    mug_structure *structure = new_structure(environment, foundation);
+
+    structure->primitive = primitive;
+    return structure;
 }
