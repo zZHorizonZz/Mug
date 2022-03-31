@@ -13,3 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+#include "field.h"
+
+mug_field *get_structure_field(mug_structure *structure, const char *name)
+{
+    if (name == 0x00)
+    {
+        return 0x00;
+    }
+
+    for (size_t i = 0; i < structure->foundation->field_count; i++)
+    {
+        if (strcmp(structure->fields[i]->name, name) == 0x00)
+        {
+            return structure->fields[i];
+        }
+    }
+
+    return 0x00;
+}
+
+mug_field *get_body_field(body *body, const char *name)
+{
+    if (name == 0x00)
+    {
+        return 0x00;
+    }
+
+    for (size_t i = 0; i < body->declared_fields->length; i++)
+    {
+        mug_field *field = body->declared_fields->array[i];
+        if (strcmp(field->name, name) == 0x00)
+        {
+            return field;
+        }
+    }
+
+    return 0x00;
+}

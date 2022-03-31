@@ -118,8 +118,7 @@ struct mug_field_s
 
 struct body_s
 {
-    size_t length;
-
+    set *declared_fields;
     set *body_block;
 };
 
