@@ -69,7 +69,7 @@ mug_structure *new_primitive_structure(mug_environment *environment, char *data)
         break;
     }
 
-    mug_structure *structure = new_structure(foundation);
+    mug_structure *structure = new_structure(environment, foundation);
     structure->primitive = primitive;
 
     return structure;

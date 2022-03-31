@@ -67,7 +67,6 @@ body *new_body()
     }
 
     new_body->body_block = create_set(0x00, 0x00);
-    new_body->length = 0x00;
 
     return new_body;
 }

@@ -19,11 +19,11 @@
 
 #include "type.h"
 
-mug_primitive *call_expression(mug_environment *environment, mug_structure *structure, mug_method *method, expression *expression);
+mug_structure *call_expression(mug_environment *environment, mug_structure *structure, mug_method *method, expression *expression);
 
-mug_primitive *call_value_expression(mug_environment *environment, mug_structure *structure, mug_method *method, value_expression *expression);
-mug_primitive *call_operator_expression(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression);
-mug_primitive *call_reference_expression(mug_environment *environment, mug_structure *structure, mug_method *method, reference_expression *expression);
+mug_structure *call_value_expression(mug_environment *environment, mug_structure *structure, mug_method *method, value_expression *expression);
+mug_structure *call_operator_expression(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression);
+mug_structure *call_reference_expression(mug_environment *environment, mug_structure *structure, mug_method *method, reference_expression *expression);
 
 mug_primitive *call_operator_add(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression);
 mug_primitive *call_operator_subtract(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression);

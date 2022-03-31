@@ -44,42 +44,41 @@ void call_expression_block(mug_environment *environment, mug_structure *structur
 void call_field_block(mug_environment *environment, mug_structure *structure, mug_method *method, field_block *block)
 {
     mug_field *field;
-    if(//todo add fields methods.)
-    field = get_field(structure, block->field_name);
-    if (field == 0x00)
+    if ((block->metadata & 0x01 << 0x00) != 0x00)
     {
-        printf("Error: Could not allocate memory for field.\n");
-        exit(0x01);
-    }
+        field = get_body_field(method->body, block->name);
+        if (field == 0x00)
+        {
+            field = get_struture_field(structure, block->name);
+        }
 
-    if (field->type == 0x00)
-    {
-        field->type = block->type;
-    }
-
-    if (field->name == 0x00)
-    {
-        field->name = block->name;
-    }
-
-    mug_structure *structure;
-
-    if (block->initializer_type == BASIC_PRIMITIVE)
-    {
-        // todo merge these method call_expression to return mug_object and not mug_primitive
-        mug_primitive *primitive = call_expression(environment, structure, method, block->initializer);
-        structure = new_primitive_structure(environment, primitive, field->type->type);
+        if (field == 0x00)
+        {
+            printf("Error: Field %s not found in structure %s\n", block->name, structure->foundation->name);
+            exit(0x01);
+        }
     }
     else
     {
-        // todo up
+        field = malloc(sizeof(mug_field));
+        if (field == 0x00)
+        {
+            printf("Error: Could not allocate memory for field.\n");
+            exit(0x01);
+        }
+
+        field->name = block->name;
+        field->type = block->type;
     }
 
-    if (structure == 0x00)
+    mug_structure *field_value = call_expression(environment, structure, method, block->initializer);
+
+    if (field_value == 0x00)
     {
         printf("Error: Could not initialize structure.\n");
         exit(0x01);
     }
 
-    field->value = structure;
+    field->value = field_value;
+    add_body_field(method->body, field);
 }

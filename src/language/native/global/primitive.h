@@ -97,14 +97,18 @@ struct boolean_s
     char value;
 };
 
-#define PROCESS_PRIMITIVE(conversion_name, result, left_side, left_side_type, right_side, right_side_type, operator)                        \
-    result->mug_##conversion_name = malloc(sizeof(mug_##conversion_name));                                                                  \
-    if (result->mug_##conversion_name == 0x00 || convert_primitive(right_side, right_side_type, left_side_type) == 0x01)                    \
-    {                                                                                                                                       \
-        return 0x00;                                                                                                                        \
-    }                                                                                                                                       \
-                                                                                                                                            \
-    result->mug_##conversion_name##->value = left_side->mug_##conversion_name##->value operator right_side->mug_##conversion_name##->value; \
+#define PROCESS_PRIMITIVE(conversion_name, result, left_side, left_side_type, right_side, right_side_type, operator)     \
+    result->mug_##conversion_name = malloc(sizeof(mug_##conversion_name));                                               \
+    if (result->mug_##conversion_name == 0x00 || convert_primitive(right_side, right_side_type, left_side_type) == 0x01) \
+    {                                                                                                                    \
+        return 0x00;                                                                                                     \
+    }                                                                                                                    \
+                                                                                                                         \
+    mug_##conversion_name *_result = result->mug_##conversion_name;                                                      \
+    mug_##conversion_name *_left_side = left_side->mug_##conversion_name;                                                \
+    mug_##conversion_name *_right_side = right_side->mug_##conversion_name;                                              \
+                                                                                                                         \
+    _result->value = _left_side->value operator _right_side->value;                                                      \
     break;
 
 #define PROCESS_OPERATION(left_side, left_side_type, right_side, right_side_type, operator)                  \
@@ -274,7 +278,7 @@ struct boolean_s
 char create_primitive(mug_primitive *primitive, char *data);
 char *get_name(primitive_type type);
 
-char convert_primitive(mug_primitive *primitive, primitive_type type);
+char convert_primitive(mug_primitive *primitive, primitive_type type, primitive_type conversion_type);
 
 mug_primitive *sum_primitive(mug_primitive *left_side, char left_side_type, mug_primitive *right_side, char right_side_type);
 mug_primitive *subtract_primitive(mug_primitive *left_side, char left_side_type, mug_primitive *right_side, char right_side_type);

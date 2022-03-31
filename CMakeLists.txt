@@ -23,10 +23,25 @@ file(GLOB_RECURSE MACHINE_WINDOWS src/machine/native/windows/*.c)
 
 file(GLOB_RECURSE UTILITIES_GLOBAL src/util/native/global/*.h)
 file(GLOB_RECURSE UTILITIES_WINDOWS src/util/native/windows/*.c)
+file(GLOB_RECURSE UTILITIES_SHARED src/util/native/shared/*.c)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
-add_executable(Mug src/main.c ${BINARY_DATA_WINDOWS} ${BINARY_DATA_GLOBAL} ${COMPILER_GLOBAL} ${COMPILER_WINDOWS} ${MACHINE_GLOBAL} ${MACHINE_WINDOWS} ${LANGUAGE_GLOBAL} ${LANGUAGE_WINDOWS} ${LANGUAGE_SHARED_H} ${LANGUAGE_SHARED_C} ${PARSER_GLOBAL} ${PARSER_WINDOWS} ${UTILITIES_GLOBAL} ${UTILITIES_WINDOWS})
+add_executable(Mug src/main.c ${BINARY_DATA_WINDOWS}
+                              ${BINARY_DATA_GLOBAL}
+                              ${COMPILER_GLOBAL}
+                              ${COMPILER_WINDOWS}
+                              ${MACHINE_GLOBAL}
+                              ${MACHINE_WINDOWS}
+                              ${LANGUAGE_GLOBAL}
+                              ${LANGUAGE_WINDOWS}
+                              ${LANGUAGE_SHARED_H}
+                              ${LANGUAGE_SHARED_C}
+                              ${PARSER_GLOBAL}
+                              ${PARSER_WINDOWS}
+                              ${UTILITIES_GLOBAL}
+                              ${UTILITIES_WINDOWS}
+                              ${UTILITIES_SHARED})
 
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/binary_data/native/global)
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/binary_data/native/windows)
@@ -46,6 +61,7 @@ target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/machine/na
 
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/util/native/global)
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/util/native/windows)
+target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/util/native/SHARED)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

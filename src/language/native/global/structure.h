@@ -30,7 +30,7 @@
 // ─── OBJECT ─────────────────────────────────────────────────────────────────────
 //
 
-mug_structure *new_structure(mug_foundation *foundation);
+mug_structure *new_structure(mug_environment *environment, mug_foundation *foundation);
 int equals(mug_structure *original, mug_structure *equal);
 
 void load_native_primitive(mug_structure *environment, mug_structure *main_structure);

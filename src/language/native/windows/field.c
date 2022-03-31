@@ -52,3 +52,8 @@ mug_field *get_body_field(body *body, const char *name)
 
     return 0x00;
 }
+
+char add_body_field(body *body, mug_field *field)
+{
+    return set_add(body->declared_fields, field);
+}

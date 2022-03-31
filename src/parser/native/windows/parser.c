@@ -107,11 +107,9 @@ void parse_body(mug_environment *environment, body *body, set *token_set)
                 }
 
                 block *block = new_block();
-                
+
                 parse_block(environment, block, expression_set);
                 set_add(body->body_block, block);
-
-                body->length++;
 
                 set_free(expression_set);
 
@@ -146,6 +144,7 @@ char parse_block(mug_environment *environment, block *block, set *token_set)
     case 0x04:
     {
         field_block *_field_block = malloc(sizeof(field_block));
+        _field_block->metadata = 0x00;
 
         block->type = 0x02;
         block->field_block = _field_block;
@@ -572,6 +571,8 @@ void parse_field_block(mug_environment *environment, field_block *field_block, s
     char declared = 0x00;
     set *expression = create_set(0x00, 0x00);
 
+    char *text_holder = 0x00;
+
     while (iterator_has_next(iterator))
     {
         token *_token = (token *)iterator_next(iterator);
@@ -580,14 +581,17 @@ void parse_field_block(mug_environment *environment, field_block *field_block, s
         {
             if (_token->type == 0x00)
             {
-                if (field_block->type == 0x00)
+                if (field_block->name == 0x00 && text_holder != 0x00)
                 {
-                    // todo finding of a foundation
+                    field_block->name = text_holder;
+                    text_holder = 0x00;
                 }
                 else
                 {
-                    field_block->name = _token->data;
+                    // todo find foundation.
                 }
+
+                text_holder = _token->data;
             }
 
             if (_token->type == 0x02 && _token->identifier >= 0x0A && _token->identifier <= 0x14)
@@ -604,6 +608,13 @@ void parse_field_block(mug_environment *environment, field_block *field_block, s
         if (_token->type == 0x03 && _token->identifier == 0x09)
         {
             declared == 0x01;
+            if (text_holder != 0x00)
+            {
+                field_block->name = text_holder;
+                field_block->metadata |= (0x01 << 0x00);
+
+                text_holder = 0x00;
+            }
         }
     }
 

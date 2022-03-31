@@ -24,7 +24,7 @@ void call_body_of_method(mug_environment *environment, mug_structure *structure,
 
 void call_body(mug_environment *environment, mug_structure *structure, mug_method *method, body *body)
 {
-    for (size_t i = 0; i < body->length; i++)
+    for (size_t i = 0; i < body->body_block->length; i++)
     {
         block *block = body->body_block->array[i];
         call_block(environment, structure, method, block);

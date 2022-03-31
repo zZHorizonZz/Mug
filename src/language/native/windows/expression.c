@@ -16,7 +16,7 @@
 
 #include "expression.h"
 
-mug_primitive *call_expression(mug_environment *environment, mug_structure *structure, mug_method *method, expression *expression)
+mug_structure *call_expression(mug_environment *environment, mug_structure *structure, mug_method *method, expression *expression)
 {
     switch (expression->type)
     {
@@ -42,76 +42,52 @@ mug_primitive *call_expression(mug_environment *environment, mug_structure *stru
     return 0x00;
 }
 
-mug_primitive *call_value_expression(mug_environment *environment, mug_structure *structure, mug_method *method, value_expression *expression)
+mug_structure *call_value_expression(mug_environment *environment, mug_structure *structure, mug_method *method, value_expression *expression)
 {
-    mug_primitive *primitive = expression->value->primitive;
-    switch (expression->value->foundation->type)
-    {
-    case 0x00:
-        printf("Byte value is %c", primitive->mug_byte->value);
-        break;
-    case 0x01:
-        printf("Short value is %d", primitive->mug_short->value);
-        break;
-    case 0x02:
-        printf("Int value is %d", primitive->mug_int->value);
-        break;
-    case 0x03:
-        printf("Long value is %d", primitive->mug_long->value);
-        break;
-    case 0x04:
-        printf("Float value is %f", primitive->mug_float->value);
-        break;
-    case 0x05:
-        printf("Double value is %f", primitive->mug_double->value);
-        break;
-    case 0x06:
-        printf("String value is %s", primitive->mug_string->value);
-        break;
-    case 0x07:
-        printf("Boolean value is %c", primitive->mug_boolean->value);
-        break;
-    default:
-        break;
-    }
-
-    return primitive;
+    // todo add creation of new structures through keyword new or something similar
+    return expression->value;
 }
 
-mug_primitive *call_operator_expression(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
+mug_structure *call_operator_expression(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
 {
+    mug_structure *result = 0x00;
+    mug_primitive *result_primitive = 0x00;
+
     switch (expression->operator)
     {
     case 0x00:
     {
-        call_operator_add(environment, structure, method, expression);
+        result_primitive = call_operator_add(environment, structure, method, expression);
         break;
     }
 
     case 0x01:
     {
-        call_operator_subtract(environment, structure, method, expression);
+        result_primitive = call_operator_subtract(environment, structure, method, expression);
         break;
     }
 
     case 0x02:
     {
-        call_operator_multiply(environment, structure, method, expression);
+        result_primitive = call_operator_multiply(environment, structure, method, expression);
         break;
     }
 
     case 0x03:
     {
-        call_operator_divide(environment, structure, method, expression);
+        result_primitive = call_operator_divide(environment, structure, method, expression);
         break;
     }
 
     default:
         break;
     }
+
+    result = new_primitive_structure(environment, result_primitive, expression->left_side_type);
+    return result;
 }
 
-mug_primitive *call_reference_expression(mug_environment *environment, mug_structure *structure, mug_method *method, reference_expression *expression)
+mug_structure *call_reference_expression(mug_environment *environment, mug_structure *structure, mug_method *method, reference_expression *expression)
 {
 }
 

@@ -135,8 +135,8 @@ struct field_block_s
 {
     mug_foundation *type;
     char *name;
+    unsigned char metadata;
 
-    char initializer_type;
     expression *initializer;
 };
 

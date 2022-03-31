@@ -20,6 +20,7 @@
 #include "type.h"
 #include "expression.h"
 #include "builder.c"
+#include "field.h"
 
 void call_block(mug_environment *environment, mug_structure *structure, mug_method *method, block *body);
 

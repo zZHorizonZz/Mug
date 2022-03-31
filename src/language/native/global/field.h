@@ -20,4 +20,7 @@
 mug_field *get_struture_field(mug_structure *structure, const char *name);
 mug_field *get_body_field(body *body, const char *name);
 
+char add_body_field(body *body, mug_field *field);
+char add_structure_field(mug_structure *structure, mug_field *field);
+
 #endif

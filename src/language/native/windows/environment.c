@@ -33,12 +33,12 @@ int launch_environment(mug_program *program_data, mug_environment *environment)
 
 void load_native(mug_environment *environment)
 {
-    set_add(environment->native_foundations, load_primitive_foundation(BYTE, "byte"));
-    set_add(environment->native_foundations, load_primitive_foundation(SHORT, "short"));
-    set_add(environment->native_foundations, load_primitive_foundation(INT, "int"));
-    set_add(environment->native_foundations, load_primitive_foundation(LONG, "long"));
-    set_add(environment->native_foundations, load_primitive_foundation(FLOAT, "float"));
-    set_add(environment->native_foundations, load_primitive_foundation(DOUBLE, "double"));
-    set_add(environment->native_foundations, load_primitive_foundation(STRING, "string"));
-    set_add(environment->native_foundations, load_primitive_foundation(BOOL, "bool"));
+    set_add(environment->native_foundations, load_primitive_foundation(environment, BYTE, "byte"));
+    set_add(environment->native_foundations, load_primitive_foundation(environment, SHORT, "short"));
+    set_add(environment->native_foundations, load_primitive_foundation(environment, INT, "int"));
+    set_add(environment->native_foundations, load_primitive_foundation(environment, LONG, "long"));
+    set_add(environment->native_foundations, load_primitive_foundation(environment, FLOAT, "float"));
+    set_add(environment->native_foundations, load_primitive_foundation(environment, DOUBLE, "double"));
+    set_add(environment->native_foundations, load_primitive_foundation(environment, STRING, "string"));
+    set_add(environment->native_foundations, load_primitive_foundation(environment, BOOL, "bool"));
 }
