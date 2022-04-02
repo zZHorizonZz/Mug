@@ -13,61 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+#ifndef OSUTIL_H
+#define OSUTIL_H
 
 #include <stdlib.h>
 
 typedef enum os_type_e os_type;
 
-enum os_type_e
-{
-    WIN64,
-    UNIX,
-    BSD,
-    APPLE,
-    UNKNOWN
-};
+os_type get_os_type();
+char *get_os_name();
 
-os_type get_os_type()
-{
-#ifdef _WIN64
-    return WIN64;
 #endif
-
-#ifdef __unix__
-    return UNIX;
-#endif
-
-#ifdef BSD
-    return BSD;
-#endif
-
-#ifdef __APPLE__
-    return APPLE;
-#endif
-
-#ifdef __MACH__
-    return APPLE;
-#endif
-
-    return UNKNOWN;
-}
-
-char *get_os_name()
-{
-    os_type type = get_os_type();
-
-    switch (type)
-    {
-    case 0x00:
-        return "Windows 64-bit";
-    case 0x01:
-        return "Unix";
-    case 0x02:
-        return "BSD";
-    case 0x03:
-        return "Apple";
-    case 0x04:
-    default:
-        return "Unknown";
-    }
-}

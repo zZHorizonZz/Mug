@@ -15,12 +15,4 @@
 #ifndef GENERIC_H
 #define GENERIC_H
 
-#include "structure.h"
-
-#define LOCATION "System"
-
-typedef struct mug_environment_s mug_environment;
-
-mug_structure *new_primitive_structure(mug_environment *environment, char *data);
-
 #endif

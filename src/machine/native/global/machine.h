@@ -15,19 +15,10 @@
 #ifndef MACHINE_H
 #define MACHINE_H
 
-#include "osutil.c"
+#include "osutil.h"
 #include "environment.h"
 #include "type.h"
 
-void launch_machine(char *path, char *name);
-
-void execute_method(mug_method *method);
-void execute_body(body *body);
-void execute_block(char type, block *block);
-void execute_field_block(field_block *field_block);
-
-void execute_expression(char type, expression *expression);
-void execute_value_expression(value_expression *expression);
-int execute_operator_expression(operator_expression *expression);
+unsigned char launch_machine(char *path, char *name);
 
 #endif

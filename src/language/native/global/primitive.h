@@ -20,7 +20,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "conversion.c"
+#include "conversion.h"
 
 typedef enum primitive_type_e primitive_type;
 

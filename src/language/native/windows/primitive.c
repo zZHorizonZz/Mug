@@ -37,7 +37,7 @@ char create_primitive(mug_primitive *primitive, char *data)
 
         string->value = data;
         primitive->mug_string = string;
-        return 0x06;
+        return STRING;
     }
 
     if (first_char >= 0x30 && first_char <= 0x39)
@@ -55,7 +55,7 @@ char create_primitive(mug_primitive *primitive, char *data)
 
             mug_double->value = atof(number);
             primitive->mug_double = mug_double;
-            return 0x05;
+            return DOUBLE;
         }
         case 0x66:
         {
@@ -68,7 +68,7 @@ char create_primitive(mug_primitive *primitive, char *data)
 
             mug_float->value = atof(number);
             primitive->mug_float = mug_float;
-            return 0x04;
+            return FLOAT;
         }
         case 0x6c:
         {
@@ -82,7 +82,7 @@ char create_primitive(mug_primitive *primitive, char *data)
             mug_long->value = atol(number);
             primitive->mug_long = mug_long;
             free(number);
-            return 0x03;
+            return LONG;
         }
         default:
         {
@@ -94,12 +94,12 @@ char create_primitive(mug_primitive *primitive, char *data)
 
             mug_int->value = atoi(data);
             primitive->mug_int = mug_int;
-            return 0x02;
+            return INT;
         }
         }
     }
 
-    return 0x08;
+    return 0X08 ;
 }
 
 char *get_name(primitive_type type)
@@ -170,7 +170,7 @@ char convert_primitive(mug_primitive *primitive, primitive_type type, primitive_
     case 0x06:
         return 0x01;
     case 0x07:
-        CONVERT_PRIMITIVE(boolean, primitive, primitive->mug_boolean, conversion_type);
+        //CONVERT_PRIMITIVE(boolean, primitive, primitive->mug_boolean, conversion_type);
         break;
 
     default:

@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-#include <limits.h>
-#include <float.h>
+#include "conversion.h"
 
 int check_double_conversion(double number, int type)
 {

@@ -26,6 +26,4 @@ mug_foundation *load_primitive_foundation(mug_environment *environment, primitiv
 mug_foundation *get_native_foundation(mug_environment *environment, char *location, char *name);
 mug_structure *get_native_structure(mug_environment *environment, char *location, char *name);
 
-mug_foundation *new_foundation();
-
 #endif

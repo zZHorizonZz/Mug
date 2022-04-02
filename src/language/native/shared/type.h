@@ -18,6 +18,7 @@
 #include "storage.h"
 #include "primitive.h"
 #include "token.h"
+#include "osutil.h"
 
 typedef struct mug_program_s mug_program;
 typedef struct mug_machine_s mug_machine;
@@ -52,7 +53,7 @@ struct mug_program_s
 
 struct mug_machine_s
 {
-    char os_type;
+    os_type *os_type;
     char *os_name;
 
     char metadata;

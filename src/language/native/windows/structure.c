@@ -23,19 +23,6 @@
  * ─── OBJECT ─────────────────────────────────────────────────────────────────────
  */
 
-mug_structure *new_structure(mug_environment *environment, mug_foundation *foundation)
-{
-    mug_structure *structure = malloc(sizeof(mug_structure));
-    if (structure == 0x00)
-    {
-        fprintf(stderr, "Error: Could not allocate memory for structure.\n");
-        exit(0x01);
-    }
-
-    structure->foundation = foundation;
-    return structure;
-}
-
 int equals(mug_structure *original, mug_structure *equal)
 {
 }

@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 
-#ifndef BLOCK_H
-#define BLOCK_H
+#include <limits.h>
+#include <float.h>
 
-#include "type.h"
-#include "expression.h"
-#include "field.h"
-#include "builder.h"
-
-void call_block(mug_environment *environment, mug_structure *structure, mug_method *method, block *body);
-
-void call_expression_block(mug_environment *environment, mug_structure *structure, mug_method *method, expression_block *body);
-void call_field_block(mug_environment *environment, mug_structure *structure, mug_method *method, field_block *body);
-
-#endif
+int check_double_conversion(double number, int type);
+int check_float_conversion(float number, int type);
+int check_long_conversion(long number, int type);
+int check_int_conversion(int number, int type);
+int check_short_conversion(short number, int type);
+int check_byte_conversion(char number, int type);

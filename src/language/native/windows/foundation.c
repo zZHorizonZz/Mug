@@ -26,19 +26,6 @@ mug_foundation *load_primitive_foundation(mug_environment *environment, primitiv
     return foundation;
 }
 
-mug_foundation *new_foundation(mug_environment *environment, char *location, char *name)
-{
-    mug_foundation *foundation = malloc(sizeof(mug_foundation));
-    if (foundation == 0x00)
-    {
-        return 0x00;
-    }
-
-    foundation->location = location;
-    foundation->name = name;
-    return foundation;
-}
-
 mug_structure *find_foundation(mug_environment *environment, char *location, char *name)
 {
 }

@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-#ifndef BLOCK_H
-#define BLOCK_H
+#ifndef BUILDER_H
+#define BUILDER_H
+
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "type.h"
-#include "expression.h"
-#include "field.h"
-#include "builder.h"
 
-void call_block(mug_environment *environment, mug_structure *structure, mug_method *method, block *body);
+#define LOCATION "System"
 
-void call_expression_block(mug_environment *environment, mug_structure *structure, mug_method *method, expression_block *body);
-void call_field_block(mug_environment *environment, mug_structure *structure, mug_method *method, field_block *body);
+mug_foundation *new_foundation(mug_environment *environment, char *location, char *name);
+mug_structure *new_structure(mug_environment *environment, mug_foundation *foundation);
+mug_structure *new_primitive_structure(mug_environment *environment, mug_primitive *primitive, primitive_type type);
 
 #endif
