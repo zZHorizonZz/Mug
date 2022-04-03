@@ -16,31 +16,22 @@
 
 #include <stdio.h>
 
-#include "compiler.c"
-#include "primitive.h"
+#include "machine.h"
 
 int main(int argc, char **argv)
 {
     printf("Mug programming language!\n");
 
-    set *set = create_set(0x00, 0x00);
-    mug_primitive *primitive = malloc(sizeof(mug_primitive));
-    create_primitive(primitive, "5");
-
-    set_add(set, primitive);
-    set_free(set);
-
     if (strcmp(argv[1], "compile") == 0x00)
     {
         printf("[Mug] Running compilation...\n");
-        compile_file(0x00, 0x00);
+        launch_machine("D:\\", "program.str");
     }
 
     if (strcmp(argv[1], "run") == 0x00)
     {
         printf("[Mug] Running code...\n");
     }
-    // test_basic();
 
     return 0;
 }

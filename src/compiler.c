@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "lexer.c"
+#include "lexer.h"
 #include "storage.h"
 #include "structure.h"
 #include "parser.h"
@@ -99,6 +99,7 @@ int compile_file(char *path, char *name)
     //parse_method(method, token_set);
     printf(" %s [Done] \n", method->name);
     printf("[Method] Executing method %s", method->name);
+
     execute_method(method);
     printf(" [Done] \n");
 

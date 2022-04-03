@@ -23,7 +23,7 @@ mug_field *get_structure_field(mug_structure *structure, const char *name)
         return 0x00;
     }
 
-    for (size_t i = 0; i < structure->foundation->field_count; i++)
+    for (size_t i = 0; i < structure->foundation->fields->length; i++)
     {
         if (strcmp(structure->fields[i]->name, name) == 0x00)
         {

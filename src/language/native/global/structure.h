@@ -25,6 +25,7 @@
 #include "token.h"
 #include "foundation.h"
 #include "type.h"
+#include "method.h"
 
 //
 // ─── OBJECT ─────────────────────────────────────────────────────────────────────

@@ -17,7 +17,7 @@
 
 #include "type.h"
 
-mug_field *get_struture_field(mug_structure *structure, const char *name);
+mug_field *get_structure_field(mug_structure *structure, const char *name);
 mug_field *get_body_field(body *body, const char *name);
 
 char add_body_field(body *body, mug_field *field);

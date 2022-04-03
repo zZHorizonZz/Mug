@@ -27,7 +27,7 @@ int launch_environment(mug_program *program_data, mug_environment *environment)
     environment->native_structures = create_set(0x00, 0x00);
 
     load_native(environment);
-
+    
     // TODO Add structure parsing and test the final maybe.
 }
 

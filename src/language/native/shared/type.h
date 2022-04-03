@@ -97,10 +97,8 @@ struct mug_foundation_s
     unsigned char metadata;
     unsigned char type;
 
-    size_t method_count;
-    size_t field_count;
-
-    mug_method **method;
+    set *fields;
+    set *methods;
 };
 
 struct mug_method_s

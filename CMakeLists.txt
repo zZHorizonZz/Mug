@@ -19,8 +19,8 @@ file(GLOB_RECURSE LANGUAGE_WINDOWS src/language/native/windows/*.c)
 file(GLOB_RECURSE LANGUAGE_SHARED_H src/language/native/shared/*.h)
 file(GLOB_RECURSE LANGUAGE_SHARED_C src/language/native/shared/*.c)
 
-file(GLOB_RECURSE PARSER_GLOBAL src/parser/native/global/*.h)
-file(GLOB_RECURSE PARSER_WINDOWS src/parser/native/windows/*.c)
+file(GLOB_RECURSE PARSER_GLOBAL src/build/native/global/*.h)
+file(GLOB_RECURSE PARSER_WINDOWS src/build/native/windows/*.c)
 
 file(GLOB_RECURSE MACHINE_GLOBAL src/machine/native/global/*.h)
 file(GLOB_RECURSE MACHINE_WINDOWS src/machine/native/windows/*.c)
@@ -57,8 +57,8 @@ target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/language/n
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/language/native/windows)
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/language/native/shared)
 
-target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/parser/native/global)
-target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/parser/native/windows)
+target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/build/native/global)
+target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/build/native/windows)
 
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/machine/native/global)
 target_include_directories(Mug PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/machine/native/windows)

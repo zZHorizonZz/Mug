@@ -22,4 +22,11 @@ void call_method_by_name(mug_environment *environment, mug_structure *structure,
 
 void call_method(mug_environment *environment, mug_structure *structure, mug_method *method, ...)
 {
+    if (method->body == 0x00)
+    {
+        return;
+    }
+
+    call_body(environment, structure, method, method->body);
+    printf("[Compiler] Method %s has been called.\n", method->name);
 }

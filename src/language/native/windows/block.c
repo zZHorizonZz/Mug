@@ -49,7 +49,7 @@ void call_field_block(mug_environment *environment, mug_structure *structure, mu
         field = get_body_field(method->body, block->name);
         if (field == 0x00)
         {
-            field = get_struture_field(structure, block->name);
+            field = get_structure_field(structure, block->name);
         }
 
         if (field == 0x00)

@@ -21,6 +21,8 @@
 #include <stdlib.h>
 
 #include "type.h"
+#include "storage.h"
+#include "foundation.h"
 
 #define LOCATION "System"
 
