@@ -614,7 +614,9 @@ void parse_field_block(mug_environment *environment, field_block *field_block, s
 
     while (iterator_has_next(iterator))
     {
-        token *_token = (token *)iterator_next(iterator);
+        iterator_next(iterator);
+
+        token *_token = iterator->current;
 
         if (declared == 0x00)
         {
@@ -633,9 +635,9 @@ void parse_field_block(mug_environment *environment, field_block *field_block, s
                 text_holder = _token->data;
             }
 
-            if (_token->type == 0x02 && _token->identifier >= 0x0A && _token->identifier <= 0x14)
+            if (_token->type == 0x02 && _token->identifier >= 0x09 && _token->identifier <= 0x12)
             {
-                mug_foundation *primitive = get_native_foundation(environment, LOCATION, get_name(_token->identifier - 0x0A));
+                mug_foundation *primitive = get_native_foundation(environment, LOCATION, get_name(_token->identifier - 0x09));
                 field_block->type = primitive;
             }
         }
