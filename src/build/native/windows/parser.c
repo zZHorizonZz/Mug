@@ -150,6 +150,8 @@ char parse_block(mug_environment *environment, block *block, set *token_set)
         block->field_block = _field_block;
 
         parse_field_block(environment, _field_block, token_set);
+
+        return 0x01;
     }
     case 0x05:
     {
@@ -648,7 +650,7 @@ void parse_field_block(mug_environment *environment, field_block *field_block, s
 
         if (_token->type == 0x03 && _token->identifier == 0x09)
         {
-            declared == 0x01;
+            declared = 0x01;
             if (text_holder != 0x00)
             {
                 field_block->name = text_holder;
@@ -690,7 +692,7 @@ void parse_expression(mug_environment *environment, expression *_expression, set
 
     case 0x02:
     {
-        // parse_reference_expression(_expression, token_set);
+        parse_reference_expression(environment, _expression, token_set);
         break;
     }
 
@@ -714,6 +716,8 @@ void parse_operator_expression(mug_environment *environment, expression *_expres
     {
         return;
     }
+
+    // todo bug right side and left side are not parsed right.
 
     iterator *expression_iterator = create_iterator(token_set);
 
@@ -791,4 +795,49 @@ void parse_value_expression(mug_environment *environment, expression *value_expr
 
     char type = create_primitive(primitive, value->data);
     value_expression->value_expression->value = new_primitive_structure(environment, primitive, type);
+}
+
+void parse_reference_expression(mug_environment *environment, expression *reference_expression, set *token_set)
+{
+    if (token_set->length < 1)
+    {
+        return;
+    }
+
+    token *_token = token_set->array[0x00];
+    reference_expression->reference_expression = malloc(sizeof(struct reference_expression_s));
+
+    if (reference_expression->reference_expression == 0x00)
+    {
+        return;
+    }
+
+    char *path;
+    char *name;
+
+    if (strchr(_token->data, '.') != 0x00)
+    {
+        path = strtok(_token->data, ".");
+        name = strtok(NULL, ".");
+    }
+    else
+    {
+        name = _token->data;
+        path = 0x00;
+    }
+
+    if (name == 0x00)
+    {
+        return;
+    }
+
+    reference_expression->reference_expression->path = path;
+    reference_expression->reference_expression->name = name;
+
+    if (token_set->length == 0x01)
+    {
+        return;
+    }
+
+    // todo method reference parsing
 }

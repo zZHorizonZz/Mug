@@ -58,6 +58,7 @@ void parse_expression_block(mug_environment *environment, expression_block *expr
 void parse_expression(mug_environment *environment, expression *expression_block, set *token_set);
 void parse_operator_expression(mug_environment *environment, expression *operator_expression, set *token_set);
 void parse_value_expression(mug_environment *environment, expression *value_expression, set *token_set);
+void parse_reference_expression(mug_environment *environment, expression *reference_expression, set *token_set);
 
 char evaluate_type(set *token_set);
 

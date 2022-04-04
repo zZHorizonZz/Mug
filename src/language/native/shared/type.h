@@ -185,7 +185,12 @@ struct operator_expression_s
 
 struct reference_expression_s
 {
-    char *reference;
+    unsigned char metadata;
+
+    char *path;
+    char *name;
+
+    // todo arguments
 };
 
 #endif

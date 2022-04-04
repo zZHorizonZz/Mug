@@ -27,7 +27,7 @@ mug_structure *call_expression(mug_environment *environment, mug_structure *stru
 
     case 0x01:
     {
-        // execute_reference_expression(expression->value_expression);
+        call_operator_expression(environment, structure, method, expression->reference_expression);
         break;
     }
 
@@ -89,6 +89,23 @@ mug_structure *call_operator_expression(mug_environment *environment, mug_struct
 
 mug_structure *call_reference_expression(mug_environment *environment, mug_structure *structure, mug_method *method, reference_expression *expression)
 {
+    if ((expression->metadata & 0x01 << 0x00) == 0x00)
+    {
+        mug_field *field = get_body_field(method->body, expression->name);
+        if (field == 0x00)
+        {
+            field = get_structure_field(structure, expression->name);
+        }
+
+        if (field == 0x00)
+        {
+            return 0x00;
+        }
+
+        return field->value;
+    }
+
+    return 0x00;
 }
 
 mug_primitive *call_operator_add(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)

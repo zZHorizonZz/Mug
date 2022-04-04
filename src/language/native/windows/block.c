@@ -44,7 +44,7 @@ void call_expression_block(mug_environment *environment, mug_structure *structur
 void call_field_block(mug_environment *environment, mug_structure *structure, mug_method *method, field_block *block)
 {
     mug_field *field;
-    if ((block->metadata & 0x01 << 0x00) != 0x00)
+    if ((block->metadata & 0x01 << 0x00) == 0x00)
     {
         field = get_body_field(method->body, block->name);
         if (field == 0x00)
