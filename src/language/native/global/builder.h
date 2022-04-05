@@ -29,5 +29,6 @@
 mug_foundation *new_foundation(mug_environment *environment, char *location, char *name);
 mug_structure *new_structure(mug_environment *environment, mug_foundation *foundation);
 mug_structure *new_primitive_structure(mug_environment *environment, mug_primitive *primitive, primitive_type type);
+expression *new_expression();
 
 #endif

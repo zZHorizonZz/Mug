@@ -22,9 +22,12 @@ mug_foundation *new_foundation(mug_environment *environment, char *location, cha
         return 0x00;
     }
 
+    foundation->metadata = 0x00;
+    foundation->type = 0x00;
+
     foundation->location = location;
     foundation->name = name;
-    
+
     foundation->methods = create_set(0x00, 0x00);
     foundation->fields = create_set(0x00, 0x00);
 
@@ -40,7 +43,10 @@ mug_structure *new_structure(mug_environment *environment, mug_foundation *found
         exit(0x01);
     }
 
+    structure->fields = create_set(0x00, 0x00);
+    structure->primitive = 0x00;
     structure->foundation = foundation;
+
     return structure;
 }
 
@@ -50,5 +56,24 @@ mug_structure *new_primitive_structure(mug_environment *environment, mug_primiti
     mug_structure *structure = new_structure(environment, foundation);
 
     structure->primitive = primitive;
+
     return structure;
+}
+
+expression *new_expression()
+{
+    expression *_expression = malloc(sizeof(expression));
+    if (_expression == 0x00)
+    {
+        fprintf(stderr, "Error: Could not allocate memory for expression.\n");
+        exit(0x01);
+    }
+
+    _expression->operator_expression = 0x00;
+    _expression->reference_expression = 0x00;
+    _expression->value_expression = 0x00;
+
+    _expression->type = 0x00;
+
+    return _expression;
 }

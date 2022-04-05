@@ -176,9 +176,6 @@ struct operator_expression_s
 {
     char operator;
 
-    char left_side_type;
-    char right_side_type;
-
     expression *left_side;
     expression *right_side;
 };

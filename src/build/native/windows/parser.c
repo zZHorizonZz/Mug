@@ -661,13 +661,13 @@ void parse_field_block(mug_environment *environment, field_block *field_block, s
         }
     }
 
-    field_block->initializer = malloc(sizeof(expression_block));
+    field_block->initializer = new_expression();
     parse_expression(environment, field_block->initializer, expression);
 }
 
 void parse_expression_block(mug_environment *environment, expression_block *block, set *token_set)
 {
-    expression *_expression = malloc(sizeof(expression));
+    expression *_expression = new_expression();
     if (_expression == 0x00)
     {
         exit(0x01);
@@ -717,8 +717,6 @@ void parse_operator_expression(mug_environment *environment, expression *_expres
         return;
     }
 
-    // todo bug right side and left side are not parsed right.
-
     iterator *expression_iterator = create_iterator(token_set);
 
     iterator_next(expression_iterator);
@@ -728,14 +726,14 @@ void parse_operator_expression(mug_environment *environment, expression *_expres
 
     if (current_token->type == 0x05)
     {
-        expression *primitive_expression = malloc(sizeof(expression));
+        expression *primitive_expression = new_expression();
 
         set *value_token = create_set(0x00, 0x00);
         value_token->array = malloc(sizeof(token));
         value_token->array[0x00] = current_token;
         value_token->length = 0x01;
 
-        parse_value_expression(environment, primitive_expression, value_token);
+        parse_expression(environment, primitive_expression, value_token);
 
         iterator_next(expression_iterator);
 
@@ -748,21 +746,22 @@ void parse_operator_expression(mug_environment *environment, expression *_expres
 
         if (expression_iterator->index + 0x02 < expression_iterator->set->length && future->type == 0x03)
         {
-            _expression->operator_expression->right_side = malloc(sizeof(expression));
-            parse_operator_expression(environment, _expression->operator_expression->right_side, expression_iterator->set);
+            _expression->operator_expression->right_side = new_expression();
+            parse_expression(environment, _expression->operator_expression->right_side, expression_iterator->set);
         }
         else
         {
             iterator_next(expression_iterator);
             current_token = expression_iterator->current;
-            expression *primitive_expression = malloc(sizeof(expression));
+            expression *primitive_expression = new_expression();
 
             set *value_token = create_set(0x00, 0x00);
+
             value_token->array = malloc(sizeof(token));
             value_token->array[0x00] = current_token;
             value_token->length = 0x01;
 
-            parse_value_expression(environment, primitive_expression, value_token);
+            parse_expression(environment, primitive_expression, value_token);
             _expression->operator_expression->right_side = primitive_expression;
         }
     }
