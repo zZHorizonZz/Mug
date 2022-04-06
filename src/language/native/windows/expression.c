@@ -22,21 +22,17 @@ mug_structure *call_expression(mug_environment *environment, mug_structure *stru
     {
     case 0x00:
     {
-        value_expression *_value_expression = expression->value_expression;
-        return call_value_expression(environment, structure, method, _value_expression);
+        return call_value_expression(environment, structure, method, expression->value_expression);
     }
 
     case 0x01:
     {
-        operator_expression *_operator_expression = expression->operator_expression;
-        printf("Operator First %d\n", _operator_expression->operator);
-        return call_operator_expression(environment, structure, method, _operator_expression);
+        return call_operator_expression(environment, structure, method, expression->operator_expression);
     }
 
     case 0x02:
     {
-        reference_expression *_reference_expression = expression->reference_expression;
-        return call_operator_expression(environment, structure, method, _reference_expression);
+        return call_operator_expression(environment, structure, method, expression->reference_expression);
     }
     default:
         break;
@@ -53,7 +49,6 @@ mug_structure *call_value_expression(mug_environment *environment, mug_structure
 
 mug_structure *call_operator_expression(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
 {
-    printf("Operator Second %d\n", expression->operator);
     mug_structure *result = 0x00;
     mug_primitive *result_primitive = 0x00;
 
@@ -87,7 +82,18 @@ mug_structure *call_operator_expression(mug_environment *environment, mug_struct
         break;
     }
 
-    result = new_primitive_structure(environment, result_primitive, expression->left_side->value_expression->value->foundation->type);
+    char result_type = 0x00;
+    if (expression->left_side->type == 0x02)
+    {
+        field_block *field = get_body_field(method->body, expression->left_side->reference_expression->name);
+        result_type = field->type->type;
+    }
+    else
+    {
+        result_type = expression->left_side->value_expression->value->foundation->type;
+    }
+
+    result = new_primitive_structure(environment, result_primitive, result_type);
     return result;
 }
 
@@ -114,7 +120,7 @@ mug_structure *call_reference_expression(mug_environment *environment, mug_struc
 
 mug_primitive *call_operator_add(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
 {
-    if (expression->right_side->type == 0x00)
+    if (expression->right_side->type != 0x01)
     {
         return sum_primitive(expression->left_side->value_expression->value->primitive,
                              expression->left_side->value_expression->value->foundation->type,
@@ -136,7 +142,7 @@ mug_primitive *call_operator_add(mug_environment *environment, mug_structure *st
 
 mug_primitive *call_operator_subtract(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
 {
-    if (expression->right_side->type == 0x00)
+    if (expression->right_side->type != 0x01)
     {
         return subtract_primitive(expression->left_side->value_expression->value->primitive,
                                   expression->left_side->value_expression->value->foundation->type,
@@ -158,7 +164,7 @@ mug_primitive *call_operator_subtract(mug_environment *environment, mug_structur
 
 mug_primitive *call_operator_multiply(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
 {
-    if (expression->right_side->type == 0x00)
+    if (expression->right_side->type != 0x01)
     {
         return multiply_primitive(expression->left_side->value_expression->value->primitive,
                                   expression->left_side->value_expression->value->foundation->type,
@@ -180,7 +186,7 @@ mug_primitive *call_operator_multiply(mug_environment *environment, mug_structur
 
 mug_primitive *call_operator_divide(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
 {
-    if (expression->right_side->type == 0x00)
+    if (expression->right_side->type != 0x01)
     {
         return divide_primitive(expression->left_side->value_expression->value->primitive,
                                 expression->left_side->value_expression->value->foundation->type,

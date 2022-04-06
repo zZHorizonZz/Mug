@@ -60,6 +60,22 @@ mug_structure *new_primitive_structure(mug_environment *environment, mug_primiti
     return structure;
 }
 
+body *new_body()
+{
+    body *_body = malloc(sizeof(body));
+
+    if (_body == 0x00)
+    {
+        printf("Error: Could not allocate memory for body.\n");
+        exit(0x01);
+    }
+
+    _body->body_block = create_set(0x00, 0x00);
+    _body->declared_fields = create_set(0x00, 0x00);
+
+    return _body;
+}
+
 expression *new_expression()
 {
     expression *_expression = malloc(sizeof(expression));

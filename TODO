@@ -2,3 +2,4 @@
 [ X ] Rework compiler to compile output from parser and not from lexer.
 [ X ] Create tuple implementation.
 [ X ] Add field set to method which executes code in the method to use it for references.
+[ X ] Add post parsing sequence which will check and assign values based on code.

@@ -37,7 +37,6 @@ void load_native_primitive(mug_structure *environment, mug_structure *main_struc
 mug_structure *build_primitive_object(mug_primitive *primitive);
 
 mug_method *new_method();
-body *new_body();
 block *new_block();
 
 #endif

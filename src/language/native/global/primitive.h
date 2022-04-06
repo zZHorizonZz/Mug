@@ -200,7 +200,6 @@ struct boolean_s
         {                                                                                                 \
             return 0x00;                                                                                  \
         }                                                                                                 \
-                                                                                                          \
         primitive->mug_int->value = original->value;                                                      \
         break;                                                                                            \
     }                                                                                                     \
@@ -271,9 +270,7 @@ struct boolean_s
     }                                                                                                     \
     default:                                                                                              \
         break;                                                                                            \
-    }                                                                                                     \
-                                                                                                          \
-    free(original);
+    }
 
 char create_primitive(mug_primitive *primitive, char *data);
 char *get_name(primitive_type type);

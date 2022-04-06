@@ -99,7 +99,7 @@ char create_primitive(mug_primitive *primitive, char *data)
         }
     }
 
-    return 0X08 ;
+    return 0X08;
 }
 
 char *get_name(primitive_type type)
@@ -150,27 +150,51 @@ char convert_primitive(mug_primitive *primitive, primitive_type type, primitive_
     switch (type)
     {
     case 0x00:
-        CONVERT_PRIMITIVE(byte, primitive, primitive->mug_byte, conversion_type);
+    {
+        mug_byte *original = primitive->mug_byte;
+        CONVERT_PRIMITIVE(byte, primitive, original, conversion_type);
+        free(original);
         break;
+    }
     case 0x01:
-        CONVERT_PRIMITIVE(short, primitive, primitive->mug_short, conversion_type);
+    {
+        mug_short *original = primitive->mug_short;
+        CONVERT_PRIMITIVE(short, primitive, original, conversion_type);
+        free(original);
         break;
+    }
     case 0x02:
-        CONVERT_PRIMITIVE(int, primitive, primitive->mug_int, conversion_type);
+    {
+        mug_int *original = primitive->mug_int;
+        CONVERT_PRIMITIVE(int, primitive, original, conversion_type);
+        free(original);
         break;
+    }
     case 0x03:
-        CONVERT_PRIMITIVE(long, primitive, primitive->mug_long, conversion_type);
+    {
+        mug_long *original = primitive->mug_long;
+        CONVERT_PRIMITIVE(long, primitive, original, conversion_type);
+        free(original);
         break;
+    }
     case 0x04:
-        CONVERT_PRIMITIVE(float, primitive, primitive->mug_float, conversion_type);
+    {
+        mug_float *original = primitive->mug_float;
+        CONVERT_PRIMITIVE(float, primitive, original, conversion_type);
+        free(original);
         break;
+    }
     case 0x05:
-        CONVERT_PRIMITIVE(double, primitive, primitive->mug_double, conversion_type);
+    {
+        mug_double *original = primitive->mug_double;
+        CONVERT_PRIMITIVE(double, primitive, original, conversion_type);
+        free(original);
         break;
+    }
     case 0x06:
         return 0x01;
     case 0x07:
-        //CONVERT_PRIMITIVE(boolean, primitive, primitive->mug_boolean, conversion_type);
+        // CONVERT_PRIMITIVE(boolean, primitive, primitive->mug_boolean, conversion_type);
         break;
 
     default:

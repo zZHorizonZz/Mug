@@ -43,22 +43,6 @@ mug_method *new_method()
 }
 
 /*
- * ─── BODY ───────────────────────────────────────────────────────────────────────
- */
-
-body *new_body()
-{
-    body *new_body = malloc(sizeof(body));
-    if (new_body == 0x00)
-    {
-    }
-
-    new_body->body_block = create_set(0x00, 0x00);
-
-    return new_body;
-}
-
-/*
  * ─── BLOCK ──────────────────────────────────────────────────────────────────────
  */
 
