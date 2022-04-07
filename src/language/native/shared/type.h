@@ -190,4 +190,10 @@ struct reference_expression_s
     // todo arguments
 };
 
+struct method_caller_s
+{
+    char *name;
+    //expression *arguments;
+};
+
 #endif

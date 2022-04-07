@@ -724,7 +724,7 @@ void parse_operator_expression(mug_environment *environment, expression *_expres
 
     _expression->operator_expression = malloc(sizeof(operator_expression));
 
-    if (current_token->type == 0x05)
+    if (current_token->type == 0x05 || current_token->type == 0x00)
     {
         expression *primitive_expression = new_expression();
 

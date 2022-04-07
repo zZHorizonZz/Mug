@@ -118,90 +118,192 @@ mug_structure *call_reference_expression(mug_environment *environment, mug_struc
     return 0x00;
 }
 
+// todo merge some of the code of function to only one definition probably
+
 mug_primitive *call_operator_add(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
 {
-    if (expression->right_side->type != 0x01)
+    mug_structure *left_side = 0x00;
+    mug_structure *right_side = 0x00;
+
+    if (expression->left_side->type == 0x02)
     {
-        return sum_primitive(expression->left_side->value_expression->value->primitive,
-                             expression->left_side->value_expression->value->foundation->type,
-                             expression->right_side->value_expression->value->primitive,
-                             expression->right_side->value_expression->value->foundation->type);
+        mug_field *field = get_body_field(method->body, expression->left_side->reference_expression->name);
+        left_side = field->value;
     }
     else
     {
-        mug_structure *right_side = call_operator_expression(environment,
-                                                             structure,
-                                                             method,
-                                                             expression->right_side->operator_expression);
-        return sum_primitive(expression->left_side->value_expression->value->primitive,
-                             expression->left_side->value_expression->value->foundation->type,
-                             right_side,
-                             right_side->foundation->type);
+        left_side = expression->left_side->value_expression->value;
     }
+
+    switch (expression->right_side->type)
+    {
+    case 0x01:
+    {
+        right_side = call_operator_expression(environment,
+                                              structure,
+                                              method,
+                                              expression->right_side->operator_expression);
+        break;
+    }
+    case 0x02:
+    {
+        mug_field *field = get_body_field(method->body, expression->right_side->reference_expression->name);
+        left_side = field->value;
+        break;
+    }
+    case 0x03:
+    {
+        right_side = expression->right_side->value_expression->value;
+        break;
+    }
+
+    default:
+        break;
+    }
+
+    return sum_primitive(left_side->primitive,
+                         left_side->foundation->type,
+                         right_side->primitive,
+                         right_side->foundation->type);
 }
 
 mug_primitive *call_operator_subtract(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
 {
-    if (expression->right_side->type != 0x01)
+    mug_structure *left_side = 0x00;
+    mug_structure *right_side = 0x00;
+
+    if (expression->left_side->type == 0x02)
     {
-        return subtract_primitive(expression->left_side->value_expression->value->primitive,
-                                  expression->left_side->value_expression->value->foundation->type,
-                                  expression->right_side->value_expression->value->primitive,
-                                  expression->right_side->value_expression->value->foundation->type);
+        mug_field *field = get_body_field(method->body, expression->left_side->reference_expression->name);
+        left_side = field->value;
     }
     else
     {
-        mug_structure *right_side = call_operator_expression(environment,
-                                                             structure,
-                                                             method,
-                                                             expression->right_side->operator_expression);
-        return subtract_primitive(expression->left_side->value_expression->value->primitive,
-                                  expression->left_side->value_expression->value->foundation->type,
-                                  right_side,
-                                  right_side->foundation->type);
+        left_side = expression->left_side->value_expression->value;
     }
+
+    switch (expression->right_side->type)
+    {
+    case 0x01:
+    {
+        right_side = call_operator_expression(environment,
+                                              structure,
+                                              method,
+                                              expression->right_side->operator_expression);
+        break;
+    }
+    case 0x02:
+    {
+        mug_field *field = get_body_field(method->body, expression->right_side->reference_expression->name);
+        left_side = field->value;
+        break;
+    }
+    case 0x03:
+    {
+        right_side = expression->right_side->value_expression->value;
+        break;
+    }
+
+    default:
+        break;
+    }
+
+    return subtract_primitive(left_side->primitive,
+                              left_side->foundation->type,
+                              right_side->primitive,
+                              right_side->foundation->type);
 }
 
 mug_primitive *call_operator_multiply(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
 {
-    if (expression->right_side->type != 0x01)
+    mug_structure *left_side = 0x00;
+    mug_structure *right_side = 0x00;
+
+    if (expression->left_side->type == 0x02)
     {
-        return multiply_primitive(expression->left_side->value_expression->value->primitive,
-                                  expression->left_side->value_expression->value->foundation->type,
-                                  expression->right_side->value_expression->value->primitive,
-                                  expression->right_side->value_expression->value->foundation->type);
+        mug_field *field = get_body_field(method->body, expression->left_side->reference_expression->name);
+        left_side = field->value;
     }
     else
     {
-        mug_structure *right_side = call_operator_expression(environment,
-                                                             structure,
-                                                             method,
-                                                             expression->right_side->operator_expression);
-        return multiply_primitive(expression->left_side->value_expression->value->primitive,
-                                  expression->left_side->value_expression->value->foundation->type,
-                                  right_side,
-                                  right_side->foundation->type);
+        left_side = expression->left_side->value_expression->value;
     }
+
+    switch (expression->right_side->type)
+    {
+    case 0x01:
+    {
+        right_side = call_operator_expression(environment,
+                                              structure,
+                                              method,
+                                              expression->right_side->operator_expression);
+        break;
+    }
+    case 0x02:
+    {
+        mug_field *field = get_body_field(method->body, expression->right_side->reference_expression->name);
+        left_side = field->value;
+        break;
+    }
+    case 0x03:
+    {
+        right_side = expression->right_side->value_expression->value;
+        break;
+    }
+
+    default:
+        break;
+    }
+
+    return multiply_primitive(left_side->primitive,
+                              left_side->foundation->type,
+                              right_side->primitive,
+                              right_side->foundation->type);
 }
 
 mug_primitive *call_operator_divide(mug_environment *environment, mug_structure *structure, mug_method *method, operator_expression *expression)
 {
-    if (expression->right_side->type != 0x01)
+    mug_structure *left_side = 0x00;
+    mug_structure *right_side = 0x00;
+
+    if (expression->left_side->type == 0x02)
     {
-        return divide_primitive(expression->left_side->value_expression->value->primitive,
-                                expression->left_side->value_expression->value->foundation->type,
-                                expression->right_side->value_expression->value->primitive,
-                                expression->right_side->value_expression->value->foundation->type);
+        mug_field *field = get_body_field(method->body, expression->left_side->reference_expression->name);
+        left_side = field->value;
     }
     else
     {
-        mug_structure *right_side = call_operator_expression(environment,
-                                                             structure,
-                                                             method,
-                                                             expression->right_side->operator_expression);
-        return divide_primitive(expression->left_side->value_expression->value->primitive,
-                                expression->left_side->value_expression->value->foundation->type,
-                                right_side,
-                                right_side->foundation->type);
+        left_side = expression->left_side->value_expression->value;
     }
+
+    switch (expression->right_side->type)
+    {
+    case 0x01:
+    {
+        right_side = call_operator_expression(environment,
+                                              structure,
+                                              method,
+                                              expression->right_side->operator_expression);
+        break;
+    }
+    case 0x02:
+    {
+        mug_field *field = get_body_field(method->body, expression->right_side->reference_expression->name);
+        left_side = field->value;
+        break;
+    }
+    case 0x03:
+    {
+        right_side = expression->right_side->value_expression->value;
+        break;
+    }
+
+    default:
+        break;
+    }
+
+    return divide_primitive(left_side->primitive,
+                            left_side->foundation->type,
+                            right_side->primitive,
+                            right_side->foundation->type);
 }
