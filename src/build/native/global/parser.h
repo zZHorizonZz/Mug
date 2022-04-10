@@ -23,33 +23,20 @@
 
 #include "structure.h"
 #include "builder.h"
+#include "pattern.h"
 
 static const char *VALUE_EXPRESSION = "<PRIMITIVE>";
 static const char *OPERATOR_EXPRESSION = "(EXPRESSION)<OPERATOR>(EXPRESSION)";
-static const char *REFERENCE_EXPRESSION = "<IDENTIFIER>?()?";
+static const char *REFERENCE_EXPRESSION = "<IDENTIFIER>";
+static const char *CALLER_EXPRESSION = "<IDENTIFIER>?()?";
 static const char *DECLARED_FIELD_BLOCK = "(FOUNDATION) <IDENTIFIER> '=' (EXPRESSION)";
 static const char *FIELD_BLOCK = "<IDENTIFIER> '=' (EXPRESSION)";
 static const char *RETURN_BLOCK = "'return' ?(EXPRESSION)?";
-
-typedef struct pattern_s pattern;
-
-struct pattern_s
-{
-    size_t length;
-    unsigned char *pattern;
-};
-
-void expand_pattern(pattern *pattern, const char rule);
-pattern *compile_pattern(const char *rule);
 
 void parse_structure(mug_environment *environment, mug_structure *structure, set *token_set);
 void parse_method(mug_environment *environment, mug_method *method, set *token_set);
 void parse_body(mug_environment *environment, body *body, set *token_set);
 char parse_block(mug_environment *environment, block *block, set *token_set);
-
-unsigned char parse_token_type(const char *input);
-unsigned char parse_expression_type(const char *input);
-token *parse_specific_token_type(const char *input);
 
 void parse_field_block(mug_environment *environment, field_block *field_block, set *token_set);
 void parse_return_block();
