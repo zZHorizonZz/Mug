@@ -42,7 +42,7 @@ record *new_record(unsigned char error_code, long timestamp, char *metadata);
 
 void init_default_logger(mug_logger *logger);
 
-void log(mug_logger *logger, char *message, ...);
+void log_message(mug_logger *logger, char *message, ...);
 void log(mug_logger *logger, record *record);
 
 #endif
